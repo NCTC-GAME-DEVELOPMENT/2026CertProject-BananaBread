@@ -89,9 +89,9 @@ public class InputPoller : Info
             if (kb.dKey.isPressed) { input.leftStick.x = 1; }
 
             input.buttonNorth = kb.qKey.wasPressedThisFrame;
-            input.buttonSouth = kb.eKey.wasPressedThisFrame;
-            input.buttonEast = kb.zKey.wasPressedThisFrame;
-            input.buttonEast = kb.cKey.wasPressedThisFrame;
+            input.buttonSouth = kb.zKey.wasPressedThisFrame;
+            input.buttonEast = kb.eKey.wasPressedThisFrame;
+            input.buttonWest = kb.cKey.wasPressedThisFrame;
 
         }
 
@@ -108,15 +108,15 @@ public class InputPoller : Info
         // Verifiy we have Keyboard data 
         if (kb != null)
         {
-            if (kb.iKey.isPressed) { input.leftStick.y = 1; }
-            if (kb.kKey.isPressed) { input.leftStick.y = -1; }
-            if (kb.jKey.isPressed) { input.leftStick.x = -1; }
-            if (kb.lKey.isPressed) { input.leftStick.x = 1; }
+            if (kb.iKey.isPressed) { input.leftStick.y = 1; input.leftStick.x = 0; }
+            if (kb.kKey.isPressed) { input.leftStick.y = -1; input.leftStick.x = 0; }
+            if (kb.jKey.isPressed) { input.leftStick.x = -1; input.leftStick.y = 0; }
+            if (kb.lKey.isPressed) { input.leftStick.x = 1; input.leftStick.y = 0; }
 
             input.buttonNorth = kb.uKey.wasPressedThisFrame;
-            input.buttonSouth = kb.oKey.wasPressedThisFrame;
-            input.buttonEast = kb.nKey.wasPressedThisFrame;
-            input.buttonEast = kb.periodKey.wasPressedThisFrame;
+            input.buttonSouth = kb.mKey.wasPressedThisFrame;
+            input.buttonEast = kb.oKey.wasPressedThisFrame;
+            input.buttonWest = kb.periodKey.wasPressedThisFrame;
 
      
         }
