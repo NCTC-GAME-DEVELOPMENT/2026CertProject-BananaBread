@@ -77,6 +77,7 @@ public class Grid
         y = Mathf.FloorToInt((worldPosition - originPosistion).z / cellSize);
     }
 
+   
     public void SetValue(int x, int y, int value)
     {
         if(x >= 0 && y >= 0 && x < width && y < height)
@@ -93,7 +94,13 @@ public class Grid
         GetXY(worldPosition, out x, out y);
         SetValue(x, y, value);
     }
-    // checks if a input is in range and what to bo if it is not
+
+    public void AddValue(int x, int y, int value)
+    {
+        SetValue(x, y, GetValue(x, y) + value);
+    }
+
+    // checks if a input is in range and what to do if it is not
     public int GetValue(int x, int y)
     {
         if(x >= 0 && y >= 0 && x < width && y < height)
