@@ -6,10 +6,11 @@ public class Grid_testing : MonoBehaviour
     public int width;
     public int height;
     public float cellSize = 10.0f;
+    public Vector3 origin;
 
     private void Start()
     {
-        grid = new Grid(width, height, cellSize, new Vector3(20, 0));
+        grid = new Grid(width, height, cellSize, origin);
     }
 
   

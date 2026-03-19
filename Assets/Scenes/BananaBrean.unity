@@ -178,6 +178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 12
   height: 6
+  cellSize: 3
+  origin: {x: -18, y: 0, z: -9}
 --- !u!1 &263632782
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,11 +23,12 @@ public class Grid
     // Create Text in the World
     public static TextMesh CreateWorldText(Transform parent, string text, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder)
     {
-        GameObject gameObject = new GameObject("World_Text", typeof(TextMesh));
-        Transform transform = gameObject.transform;
-        transform.SetParent(parent, false);
-        transform.localPosition = localPosition;
-        TextMesh textMesh = gameObject.GetComponent<TextMesh>();
+        GameObject newText= new GameObject("World_Text", typeof(TextMesh));
+
+        newText.transform.SetParent(parent, false);
+        newText.transform.localPosition = localPosition;
+        newText.transform.localRotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        TextMesh textMesh = newText.GetComponent<TextMesh>();
         textMesh.anchor = textAnchor;
         textMesh.alignment = textAlignment;
         textMesh.text = text;
