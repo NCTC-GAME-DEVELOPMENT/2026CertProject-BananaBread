@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -11,6 +12,7 @@ public class PlayerController : Controller
 
     public float MoveSpeed = 1.0f;
 
+    public char currentDirection = 'n';
     protected InputPoller inputPoller; 
     protected InputData InputCurrent;
     protected InputData InputPrevious;
@@ -87,16 +89,38 @@ public class PlayerController : Controller
 
     public virtual void PlayerMovement(Vector2 value)
     {
-        //rb.linearVelocity = gameObject.transform.right * value * MoveSpeed;
-        //rb.linearVelocity = gameObject.transform.forward * value * MoveSpeed;
-
         if (Mathf.Abs(value.x) > Mathf.Abs(value.y))
         {
-            rb.linearVelocity = gameObject.transform.right * value.x * MoveSpeed;
+            if (value.x > 0)
+            {
+                currentDirection = 'e';
+                rb.linearVelocity = gameObject.transform.forward * value.x * MoveSpeed;
+                rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+            }
+            else
+            {
+                currentDirection = 'w';
+                rb.linearVelocity = gameObject.transform.forward * (value.x * -1) * MoveSpeed;
+                rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, -90, 0));
+            }
         }
         else
         {
-            rb.linearVelocity = gameObject.transform.forward * value.y * MoveSpeed;
+            if (value.y > 0)
+            {
+                currentDirection = 'n';
+                rb.linearVelocity = gameObject.transform.forward * value.y * MoveSpeed;
+                rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            }
+            else
+            {
+                rb.linearVelocity = gameObject.transform.forward * (value.y * -1) * MoveSpeed;
+                if (value.y < 0) 
+                {
+                    rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                    currentDirection = 's';
+                }
+            }
         }
     }
 

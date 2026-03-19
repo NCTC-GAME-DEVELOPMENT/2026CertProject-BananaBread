@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
-    
-    void Start()
-    {
-        
-    }
+    public int[,] currentPos;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+//PlayerController senses a crate to push in front of it.
+//If success, pushes the crate in its facing direction, moving x or y based on the current push direction.
+
 }
