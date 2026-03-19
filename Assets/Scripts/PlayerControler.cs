@@ -5,9 +5,8 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerController : Controller
 {
-    /// <summary>
-    /// Show Input for this controler, Super Spammy when true. 
-    /// </summary>
+    public static PlayerController instance;
+
     public bool LogInputStateInfo = false;
 
     public float MoveSpeed = 1.0f;

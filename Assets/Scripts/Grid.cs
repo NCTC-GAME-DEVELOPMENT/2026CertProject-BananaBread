@@ -54,7 +54,7 @@ public class Grid
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                DebugTextArray[x,y] = CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
+                DebugTextArray[x,y] = CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y ), Color.white, 100f);
             }
@@ -64,15 +64,16 @@ public class Grid
         
     }
 
-    //gets the world position and the x y 
+    //gets the world position and the x y
+    //y will be used to represent the z axis
     private Vector3 GetWorldPosition(int x, int y)
     {
-        return new Vector3(x, y) * cellSize + originPosistion;
+        return new Vector3(x, 0, y) * cellSize + originPosistion;
     }
    private void GetXY(Vector3 worldPosition, out int x, out int y)
     {
         x = Mathf.FloorToInt((worldPosition - originPosistion).x / cellSize);
-        y = Mathf.FloorToInt((worldPosition - originPosistion).y / cellSize);
+        y = Mathf.FloorToInt((worldPosition - originPosistion).z / cellSize);
     }
 
     public void SetValue(int x, int y, int value)
@@ -110,10 +111,5 @@ public class Grid
         GetXY(worldPosition, out x, out y);
         return GetValue(x, y);
     }
-
-
-
-
-
 }
 
