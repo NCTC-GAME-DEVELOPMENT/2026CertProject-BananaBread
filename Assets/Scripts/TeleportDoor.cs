@@ -1,14 +1,20 @@
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class TeleportDoor : MonoBehaviour
 {
 
-    // Teleport destination is an empty on the object.
-    public GameObject emptyLocation;
+    // Choose grid location for exit.
+    public int gridX, gridY;
+
+    //Game Manager grabbed.
+    private GameObject manager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // Grab game manager at start.
+        manager = GameObject.Find("GameManager");
     }
 
     // Update is called once per frame
@@ -24,7 +30,10 @@ public class TeleportDoor : MonoBehaviour
         // If player controller, teleport to empty.
         if (player)
         {
-            collision.gameObject.transform.position = emptyLocation.transform.position;
+            // Find destination.
+            Vector3 destination = manager.GetComponent<Grid_testing>().grid.GetWorldPosition(gridX, gridY);
+            // Teleport.
+            collision.gameObject.transform.position = destination;
         }
     }
 }
