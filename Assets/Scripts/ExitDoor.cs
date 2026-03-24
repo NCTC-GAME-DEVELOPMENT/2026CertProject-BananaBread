@@ -42,6 +42,7 @@ public class ExitDoor : MonoBehaviour
         {
             Destroy(collision.gameObject);
             PlayerLeft = true;
+            player = null;
         }
 
         // If the player enters after the create is sent, win.
