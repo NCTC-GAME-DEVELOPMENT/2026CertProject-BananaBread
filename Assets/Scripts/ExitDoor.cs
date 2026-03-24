@@ -34,7 +34,11 @@ public class ExitDoor : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (player && !PlayerLeft)
+        // If the player goes into the door,
+        // and the player hasn't left,
+        // and the crate has been sent through,
+        // delete player and mark the first player as having left.
+        if (player && !PlayerLeft && CrateSent)
         {
             Destroy(collision.gameObject);
             PlayerLeft = true;
