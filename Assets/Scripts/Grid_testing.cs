@@ -9,10 +9,29 @@ public class Grid_testing : MonoBehaviour
     public float cellSize = 10.0f;
     public Vector3 origin;
 
+    private void Start()
+    {
+        grid.AddValue(0, 0, (0));
+        grid.AddValue(0, 1, (1));
+        grid.AddValue(0, 2, (0));
+        grid.AddValue(0, 3, (0));
+        grid.AddValue(0, 4, (1));
+        grid.AddValue(0, 5, (0));
+        grid.AddValue(5, 1, (6));
+        grid.AddValue(5, 3, (2));
+        grid.AddValue(6, 2, (2));
+        grid.AddValue(6, 3, (2));
+        grid.AddValue(5, 2, (2));
+        grid.AddValue(4, 2, (2));
+        grid.AddValue(4, 3, (2));
+        grid.AddValue(7, 3, (2));
+        grid.AddValue(7, 2, (2));
+        grid.AddValue(10, 4, (7));
+    }
+
     private void Awake()
     {
         grid = new Grid(width, height, cellSize, origin);
-        grid.AddValue(2, 1,  (2));
     }
 
 }

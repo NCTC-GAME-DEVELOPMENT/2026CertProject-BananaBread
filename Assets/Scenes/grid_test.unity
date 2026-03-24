@@ -406,10 +406,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c228fe19bd7d84ebe76227803700f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 5
-  height: 2
+  width: 12
+  height: 6
   cellSize: 10
-  origin: {x: 0, y: 0, z: 0}
+  origin: {x: -18, y: 0, z: -7}
 --- !u!4 &1311289069
 Transform:
   m_ObjectHideFlags: 0
