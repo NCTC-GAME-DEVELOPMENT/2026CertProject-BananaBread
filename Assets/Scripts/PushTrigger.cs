@@ -23,9 +23,9 @@ public class PushTrigger : MonoBehaviour
         PushVolume.enabled = false;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Crate crate = collision.gameObject.GetComponent<Crate>();
+        Crate crate = other.gameObject.GetComponent<Crate>();
 
         if (crate)
         {
