@@ -67,7 +67,7 @@ public class Grid
 
     //gets the world position and the x y
     //y will be used to represent the z axis
-    public Vector3 GetWorldPosition(int x, int y)
+    private Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, 0, y) * cellSize + originPosistion;
     }
