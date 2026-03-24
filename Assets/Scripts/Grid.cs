@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 public class Grid
 {
     private int width;
@@ -12,6 +11,32 @@ public class Grid
     private TextMesh[,] DebugTextArray;
 
     public const int sortingOrderDefault = 5000;
+
+    // grid size
+    public Grid(int width, int height, float cellSize, Vector3 originPosition)
+    {
+        this.width = width;
+        this.height = height;
+        this.cellSize = cellSize;
+        this.originPosistion = originPosition;
+
+        gridArray = new int[width, height];
+        DebugTextArray = new TextMesh[width, height];
+
+        for (int x = 0; x < gridArray.GetLength(0); x++)
+        {
+            for (int y = 0; y < gridArray.GetLength(1); y++)
+            {
+                DebugTextArray[x, y] = CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
+                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
+            }
+        }
+        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
+        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+
+    }
+
 
     //Create Text in the World
     public static TextMesh CreateWorldText(string text, Transform parent = null, Vector3 localPosition = default(Vector3), int fontSize = 40, Color? color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = sortingOrderDefault)
@@ -38,36 +63,9 @@ public class Grid
         return textMesh;
     }
 
-
-
-    // grid size
-    public Grid(int width, int height, float cellSize, Vector3 originPosition)
-    {
-        this.width = width;
-        this.height = height;
-        this.cellSize = cellSize;
-        this.originPosistion = originPosition;
-
-        gridArray = new int[width, height];
-        DebugTextArray = new TextMesh[width, height];
-
-        for (int x = 0; x < gridArray.GetLength(0); x++)
-        {
-            for (int y = 0; y < gridArray.GetLength(1); y++)
-            {
-                DebugTextArray[x,y] = CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y ), Color.white, 100f);
-            }
-        }
-        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
-        
-    }
-
     //gets the world position and the x y
     //y will be used to represent the z axis
-    private Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, 0, y) * cellSize + originPosistion;
     }
@@ -103,7 +101,7 @@ public class Grid
     // checks if a input is in range and what to do if it is not
     public int GetValue(int x, int y)
     {
-        if(x >= 0 && y >= 0 && x < width && y < height)
+        if((x >= 0) && (y >= 0) && (x < width) && (y < height))
         {
             return gridArray[x, y];
         }

@@ -1424,6 +1424,7 @@ MonoBehaviour:
   PlayerNumber: 2
   LogInputStateInfo: 0
   MoveSpeed: 5
+  currentDirection: 110
   PerformInputProcessing: 1
 --- !u!65 &1845706865
 BoxCollider:
@@ -1668,6 +1669,7 @@ MonoBehaviour:
   PlayerNumber: 1
   LogInputStateInfo: 0
   MoveSpeed: 5
+  currentDirection: 110
   PerformInputProcessing: 1
 --- !u!65 &1977360005
 BoxCollider:
