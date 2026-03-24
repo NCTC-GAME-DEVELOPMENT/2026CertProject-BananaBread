@@ -32,6 +32,10 @@ public class TeleportDoor : MonoBehaviour
         {
             // Find destination.
             Vector3 destination = manager.GetComponent<Grid_testing>().grid.GetWorldPosition(gridX, gridY);
+            // Correct the Y so that it isn't embedded in the floor.
+            Debug.Log("Destination before change: " + destination);
+            destination.y = 2f;
+            Debug.Log("Destination after change: " + destination);
             // Teleport.
             collision.gameObject.transform.position = destination;
         }
