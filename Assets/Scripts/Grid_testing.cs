@@ -11,6 +11,8 @@ public class Grid_testing : MonoBehaviour
 
     private void Start()
     {
+        // this is just so we have a referens for the grid in the scene
+        // will be replaced later... hopefully
         grid.AddValue(0, 0, (0));
         grid.AddValue(0, 1, (1));
         grid.AddValue(0, 2, (0));
