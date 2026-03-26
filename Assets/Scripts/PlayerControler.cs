@@ -109,14 +109,14 @@ public class PlayerController : Controller
             if (value.x > 0)
             {
                 Facing = currentDirection.East;
-                Debug.Log("P" + PlayerNumber + " direction: " + Facing);
+                //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * value.x * MoveSpeed;
                 rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             }
             else
             {
                 Facing = currentDirection.West;
-                Debug.Log("P" + PlayerNumber + " direction: " + Facing);
+                //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * (value.x * -1) * MoveSpeed;
                 rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, -90, 0));
             }
@@ -126,7 +126,7 @@ public class PlayerController : Controller
             if (value.y > 0)
             {
                 Facing = currentDirection.North;
-                Debug.Log("P" + PlayerNumber + " direction: " + Facing);
+                //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * value.y * MoveSpeed;
                 rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
@@ -137,7 +137,7 @@ public class PlayerController : Controller
                 {
                     rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                     Facing = currentDirection.South;
-                    Debug.Log("P" + PlayerNumber + " direction: " + Facing);
+                    //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 }
             }
         }
