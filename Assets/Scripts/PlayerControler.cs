@@ -9,14 +9,9 @@ using static UnityEngine.Rendering.DebugUI;
 public class PlayerController : Controller
 {
     public static PlayerController instance;
-
     public PushTrigger pt;
-
     public bool LogInputStateInfo = false;
-
     public float MoveSpeed = 1.0f;
-
-    
 
     public enum currentDirection
     {
@@ -34,7 +29,6 @@ public class PlayerController : Controller
     public bool PerformInputProcessing = true;
 
     Rigidbody rb;
-
 
     protected override void Start()
     {
@@ -58,7 +52,6 @@ public class PlayerController : Controller
             return; 
         }
     }
-
     protected void Update()
     {
         GetInput();
@@ -68,8 +61,6 @@ public class PlayerController : Controller
         }
         InputPrevious = InputCurrent;
     }
-
-    
 
     protected virtual void GetInput()
     {
@@ -87,8 +78,6 @@ public class PlayerController : Controller
         }
        
     }
-
-
 
     protected virtual void ProcessInput()
     {
@@ -142,7 +131,6 @@ public class PlayerController : Controller
             }
         }
     }
-
     public virtual void Push(bool value)
     {
         if (value)

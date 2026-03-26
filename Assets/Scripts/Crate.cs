@@ -70,7 +70,7 @@ public class Crate : MonoBehaviour
         {
             return true;
         }
-        if (direction == "East" && gt.grid.GetValue((PosX - 1), PosY) == 0)
+        if (direction == "West" && gt.grid.GetValue((PosX - 1), PosY) == 0)
         {
             return true;
         }

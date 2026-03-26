@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 public class Grid
 {
     private int width;
@@ -13,12 +14,14 @@ public class Grid
     public const int sortingOrderDefault = 5000;
 
     // grid size
-    public Grid(int width, int height, float cellSize, Vector3 originPosition)
+    public Grid(int width, int height, float cellSize, Vector3 originPosition, GameObject volume)
     {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
         this.originPosistion = originPosition;
+
+        //GameObject sensor = volume;
 
         gridArray = new int[width, height];
         DebugTextArray = new TextMesh[width, height];
@@ -30,6 +33,11 @@ public class Grid
                 DebugTextArray[x, y] = CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
+
+                //Code to be used for trigger sensors. Not yet fully functionl
+                //GameObject s = GameObject.Instantiate(sensor, GetWorldPosition(x, y) + new Vector3(cellSize, 1.5f, cellSize) * .5f, Quaternion.Euler(new Vector3(0, 0, 0)));
+                //GridSensor gs = s.GetComponent<GridSensor>();
+                //gs.SetValues(x, y);
             }
         }
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);

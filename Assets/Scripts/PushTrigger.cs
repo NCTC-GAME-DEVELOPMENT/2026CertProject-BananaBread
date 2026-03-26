@@ -18,7 +18,6 @@ public class PushTrigger : MonoBehaviour
     public IEnumerator PushAction()
     {
         PushVolume.enabled = true;
-        Debug.Log("Waiting for Push to end...");
         yield return new WaitForSeconds(0.25f);
         PushVolume.enabled = false;
     }

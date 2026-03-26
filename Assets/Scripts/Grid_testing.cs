@@ -8,6 +8,7 @@ public class Grid_testing : MonoBehaviour
     public int height;
     public float cellSize = 10.0f;
     public Vector3 origin;
+    public GameObject sensor;
 
     private void Start()
     {
@@ -31,7 +32,7 @@ public class Grid_testing : MonoBehaviour
 
     private void Awake()
     {
-        grid = new Grid(width, height, cellSize, origin);
+        grid = new Grid(width, height, cellSize, origin, sensor);
     }
 
 }
