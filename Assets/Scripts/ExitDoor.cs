@@ -25,7 +25,7 @@ public class ExitDoor : MonoBehaviour
     {
         // Create variables for player and crate.
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-        PlaceholderWinCondition winCrate = collision.gameObject.GetComponent<PlaceholderWinCondition>();
+        QueryCrate winCrate = collision.gameObject.GetComponent<QueryCrate>();
 
         // If it's the crate, declare it being sent as true and delete the crate.
         if(winCrate)
@@ -35,9 +35,10 @@ public class ExitDoor : MonoBehaviour
         }
 
         // If the player goes into the door,
-        // and the player hasn't left,
+        // and the other player hasn't left,
         // and the crate has been sent through,
-        // delete player and mark the first player as having left.
+        // delete player and mark a player as left.
+        // Null the variable so that it doesn't then immediately run a win condition.
         if (player && !PlayerLeft && CrateSent)
         {
             Destroy(collision.gameObject);
