@@ -19,37 +19,66 @@ public class Crate : MonoBehaviour
     public void MoveCrate(string direction)
     {
         Debug.Log("Push Detected");
-        if (direction == "North")
+        if (CanPushHere(direction))
         {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosY += 1;
-            gt.grid.SetValue(PosX, PosY, (2));
-            gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z + moveAmount));
-            myPosition = gameObject.transform.position;
+            if (direction == "North")
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosY += 1;
+                gt.grid.SetValue(PosX, PosY, (2));
+                gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z + moveAmount));
+                myPosition = gameObject.transform.position;
+            }
+            else if (direction == "South")
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosY -= 1;
+                gt.grid.SetValue(PosX, PosY, (2));
+                gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z - moveAmount));
+                myPosition = gameObject.transform.position;
+            }
+            else if (direction == "East")
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosX += 1;
+                gt.grid.SetValue(PosX, PosY, (2));
+                gameObject.transform.position = new Vector3((myPosition.x + moveAmount), myPosition.y, myPosition.z);
+                myPosition = gameObject.transform.position;
+            }
+            else
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosX -= 1;
+                gt.grid.SetValue(PosX, PosY, (2));
+                gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
+                myPosition = gameObject.transform.position;
+            }
         }
-        else if (direction == "South")
+    }
+
+    protected bool CanPushHere(string direction)
+    {
+        if (direction == "North" && gt.grid.GetValue(PosX, (PosY + 1)) == 0)
         {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosY -= 1;
-            gt.grid.SetValue(PosX, PosY, (2));
-            gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z - moveAmount));
-            myPosition = gameObject.transform.position;
+            return true;
         }
-        else if (direction == "East")
+        if (direction == "South" && gt.grid.GetValue(PosX, (PosY - 1)) == 0)
         {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosX += 1;
-            gt.grid.SetValue(PosX, PosY, (2));
-            gameObject.transform.position = new Vector3((myPosition.x + moveAmount), myPosition.y, myPosition.z);
-            myPosition = gameObject.transform.position;
+            return true;
+        }
+        if (direction == "East" && gt.grid.GetValue((PosX + 1), PosY) == 0)
+        {
+            return true;
+        }
+        if (direction == "East" && gt.grid.GetValue((PosX - 1), PosY) == 0)
+        {
+            return true;
         }
         else
         {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosX -= 1;
-            gt.grid.SetValue(PosX, PosY, (2));
-            gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
-            myPosition = gameObject.transform.position;
+            Debug.Log("You cannot push a crate here!");
+            return false;
         }
+
     }
 }
