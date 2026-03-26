@@ -123,7 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18dfbb850c0cca4a97011a163098c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyLocation: {fileID: 0}
+  locationGridX: 0
+  locationGridY: 0
+  destinationGridX: 0
+  destinationGridY: 0
+  DestinationNorthWall: 0
+  onWallFacing: 0
 --- !u!1 &3169429461602322046
 GameObject:
   m_ObjectHideFlags: 0

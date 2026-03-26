@@ -4,15 +4,47 @@ public class ExitDoor : MonoBehaviour
 {
 
     // Bool to check if crate has been sent.
-    public bool CrateSent = false;
+    bool CrateSent = false;
     // Bool check for first player going through.
-    public bool PlayerLeft = false;
+    bool PlayerLeft = false;
+
+    public int locationGridX, locationGridY;
 
 
+    public enum currentDirection
+    {
+        North,
+        East,
+        South,
+        West
+    }
+
+    public currentDirection onWallFacing;
+
+    //Grid_testing variable.
+    private Grid_testing grid;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // Get the grid.
+        grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
+
+        Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(locationGridX, locationGridY);
+        if (onWallFacing == currentDirection.West)
+        {
+            location.z = location.z + (grid.cellSize / 2f);
+            location.x = location.x + (grid.cellSize);
+        }
+        else if (onWallFacing == currentDirection.East)
+        {
+            location.z = location.z + (grid.cellSize / 2f);
+        }
+        else
+        {
+            location.x = location.x + (grid.cellSize / 2f);
+
+        }
+        gameObject.transform.position = location;
     }
 
     // Update is called once per frame
