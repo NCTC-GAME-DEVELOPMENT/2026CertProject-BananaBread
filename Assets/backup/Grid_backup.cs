@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class Grid
+/*public class Grid
 {
     private int width;
     private int height;
@@ -119,3 +119,4 @@ public class Grid
     }
 }
 
+*/
