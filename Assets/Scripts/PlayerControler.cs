@@ -43,7 +43,7 @@ public class PlayerController : Controller
         GameObject g = GameObject.Find("GameManager");
         gt = g.GetComponent<Grid_testing>();
 
-        gt.grid.SetValue(PosX, PosY, (1));
+        gt.grid.SetValue(PosX, PosY, (3));
 
         rb = gameObject.GetComponent<Rigidbody>();
         inputPoller = InputPoller.Self; 
@@ -84,25 +84,25 @@ public class PlayerController : Controller
         {
             gt.grid.SetValue(PosX, PosY, (0));
             PosY += 1;
-            gt.grid.SetValue(PosX, PosY, (1));
+            gt.grid.SetValue(PosX, PosY, (3));
         }
         if (myPos.z < gridPos.z - 1.5)
         {
             gt.grid.SetValue(PosX, PosY, (0));
             PosY -= 1;
-            gt.grid.SetValue(PosX, PosY, (1));
+            gt.grid.SetValue(PosX, PosY, (3));
         }
         if (myPos.x > gridPos.x + 1.5)
         {
             gt.grid.SetValue(PosX, PosY, (0));
             PosX += 1;
-            gt.grid.SetValue(PosX, PosY, (1));
+            gt.grid.SetValue(PosX, PosY, (3));
         }
         if (myPos.x < gridPos.x - 1.5)
         {
             gt.grid.SetValue(PosX, PosY, (0));
             PosX -= 1;
-            gt.grid.SetValue(PosX, PosY, (1));
+            gt.grid.SetValue(PosX, PosY, (3));
         }
     }
 

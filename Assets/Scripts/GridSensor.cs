@@ -20,7 +20,7 @@ public class GridSensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Wall wall = other.GetComponent<Wall>();
+        Obstacle wall = other.GetComponent<Obstacle>();
         PlayerController pc = other.GetComponent<PlayerController>();
         //Ghost ghost =  other.GetComponent<Ghost>();
 
