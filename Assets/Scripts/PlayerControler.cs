@@ -11,8 +11,12 @@ public class PlayerController : Controller
 {
     public static PlayerController instance;
     public PushTrigger pt;
+    private Grid_testing gt;
     public bool LogInputStateInfo = false;
     public float MoveSpeed = 1.0f;
+
+    public int PosX;
+    public int PosY;
 
     public enum currentDirection
     {
@@ -34,7 +38,12 @@ public class PlayerController : Controller
     protected override void Start()
     {
         base.Start();
-        IsHuman = true; 
+        IsHuman = true;
+
+        GameObject g = GameObject.Find("GameManager");
+        gt = g.GetComponent<Grid_testing>();
+
+        gt.grid.SetValue(PosX, PosY, (3));
 
         rb = gameObject.GetComponent<Rigidbody>();
         inputPoller = InputPoller.Self; 
@@ -61,6 +70,40 @@ public class PlayerController : Controller
             ProcessInput();
         }
         InputPrevious = InputCurrent;
+
+        PlayerGridMovement();
+    }
+
+    //Configures the grid's values based on the player's current position
+    public void PlayerGridMovement()
+    {
+        Vector3 gridPos = gt.grid.GetWorldPosition(PosX, PosY) + new Vector3(gt.cellSize, 0, gt.cellSize) * .5f;
+        Vector3 myPos = gameObject.transform.position;
+
+        if (myPos.z > gridPos.z + 1.5)
+        {
+            gt.grid.SetValue(PosX, PosY, (0));
+            PosY += 1;
+            gt.grid.SetValue(PosX, PosY, (3));
+        }
+        if (myPos.z < gridPos.z - 1.5)
+        {
+            gt.grid.SetValue(PosX, PosY, (0));
+            PosY -= 1;
+            gt.grid.SetValue(PosX, PosY, (3));
+        }
+        if (myPos.x > gridPos.x + 1.5)
+        {
+            gt.grid.SetValue(PosX, PosY, (0));
+            PosX += 1;
+            gt.grid.SetValue(PosX, PosY, (3));
+        }
+        if (myPos.x < gridPos.x - 1.5)
+        {
+            gt.grid.SetValue(PosX, PosY, (0));
+            PosX -= 1;
+            gt.grid.SetValue(PosX, PosY, (3));
+        }
     }
 
     protected virtual void GetInput()
