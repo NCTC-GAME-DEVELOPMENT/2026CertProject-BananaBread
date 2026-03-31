@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
-    public Grid_testing gt;
+    private Grid_testing gt;
     public int PosX;
     public int PosY;
     Vector3 myPosition;
@@ -13,6 +13,9 @@ public class Crate : MonoBehaviour
 
     private void Start()
     {
+        GameObject g = GameObject.Find("GameManager");
+        gt = g.GetComponent<Grid_testing>();
+
         gt.grid.SetValue(PosX, PosY, (2));
         myPosition = gameObject.transform.position;
     }
