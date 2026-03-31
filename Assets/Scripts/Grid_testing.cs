@@ -25,6 +25,8 @@ public class Grid_testing : MonoBehaviour
         grid.AddValue(7, 3, (2));
         grid.AddValue(7, 2, (2));
         grid.AddValue(10, 4, (7));
+        grid.AddValue(10, 3, (1));
+
         //this is a way to use GetValue to get the stored value
         Debug.Log(grid.GetValue(0, 1));
     }
