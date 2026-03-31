@@ -14,8 +14,6 @@ public class Grid_testing : MonoBehaviour
     {
         // this is just so we have a referens for the grid in the scene
         // will be replaced later... hopefully
-        grid.AddValue(0, 1, (1));
-        grid.AddValue(0, 4, (1));
         //grid.AddValue(5, 1, (6));
         grid.AddValue(5, 3, (2));
         grid.AddValue(6, 2, (2));
@@ -25,8 +23,9 @@ public class Grid_testing : MonoBehaviour
         grid.AddValue(4, 3, (2));
         grid.AddValue(7, 3, (2));
         grid.AddValue(7, 2, (2));
-        grid.AddValue(10, 4, (7));
-        //grid.AddValue(10, 3, (1));
+        grid.AddValue(10, 3, (1));
+        grid.AddValue(10, 2, (1));
+        grid.AddValue(10, 1, (1));
 
         //this is a way to use GetValue to get the stored value
         Debug.Log(grid.GetValue(0, 1));

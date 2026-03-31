@@ -5,8 +5,8 @@ using static UnityEngine.Rendering.DebugUI;
 public class ghost_movement : MonoBehaviour
 {
     public Grid_testing gt;
-    public int PosX;
-    public int PosY;
+    public int XStuf;
+    public int ZStuf;
     Vector3 myPosition;
     private int down, up, left, right;
     private Rigidbody rb;
@@ -14,21 +14,23 @@ public class ghost_movement : MonoBehaviour
 
     public void Start()
     {
-        gt.grid.SetValue(PosX, PosY, (7));
+        gt.grid.SetValue(XStuf, ZStuf, (7));
         myPosition = gameObject.transform.position;
         rb = GetComponent<Rigidbody>();
     }
     public void Update()
     {
-      down =  gt.grid.GetValue(PosX - 1, PosY);
-       up = gt.grid.GetValue(PosX + 1, PosY);
-       left = gt.grid.GetValue(PosX, PosY - 1);
-       right = gt.grid.GetValue(PosX, PosY + 1);
+      down =  gt.grid.GetValue(XStuf, ZStuf - 1);
+       up = gt.grid.GetValue(XStuf, ZStuf + 1);
+       left = gt.grid.GetValue(XStuf - 1, ZStuf);
+       right = gt.grid.GetValue(XStuf + 1, ZStuf);
         if ((down == 1 && up == 1) || (down == 1 && left == 1) || (down == 1 && right == 1) || (up == 1 && left == 1) || (up == 1 && right == 1) || (left == 1 && right == 1) || (down == 1) || (up == 1) || (left == 1) || (right == 1))
         {
             if (down == 1)
             {
-                gt.grid.SetValue(PosX - 1, PosY, (7));
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                ZStuf = ZStuf - 1;
             }
             if (up == 1)
             {

@@ -288,6 +288,7 @@ MonoBehaviour:
   height: 6
   cellSize: 3
   origin: {x: -18, y: 0, z: -9}
+  sensor: {fileID: 0}
 --- !u!1 &144970489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,9 +1264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bb692dde20bc647b8a2cfc613566ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gt: {fileID: 0}
-  PosX: 10
-  PosY: 4
+  gt: {fileID: 81778960}
+  XStuf: 10
+  ZStuf: 4
   speed: 1
 --- !u!1001 &1631692987
 PrefabInstance:
