@@ -34,7 +34,9 @@ public class ghost_movement : MonoBehaviour
             }
             if (up == 1)
             {
-                // move up and freeze player
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                ZStuf = ZStuf + 1;
             }
             if (left == 1)
             {
@@ -111,7 +113,32 @@ public class ghost_movement : MonoBehaviour
         }
         if (down == 0 &&  up == 0 && left == 0 && right == 0)
         {
-            // move randomly
+            int randomMovement = Random.Range(1, 4);
+            Debug.Log(randomMovement);
+            if (randomMovement == 1)
+            {
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                ZStuf = ZStuf - 1;
+            }
+            if (randomMovement == 2)
+            {
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                ZStuf = ZStuf + 1;
+            }
+            if (randomMovement == 3)
+            {
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                XStuf = XStuf - 1;
+            }
+            if (randomMovement == 4)
+            {
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                XStuf = XStuf + 1;
+            }
         }
         else
         {
