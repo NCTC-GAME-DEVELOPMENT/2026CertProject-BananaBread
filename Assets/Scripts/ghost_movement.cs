@@ -10,7 +10,6 @@ public class ghost_movement : MonoBehaviour
     Vector3 myPosition;
     private int down, up, left, right;
     private Rigidbody rb;
-    public float speed = 1.0f;
     int randomMovement;
     public void Start()
     {
