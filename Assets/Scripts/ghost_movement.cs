@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ghost_movement : MonoBehaviour
 {
@@ -7,9 +8,9 @@ public class ghost_movement : MonoBehaviour
     public int PosX;
     public int PosY;
     Vector3 myPosition;
-    public int down, up, left, right;
+    private int down, up, left, right;
     private Rigidbody rb;
-    
+    public float speed = 1.0f;
 
     public void Start()
     {
@@ -27,7 +28,7 @@ public class ghost_movement : MonoBehaviour
         {
             if (down == 1)
             {
-                // move down and freeze player
+                gt.grid.SetValue(PosX - 1, PosY, (7));
             }
             if (up == 1)
             {

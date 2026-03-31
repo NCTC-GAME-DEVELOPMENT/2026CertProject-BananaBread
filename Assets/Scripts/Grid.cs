@@ -77,13 +77,19 @@ public class Grid
     {
         return new Vector3(x, 0, y) * cellSize + originPosistion;
     }
-   private void GetXY(Vector3 worldPosition, out int x, out int y)
+   public void GetXY(Vector3 worldPosition, out int x, out int y)
     {
         x = Mathf.FloorToInt((worldPosition - originPosistion).x / cellSize);
         y = Mathf.FloorToInt((worldPosition - originPosistion).z / cellSize);
     }
+    public Vector2 GetXYAsV2(Vector3 worldPosition)
+    {
+        Vector2 result = Vector2.zero;
+        result.x = Mathf.FloorToInt((worldPosition - originPosistion).x / cellSize);
+        result.y = Mathf.FloorToInt((worldPosition - originPosistion).z / cellSize);
+        return result;
+    }
 
-   
     public void SetValue(int x, int y, int value)
     {
         if(x >= 0 && y >= 0 && x < width && y < height)
