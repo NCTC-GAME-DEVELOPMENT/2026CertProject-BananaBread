@@ -11,7 +11,7 @@ public class ghost_movement : MonoBehaviour
     private int down, up, left, right;
     private Rigidbody rb;
     public float speed = 1.0f;
-
+    int randomMovement;
     public void Start()
     {
         gt.grid.SetValue(XStuf, ZStuf, (7));
@@ -40,11 +40,15 @@ public class ghost_movement : MonoBehaviour
             }
             if (left == 1)
             {
-                // move left and freeze player
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                XStuf = XStuf - 1;
             }
             if (right == 1)
             {
-                // move right and freeze player
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                XStuf = XStuf + 1;
             }
         }
         if ((down == 2) || (up == 2) || (left == 2) || (right == 2))
@@ -55,66 +59,221 @@ public class ghost_movement : MonoBehaviour
             }
             if ((down == 2) && (up == 2) && (left == 2))
             {
-                // restrict movement to right
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                XStuf = XStuf + 1;
             }
             if ((down == 2) && (up == 2) && (right == 2))
             {
-                // restrict movement to left
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                XStuf = XStuf - 1;
             }
             if ((down == 2) && (right == 2) && (left == 2))
             {
-                // restrict movement to up
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                ZStuf = ZStuf + 1;
             }
             if ((right == 2) && (up == 2) && (left == 2))
             {
-                // restrict movement to down
+                gt.grid.SetValue(XStuf, ZStuf, (0));
+                gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                ZStuf = ZStuf - 1;
             }
             if ((down == 2) && (up == 2))
             {
-                //restrict movement to left and right
+                randomMovement = Random.Range(1, 2);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                    XStuf = XStuf - 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                    XStuf = XStuf + 1;
+                }
+
             }
             if ((down == 2) && (left == 2))
             {
-                // restrict movement to up and right
+                randomMovement = Random.Range(1, 2);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                    ZStuf = ZStuf + 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                    XStuf = XStuf + 1;
+                }
             }
             if ((down == 2) &&  (right == 2))
             {
-                // restrict movement to up and left
+                randomMovement = Random.Range(1, 2);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                    ZStuf = ZStuf + 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                    XStuf = XStuf - 1;
+                }
             }
             if ((up == 2) && (left == 2))
             {
-                //restrict moevment to down and right
+                randomMovement = Random.Range(1, 2);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                    ZStuf = ZStuf - 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                    XStuf = XStuf + 1;
+                }
             }
             if ((up == 2) && (right == 2))
             {
-                //restrict movement to down and left
+                randomMovement = Random.Range(1, 2);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                    ZStuf = ZStuf - 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                    XStuf = XStuf - 1;
+                }
             }
             if ((left == 2) && (right == 2))
             {
-                //restrict movement to up and down
+                randomMovement = Random.Range(1, 2);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                    ZStuf = ZStuf - 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                    ZStuf = ZStuf + 1;
+                }
             }
             if ( down == 2 )
             {
-                //restrict movement to up,left and right
+                randomMovement = Random.Range(1, 3);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                    ZStuf = ZStuf + 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                    XStuf = XStuf - 1;
+                }
+                if (randomMovement == 3)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                    XStuf = XStuf + 1;
+                }
             }
             if (up== 2)
             {
-                //restrict movement to down,left and right
+                randomMovement = Random.Range(1, 3);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                    ZStuf = ZStuf - 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                    XStuf = XStuf - 1;
+                }
+                if (randomMovement == 3)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                    XStuf = XStuf + 1;
+                }
             }
             if (left == 2)
             {
-                //restrict movement to up,down and right
+                Debug.Log("left wall");
+                randomMovement = Random.Range(1, 3);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                    ZStuf = ZStuf + 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                    ZStuf = ZStuf - 1;
+                }
+                if (randomMovement == 3)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf + 1, ZStuf, (7));
+                    XStuf = XStuf + 1;
+                }
             }
             if (right == 2)
             {
-                //restrict movement to up,left and down
+                Debug.Log("right wall");
+                randomMovement = Random.Range(1, 3);
+                if (randomMovement == 1)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf + 1, (7));
+                    ZStuf = ZStuf + 1;
+                }
+                if (randomMovement == 2)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf - 1, ZStuf, (7));
+                    XStuf = XStuf - 1;
+                }
+                if (randomMovement == 3)
+                {
+                    gt.grid.SetValue(XStuf, ZStuf, (0));
+                    gt.grid.SetValue(XStuf, ZStuf - 1, (7));
+                    ZStuf = ZStuf - 1;
+                }
             }
 
         }
         if (down == 0 &&  up == 0 && left == 0 && right == 0)
         {
-            int randomMovement = Random.Range(1, 4);
-            Debug.Log(randomMovement);
+             randomMovement = Random.Range(1, 4);
+            
             if (randomMovement == 1)
             {
                 gt.grid.SetValue(XStuf, ZStuf, (0));
