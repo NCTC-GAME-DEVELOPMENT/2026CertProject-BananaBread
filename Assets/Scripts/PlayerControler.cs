@@ -5,6 +5,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : Controller
 {
@@ -85,6 +86,10 @@ public class PlayerController : Controller
         {
             Push(InputCurrent.buttonEast);
         }
+        if (InputCurrent.selectButton)
+        {
+            ResetLevel(InputCurrent.selectButton);
+        }
 
         PlayerMovement(InputCurrent.leftStick);
     }
@@ -138,5 +143,10 @@ public class PlayerController : Controller
             LOG("Push Push");
             StartCoroutine(pt.PushAction());
         }
+    }
+
+    public virtual void ResetLevel(bool value)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

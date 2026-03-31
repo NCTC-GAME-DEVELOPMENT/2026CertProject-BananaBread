@@ -92,7 +92,7 @@ public class InputPoller : Info
             input.buttonSouth = kb.zKey.wasPressedThisFrame;
             input.buttonEast = kb.eKey.wasPressedThisFrame;
             input.buttonWest = kb.cKey.wasPressedThisFrame;
-
+            input.selectButton = kb.shiftKey.wasPressedThisFrame;
         }
 
 
@@ -117,8 +117,7 @@ public class InputPoller : Info
             input.buttonSouth = kb.mKey.wasPressedThisFrame;
             input.buttonEast = kb.oKey.wasPressedThisFrame;
             input.buttonWest = kb.periodKey.wasPressedThisFrame;
-
-     
+            input.selectButton = kb.shiftKey.wasPressedThisFrame;
         }
 
 

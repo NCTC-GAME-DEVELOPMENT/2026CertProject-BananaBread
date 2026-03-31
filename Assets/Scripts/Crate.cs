@@ -58,19 +58,20 @@ public class Crate : MonoBehaviour
 
     protected bool CanPushHere(string direction)
     {
-        if (direction == "North" && gt.grid.GetValue(PosX, (PosY + 1)) == 0)
+        //Tests the direction the grid is pushed in, if the spot in front of the crate is open, and if the spot in front of the crate is within the grid bounds.
+        if (direction == "North" && gt.grid.GetValue(PosX, (PosY + 1)) == 0 && (PosY + 1) <= (gt.height - 1))
         {
             return true;
         }
-        if (direction == "South" && gt.grid.GetValue(PosX, (PosY - 1)) == 0)
+        if (direction == "South" && gt.grid.GetValue(PosX, (PosY - 1)) == 0 && (PosY - 1) >= 0)
         {
             return true;
         }
-        if (direction == "East" && gt.grid.GetValue((PosX + 1), PosY) == 0)
+        if (direction == "East" && gt.grid.GetValue((PosX + 1), PosY) == 0 && (PosX + 1) <= (gt.width - 1))
         {
             return true;
         }
-        if (direction == "West" && gt.grid.GetValue((PosX - 1), PosY) == 0)
+        if (direction == "West" && gt.grid.GetValue((PosX - 1), PosY) == 0 && (PosX - 1) >= 0)
         {
             return true;
         }
