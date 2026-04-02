@@ -16,6 +16,7 @@ public class Crate : MonoBehaviour
         GameObject g = GameObject.Find("GameManager");
         gt = g.GetComponent<Grid_testing>();
 
+        FindStartCoordinates();
         gt.grid.SetValue(PosX, PosY, (2));
         myPosition = gameObject.transform.position;
     }
@@ -84,5 +85,19 @@ public class Crate : MonoBehaviour
             return false;
         }
 
+    }
+
+    //Uses the object's world position to set its starting coordinates
+    public void FindStartCoordinates()
+    {
+        Vector3 pos = gameObject.transform.position;
+
+        //Find the Position of the X Variable
+        float x = (((pos.x - 1.5f) / 3) + (gt.width / 2));
+        PosX = (int)x;
+
+        //Do the same for the Y Variable
+        float y = (((pos.z - 1.5f) / 3) + (gt.height / 2));
+        PosY = (int)y;
     }
 }
