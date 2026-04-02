@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
+    public static Crate instance;
     private Grid_testing gt;
     public int PosX;
     public int PosY;
+
+    private Vector3 StartingPosition;
+    private int StartX;
+    private int StartY;
+
     Vector3 myPosition;
     float moveAmount = 3.0f;
 
@@ -13,8 +19,7 @@ public class Crate : MonoBehaviour
 
     private void Start()
     {
-        GameObject g = GameObject.Find("GameManager");
-        gt = g.GetComponent<Grid_testing>();
+        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
         FindStartCoordinates();
         gt.grid.SetValue(PosX, PosY, (2));
@@ -90,14 +95,25 @@ public class Crate : MonoBehaviour
     //Uses the object's world position to set its starting coordinates
     public void FindStartCoordinates()
     {
-        Vector3 pos = gameObject.transform.position;
+        StartingPosition = gameObject.transform.position;
 
         //Find the Position of the X Variable
-        float x = (((pos.x - 1.5f) / 3) + (gt.width / 2));
+        float x = (((StartingPosition.x - 1.5f) / 3) + (gt.width / 2));
         PosX = (int)x;
+        StartX = PosX;
 
         //Do the same for the Y Variable
-        float y = (((pos.z - 1.5f) / 3) + (gt.height / 2));
+        float y = (((StartingPosition.z - 1.5f) / 3) + (gt.height / 2));
         PosY = (int)y;
+        StartY = PosY;
+    }
+
+    public void ResetPosition()
+    {
+        gt.grid.SetValue(PosX, PosY, (0));
+        gameObject.transform.position = new Vector3(StartingPosition.x, StartingPosition.y, StartingPosition.z);
+        PosX = StartX;
+        PosY = StartY;
+        gt.grid.SetValue(PosX, PosY, (3));
     }
 }

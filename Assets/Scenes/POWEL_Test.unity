@@ -151,8 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!65 &36826746
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -382,8 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!65 &42288901
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -891,8 +887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!65 &725922456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1601,8 +1595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!65 &1657895657
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1724,8 +1716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!65 &1729183401
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1847,8 +1837,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!65 &1812968948
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2006,7 +1994,7 @@ MonoBehaviour:
   LogInputStateInfo: 0
   MoveSpeed: 5
   PosX: 0
-  PosY: 1
+  PosY: 0
   Facing: 1
   PerformInputProcessing: 1
 --- !u!65 &1845706865
@@ -2217,8 +2205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!65 &1872628461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2462,7 +2448,7 @@ MonoBehaviour:
   LogInputStateInfo: 0
   MoveSpeed: 5
   PosX: 0
-  PosY: 4
+  PosY: 0
   Facing: 1
   PerformInputProcessing: 1
 --- !u!65 &1977360005
@@ -2771,8 +2757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bb0ba68776a8f4c91f1af54dba59c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 0
-  PosY: 0
 --- !u!1001 &2705741691839387903
 PrefabInstance:
   m_ObjectHideFlags: 0
