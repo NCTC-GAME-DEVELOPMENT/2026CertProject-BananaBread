@@ -5,7 +5,6 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : Controller
 {
@@ -17,6 +16,9 @@ public class PlayerController : Controller
 
     public int PosX;
     public int PosY;
+    private Vector3 StartingPosition;
+    private int StartX;
+    private int StartY;
 
     public enum currentDirection
     {
@@ -40,8 +42,7 @@ public class PlayerController : Controller
         base.Start();
         IsHuman = true;
 
-        GameObject g = GameObject.Find("GameManager");
-        gt = g.GetComponent<Grid_testing>();
+        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
         FindStartCoordinates();
         gt.grid.SetValue(PosX, PosY, (3));
@@ -78,15 +79,17 @@ public class PlayerController : Controller
     //Uses the object's world position to set its starting coordinates
     public void FindStartCoordinates()
     {
-        Vector3 pos = gameObject.transform.position;
+        StartingPosition = gameObject.transform.position;
 
         //Find the Position of the X Variable
-        float x = (((pos.x - 1.5f) / 3) + (gt.width / 2));
+        float x = (((StartingPosition.x - 1.5f) / 3) + (gt.width / 2));
         PosX = (int)x;
+        StartX = PosX;
 
         //Do the same for the Y Variable
-        float y = (((pos.z - 1.5f) / 3) + (gt.height / 2));
+        float y = (((StartingPosition.z - 1.5f) / 3) + (gt.height / 2));
         PosY = (int)y;
+        StartY = PosY;
     }
 
     //Configures the grid's values based on the player's current position
@@ -203,8 +206,15 @@ public class PlayerController : Controller
         }
     }
 
-    public virtual void ResetLevel(bool value)
+    public void ResetLevel(bool value)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gt.grid.SetValue(PosX, PosY, (0));
+        gameObject.transform.position = new Vector3(StartingPosition.x, StartingPosition.y, StartingPosition.z);
+        PosX = StartX;
+        PosY = StartY;
+        gt.grid.SetValue(PosX, PosY, (3));
+
+        rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        Facing = currentDirection.East;
     }
 }

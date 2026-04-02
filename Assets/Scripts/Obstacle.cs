@@ -10,8 +10,7 @@ public class Obstacle : MonoBehaviour
 
     private void Start()
     {
-        GameObject gm = GameObject.Find("GameManager");
-        gt = gm.GetComponent<Grid_testing>();
+        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
         FindStartCoordinates();
         gt.grid.SetValue(PosX, PosY, (1));

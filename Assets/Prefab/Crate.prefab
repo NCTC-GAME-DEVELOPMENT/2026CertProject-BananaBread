@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 826027090267898395}
   m_Layer: 0
   m_Name: Crate
-  m_TagString: Untagged
+  m_TagString: crate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772bc712b5eba9141ac4c71627e43bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gt: {fileID: 0}
   PosX: 5
   PosY: 1
