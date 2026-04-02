@@ -1246,7 +1246,7 @@ Transform:
   m_GameObject: {fileID: 1569302668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.45, y: 1.2, z: 5.75}
+  m_LocalPosition: {x: 14.01, y: 1.2, z: 4.82}
   m_LocalScale: {x: 1.25, y: 2.5, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   gt: {fileID: 81778960}
   XStuf: 10
   ZStuf: 4
-  speed: 1
+  ghostSpeed: 10
 --- !u!1001 &1631692987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1504,6 +1504,8 @@ MonoBehaviour:
   pt: {fileID: 0}
   LogInputStateInfo: 0
   MoveSpeed: 5
+  PosX: 0
+  PosY: 0
   Facing: 1
   PerformInputProcessing: 1
 --- !u!65 &1845706865
@@ -1750,6 +1752,8 @@ MonoBehaviour:
   pt: {fileID: 0}
   LogInputStateInfo: 0
   MoveSpeed: 5
+  PosX: 0
+  PosY: 0
   Facing: 1
   PerformInputProcessing: 1
 --- !u!65 &1977360005
