@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 81778959}
   - component: {fileID: 81778958}
   - component: {fileID: 81778960}
+  - component: {fileID: 81778961}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -531,6 +532,19 @@ MonoBehaviour:
   cellSize: 3
   origin: {x: -20, y: 0, z: -10}
   sensor: {fileID: 0}
+--- !u!114 &81778961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81778957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b7c475b3e4cf24a9d9cf31e371163b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsResetTriggered: 0
 --- !u!1 &144970489
 GameObject:
   m_ObjectHideFlags: 0
@@ -4846,7 +4860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bb692dde20bc647b8a2cfc613566ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosX: 10
+  PosX: 11
   PosY: 4
   Facing: 0
   CanReset: 0
