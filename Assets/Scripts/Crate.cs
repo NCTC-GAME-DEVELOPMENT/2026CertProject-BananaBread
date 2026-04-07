@@ -9,13 +9,10 @@ public class Crate : Common
 
     protected override void Start()
     {
-        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        base.Start();
 
         GridValue = 2;
-        FindStartCoordinates();
         gt.grid.SetValue(PosX, PosY, (GridValue));
-        myPosition = gameObject.transform.position;
     }
     public void MoveCrate(string direction)
     {
