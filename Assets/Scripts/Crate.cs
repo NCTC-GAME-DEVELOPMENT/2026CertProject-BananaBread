@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Crate : Common
 {
-    public static Crate instance;
-
-    Vector3 myPosition;
     float moveAmount = 3.0f;
 
     //PlayerController senses a crate to push in front of it.
@@ -84,16 +81,5 @@ public class Crate : Common
             Debug.Log("You cannot push a crate here!");
             return false;
         }
-    }
-
-    public override void ResetPosition()
-    {
-        gt.grid.SetValue(PosX, PosY, (0));
-        gameObject.transform.position = new Vector3(StartingPosition.x, StartingPosition.y, StartingPosition.z);
-        myPosition = gameObject.transform.position;
-
-        PosX = StartX;
-        PosY = StartY;
-        gt.grid.SetValue(PosX, PosY, (GridValue));
     }
 }

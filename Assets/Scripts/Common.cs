@@ -5,6 +5,7 @@ public class Common : MonoBehaviour
     protected Grid_testing gt;
     protected GameManager gm;
 
+    protected Vector3 myPosition;
     public int PosX;
     public int PosY;
     protected int GridValue;
@@ -32,6 +33,7 @@ public class Common : MonoBehaviour
         StartingPosition = gameObject.transform.position;
 
         FindStartCoordinates();
+        myPosition = gameObject.transform.position;
     }
 
     protected virtual void Update()
@@ -62,6 +64,8 @@ public class Common : MonoBehaviour
     {
         gt.grid.SetValue(PosX, PosY, (0));
         gameObject.transform.position = new Vector3(StartingPosition.x, StartingPosition.y, StartingPosition.z);
+        myPosition = gameObject.transform.position;
+
         PosX = StartX;
         PosY = StartY;
         gt.grid.SetValue(PosX, PosY, (GridValue));
