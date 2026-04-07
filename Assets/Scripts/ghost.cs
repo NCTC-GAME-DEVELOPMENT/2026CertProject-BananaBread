@@ -31,7 +31,6 @@ public class ghost : Common
 
     public void Move()
     {
-        Debug.Log("made it");
         down = gt.grid.GetValue(PosX, PosY - 1);
         up = gt.grid.GetValue(PosX, PosY + 1);
         left = gt.grid.GetValue(PosX - 1, PosY);
@@ -43,29 +42,34 @@ public class ghost : Common
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                 PosY = PosY - 1;
+                rb.linearVelocity = new Vector3(0, -0, -11);
             }
             if (up == 3)
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                 PosY = PosY + 1;
+                rb.linearVelocity = new Vector3(0, 0, 11);
             }
             if (left == 3)
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                 PosX = PosX - 1;
+                rb.linearVelocity = new Vector3(-11, 0, 0);
+
             }
             if (right == 3)
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                 PosX = PosX + 1;
+                rb.linearVelocity = new Vector3(11, 0, 0);
             }
         }
-        if ((down == 1) || (up == 1) || (left == 1) || (right == 1))
+        if ((down == 1) || (up == 1) || (left == 1) || (right == 1) || (down == 2) || (up == 2) || (left == 2) || (right == 2))
         {
-            if ((down == 1) && (up == 1) && (left == 1) && (right == 1))
+            if ((down == 1) && (up == 1) && (left == 1) && (right == 1) || ((down == 2) & (up == 1) & (left == 1) & (right == 1)) || ((down == 1) & (up == 2) & (left == 1) & (right == 1)) || ((down == 1) & (up == 1) & (left == 2) & (right == 1)) || ((down == 1) & (up == 1) & (left == 1) & (right == 2)))
             {
                 Debug.Log("Ghost Trapped");
             }
@@ -74,26 +78,31 @@ public class ghost : Common
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                 PosX = PosX + 1;
+                rb.linearVelocity = new Vector3(11, 0, 0);
             }
-            if ((down == 1) && (up == 1) && (right == 1))
+            if ((down == 1) && (up == 1) && (right == 1) || (down == 2) && (up == 1) && (right == 1) || (down == 1) && (up == 2) && (right == 1) ||(down == 1) && (up == 1) && (right == 2))
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                 PosX = PosX - 1;
+                rb.linearVelocity = new Vector3(-11, 0, 0);
+
             }
-            if ((down == 1) && (right == 1) && (left == 1))
+            if ((down == 1) && (right == 1) && (left == 1) || (down == 2) && (right == 1) && (left == 1) || (down == 1) && (right == 2) && (left == 1) || (down == 1) && (right == 1) && (left == 2))
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                 PosY = PosY + 1;
+                rb.linearVelocity = new Vector3(0, 0, 11);
             }
             if ((right == 1) && (up == 1) && (left == 1))
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                 PosY = PosY - 1;
+                rb.linearVelocity = new Vector3(0, -0, -11);
             }
-            if ((down == 1) && (up == 1))
+            if ((down == 1) && (up == 1) || (down == 2) && (up == 1) || (down == 1) && (up == 2))
             {
                 randomMovement = Random.Range(1, 2);
                 if (randomMovement == 1)
@@ -101,16 +110,19 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                     PosX = PosX - 1;
+                    rb.linearVelocity = new Vector3(-11, 0, 0);
+
                 }
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                     PosX = PosX + 1;
+                    rb.linearVelocity = new Vector3(11, 0, 0);
                 }
 
             }
-            if ((down == 1) && (left == 1))
+            if ((down == 1) && (left == 1) || (down == 2) && (left == 1) || (down == 1) && (left == 2))
             {
                 randomMovement = Random.Range(1, 2);
                 if (randomMovement == 1)
@@ -118,15 +130,17 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                     PosY = PosY + 1;
+                    rb.linearVelocity = new Vector3(0, 0, 11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                     PosX = PosX + 1;
+                    rb.linearVelocity = new Vector3(11, 0, 0);
                 }
             }
-            if ((down == 1) && (right == 1))
+            if ((down == 1) && (right == 1) || (down == 2) && (right == 1) || (down == 1) && (right == 2))
             {
                 randomMovement = Random.Range(1, 2);
                 if (randomMovement == 1)
@@ -134,15 +148,18 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                     PosY = PosY + 1;
+                    rb.linearVelocity = new Vector3(0, 0, 11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                     PosX = PosX - 1;
+                    rb.linearVelocity = new Vector3(-11, 0, 0);
+
                 }
             }
-            if ((up == 1) && (left == 1))
+            if ((up == 1) && (left == 1) || (up == 2) && (left == 1) || (up == 1) && (left == 2))
             {
                 randomMovement = Random.Range(1, 2);
                 if (randomMovement == 1)
@@ -150,15 +167,17 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
+                    rb.linearVelocity = new Vector3(0, -0, -11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                     PosX = PosX + 1;
+                    rb.linearVelocity = new Vector3(11, 0, 0);
                 }
             }
-            if ((up == 1) && (right == 1))
+            if ((up == 1) && (right == 1) || (up == 2) && (right == 1) || (up == 1) && (right == 2))
             {
                 randomMovement = Random.Range(1, 2);
                 if (randomMovement == 1)
@@ -166,15 +185,18 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
+                    rb.linearVelocity = new Vector3(0, -0, -11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                     PosX = PosX - 1;
+                    rb.linearVelocity = new Vector3(-11, 0, 0);
+
                 }
             }
-            if ((left == 1) && (right == 1))
+            if ((left == 1) && (right == 1) || (left == 2) && (right == 1) || (left == 1) && (right == 2))
             {
                 randomMovement = Random.Range(1, 2);
                 if (randomMovement == 1)
@@ -182,15 +204,17 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
+                    rb.linearVelocity = new Vector3(0, -0, -11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                     PosY = PosY + 1;
+                    rb.linearVelocity = new Vector3(0, 0, 11);
                 }
             }
-            if (down == 1)
+            if ((down == 1) || (down == 2))
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
@@ -198,21 +222,25 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                     PosY = PosY + 1;
+                    rb.linearVelocity = new Vector3(0, 0, 11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX - 1, PosY, (7));
                     PosX = PosX - 1;
+                    rb.linearVelocity = new Vector3(-11, 0, 0);
+
                 }
                 if (randomMovement == 3)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                     PosX = PosX + 1;
+                    rb.linearVelocity = new Vector3(11, 0, 0);
                 }
             }
-            if (up == 1)
+            if ((up == 1) || (up == 2))
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
@@ -220,21 +248,25 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
+                    rb.linearVelocity = new Vector3(0, -0, -11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                     PosX = PosX - 1;
+                    rb.linearVelocity = new Vector3(-11, 0, 0);
+
                 }
                 if (randomMovement == 3)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                     PosX = PosX + 1;
+                    rb.linearVelocity = new Vector3(11, 0, 0);
                 }
             }
-            if (left == 1)
+            if ((left == 1) || (left == 2))
             {
                 Debug.Log("left wall");
                 randomMovement = Random.Range(1, 3);
@@ -243,21 +275,24 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                     PosY = PosY + 1;
+                    rb.linearVelocity = new Vector3(0, 0, 11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
+                    rb.linearVelocity = new Vector3(0, -0, -11);
                 }
                 if (randomMovement == 3)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                     PosX = PosX + 1;
+                    rb.linearVelocity = new Vector3(11, 0, 0);
                 }
             }
-            if (right == 1)
+            if ((right == 1) || (right == 2))
             {
                 Debug.Log("right wall");
                 randomMovement = Random.Range(1, 3);
@@ -266,18 +301,22 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                     PosY = PosY + 1;
+                    rb.linearVelocity = new Vector3(0, 0, 11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                     PosX = PosX - 1;
+                    rb.linearVelocity = new Vector3(-11, 0, 0);
+
                 }
                 if (randomMovement == 3)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
+                    rb.linearVelocity = new Vector3(0, -0, -11);
                 }
             }
 
@@ -312,7 +351,7 @@ public class ghost : Common
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                 PosX = PosX + 1;
-                rb.linearVelocity = new Vector3 (11, 0, 0);
+                rb.linearVelocity = new Vector3(11, 0, 0);
             }
         }
         else
