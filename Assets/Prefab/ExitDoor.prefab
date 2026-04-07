@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7433723631162575563}
   - component: {fileID: 5165405115594539411}
   - component: {fileID: 7159737426119158003}
-  - component: {fileID: 7949827401592570534}
+  - component: {fileID: 2093918810589275551}
   m_Layer: 0
-  m_Name: Door
+  m_Name: ExitDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4342b9554d4a1f44193f02ebc591aaa2, type: 2}
+  - {fileID: 2100000, guid: 241ec24b74a788f4f949da142ad3cfb2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +111,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7949827401592570534
+--- !u!114 &2093918810589275551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,14 +120,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 520553920750699013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18dfbb850c0cca4a97011a163098c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a7bd4a01f987c44aae20307921bae13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PosX: 0
   PosY: 0
   Facing: 0
   CanReset: 1
-  destinationDoor: {fileID: 0}
+  sceneName: 
   onWallFacing: 0
 --- !u!1 &3169429461602322046
 GameObject:

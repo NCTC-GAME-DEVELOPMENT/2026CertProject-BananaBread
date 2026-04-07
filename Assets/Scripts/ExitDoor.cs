@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class ExitDoor : MonoBehaviour
+public class ExitDoor : Common
 {
 
     // Bool to check if crate has been sent.
@@ -8,34 +9,32 @@ public class ExitDoor : MonoBehaviour
     // Bool check for first player going through.
     bool PlayerLeft = false;
 
-    public int locationGridX, locationGridY;
-
-
-    public enum currentDirection
-    {
-        North,
-        East,
-        South,
-        West
-    }
-
-    public currentDirection onWallFacing;
+    public string sceneName;
 
     //Grid_testing variable.
     private Grid_testing grid;
+    private QueryCrate[] winCrates;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // Get the grid.
         grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
-        Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(locationGridX, locationGridY);
-        if (onWallFacing == currentDirection.West)
+        //Default scene name to reset the local scene.
+        if (sceneName.Length == 0) sceneName = SceneManager.GetActiveScene().name;
+
+        Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(PosX, PosY);
+
+        location.y = 1;
+
+        if (Facing == currentDirection.West)
         {
             location.z = location.z + (grid.cellSize / 2f);
             location.x = location.x + (grid.cellSize);
         }
-        else if (onWallFacing == currentDirection.East)
+        else if (Facing == currentDirection.East)
         {
             location.z = location.z + (grid.cellSize / 2f);
         }
@@ -45,26 +44,40 @@ public class ExitDoor : MonoBehaviour
 
         }
         gameObject.transform.position = location;
+
+        // Find the Query Crate for the scene.
+        winCrates = Object.FindObjectsByType<QueryCrate>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
+
+        // First if statement; if there are still winCrates in the array.
+        if (winCrates.Length > 0)
+        {
+            // Loop through all available crates.
+            for (int x = 0; x < winCrates.Length; x++)
+            {
+                // If one of those crates is in position, 
+                if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
+                {
+                    Debug.Log("Win crate found in Exit Door!");
+                    Destroy(winCrates[x].gameObject);
+                }
+            }
+        }
+        else
+        {
+            // Only when winCrates is empty, mark crates as sent.
+            CrateSent = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         // Create variables for player and crate.
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-        QueryCrate winCrate = collision.gameObject.GetComponent<QueryCrate>();
-
-        // If it's the crate, declare it being sent as true and delete the crate.
-        if(winCrate)
-        {
-            CrateSent = true;
-            Destroy(collision.gameObject);
-        }
 
         // If the player goes into the door,
         // and the other player hasn't left,
@@ -89,5 +102,9 @@ public class ExitDoor : MonoBehaviour
     public void PlayerWins()
     {
         Debug.Log("You win!");
+        // Currently rough.
+        // If loading current scene, wont re-initialize the code.
+        // Other scenes require being in the scene manager.
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -2,50 +2,57 @@ using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
-public class TeleportDoor : MonoBehaviour
+public class TeleportDoor : Common
 {
 
-    // Choose grid location for exit.
-    public int locationGridX, locationGridY;
-    public int destinationGridX, destinationGridY;
-    public bool DestinationNorthWall = false;
+    public TeleportDoor destinationDoor;
     bool crateDetected = false;
-
-    public enum currentDirection
-    {
-        North,
-        East,
-        South,
-        West
-    }
-
-    public currentDirection onWallFacing;
 
     //Grid_testing variable.
     private Grid_testing grid;
 
+    private Crate[] crates;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // Get the grid.
         grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
-        Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(locationGridX, locationGridY);
-        if(onWallFacing == currentDirection.West)
+
+
+        Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(PosX, PosY);
+        if(Facing == currentDirection.West)
         {
             location.z = location.z + (grid.cellSize / 2f);
             location.x = location.x + (grid.cellSize);
         }
-        else if (onWallFacing == currentDirection.East)
+        else if (Facing == currentDirection.East)
         {
             location.z = location.z + (grid.cellSize / 2f);
+        }
+        else if (Facing == currentDirection.North)
+        {
+            //location.z = location.z + (grid.cellSize /2f);
+            location.x = location.x + (grid.cellSize /2f);
         }
         else
         {
             location.x = location.x + (grid.cellSize / 2f);
+            location.z = location.z + (grid.cellSize);
 
         }
+
+        location.y = 1;
         gameObject.transform.position = location;
+
+        // Create an array containing all crates.
+        // The intention is that it'll later sense when a crate is on the teleport spot, and teleport it...
+        // ... when it is shoved into the opposite direction of facing.
+        // May require the function to be written on the crate side, though.
+        crates = Object.FindObjectsByType<Crate>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -53,24 +60,19 @@ public class TeleportDoor : MonoBehaviour
         //Check if collission was player controller.
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 
-        Crate crate = collision.gameObject.GetComponent<Crate>();
-
         // If player controller, teleport to empty.
         if (player)
         {
-
-
             // Find destination.
-            Vector3 destination = grid.grid.GetWorldPosition(destinationGridX, destinationGridY);
+            Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
             // Get destination cell's value.
-            int destinationSpace = grid.grid.GetValue(destinationGridX, destinationGridY);
+            int destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
             // Correct the Y so that it isn't embedded in the floor.
             destination.y = 1f;
 
             // Add half the cell size to center it on the grid cell.
             destination.x = destination.x + (grid.cellSize/2f);
-            if (onWallFacing == currentDirection.North) destination.z = destination.z - (grid.cellSize / 2f);
-            else destination.z = destination.z + (grid.cellSize / 2f);
+            destination.z = destination.z + (grid.cellSize / 2f);
 
             // If the grid is a 0 value...
             if (destinationSpace == 0)
@@ -80,16 +82,8 @@ public class TeleportDoor : MonoBehaviour
             }
         }
 
-        if (crate)
-        {
-            crateDetected = true;
-            Debug.Log("Crate detected!");
-        }
-        else 
-        { 
-            crateDetected = false;
-        }
     }
+    
 }
 /*
  * Pseudo code idea: how to handle crates going through the teleport door.
