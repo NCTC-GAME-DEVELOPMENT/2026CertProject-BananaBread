@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 
-public class ghost_movement : Common
+public class ghost : Common
 {
     Vector3 myPosition;
     private int down, up, left, right;
     private Rigidbody rb;
     int randomMovement;
+    public int ghostSpeed = 10;
     protected override void Start()
     {
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
