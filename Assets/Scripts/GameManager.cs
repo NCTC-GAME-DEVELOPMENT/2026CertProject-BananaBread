@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class GameManager : Info
 {
-    public void ResetLevel()
-    {
-        GameObject[] crates = GameObject.FindGameObjectsWithTag("crate");
+    public static GameManager instance;
+    public bool IsResetTriggered = false;
 
-        foreach (GameObject c in crates)
+    private void Update()
+    {
+        if (IsResetTriggered)
         {
-            Crate crate = c.GetComponent<Crate>();
-            crate.ResetPosition();
+            StartCoroutine(ReturnResetOff());
         }
+
+    }
+
+    IEnumerator ReturnResetOff()
+    {
+        Debug.Log("Reset Successful");
+        yield return new WaitForSeconds(0.25f);
+        IsResetTriggered = false;
     }
 }

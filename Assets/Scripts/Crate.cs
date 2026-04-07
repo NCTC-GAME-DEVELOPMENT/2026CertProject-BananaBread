@@ -1,15 +1,8 @@
 using UnityEngine;
 
-public class Crate : MonoBehaviour
+public class Crate : Common
 {
     public static Crate instance;
-    private Grid_testing gt;
-    public int PosX;
-    public int PosY;
-
-    private Vector3 StartingPosition;
-    private int StartX;
-    private int StartY;
 
     Vector3 myPosition;
     float moveAmount = 3.0f;
@@ -17,12 +10,14 @@ public class Crate : MonoBehaviour
     //PlayerController senses a crate to push in front of it.
     //If success, pushes the crate in its facing direction, moving x or y based on the current push direction.
 
-    private void Start()
+    protected override void Start()
     {
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
+        GridValue = 2;
         FindStartCoordinates();
-        gt.grid.SetValue(PosX, PosY, (2));
+        gt.grid.SetValue(PosX, PosY, (GridValue));
         myPosition = gameObject.transform.position;
     }
     public void MoveCrate(string direction)
@@ -34,7 +29,7 @@ public class Crate : MonoBehaviour
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosY += 1;
-                gt.grid.SetValue(PosX, PosY, (2));
+                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z + moveAmount));
                 myPosition = gameObject.transform.position;
             }
@@ -42,7 +37,7 @@ public class Crate : MonoBehaviour
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosY -= 1;
-                gt.grid.SetValue(PosX, PosY, (2));
+                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z - moveAmount));
                 myPosition = gameObject.transform.position;
             }
@@ -50,7 +45,7 @@ public class Crate : MonoBehaviour
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosX += 1;
-                gt.grid.SetValue(PosX, PosY, (2));
+                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3((myPosition.x + moveAmount), myPosition.y, myPosition.z);
                 myPosition = gameObject.transform.position;
             }
@@ -58,7 +53,7 @@ public class Crate : MonoBehaviour
             {
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosX -= 1;
-                gt.grid.SetValue(PosX, PosY, (2));
+                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
                 myPosition = gameObject.transform.position;
             }
@@ -89,31 +84,16 @@ public class Crate : MonoBehaviour
             Debug.Log("You cannot push a crate here!");
             return false;
         }
-
     }
 
-    //Uses the object's world position to set its starting coordinates
-    public void FindStartCoordinates()
-    {
-        StartingPosition = gameObject.transform.position;
-
-        //Find the Position of the X Variable
-        float x = (((StartingPosition.x - 1.5f) / 3) + (gt.width / 2));
-        PosX = (int)x;
-        StartX = PosX;
-
-        //Do the same for the Y Variable
-        float y = (((StartingPosition.z - 1.5f) / 3) + (gt.height / 2));
-        PosY = (int)y;
-        StartY = PosY;
-    }
-
-    public void ResetPosition()
+    public override void ResetPosition()
     {
         gt.grid.SetValue(PosX, PosY, (0));
         gameObject.transform.position = new Vector3(StartingPosition.x, StartingPosition.y, StartingPosition.z);
+        myPosition = gameObject.transform.position;
+
         PosX = StartX;
         PosY = StartY;
-        gt.grid.SetValue(PosX, PosY, (3));
+        gt.grid.SetValue(PosX, PosY, (GridValue));
     }
 }

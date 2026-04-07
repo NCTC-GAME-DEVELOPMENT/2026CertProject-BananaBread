@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 81778959}
   - component: {fileID: 81778958}
   - component: {fileID: 81778960}
+  - component: {fileID: 81778961}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -289,6 +290,18 @@ MonoBehaviour:
   cellSize: 3
   origin: {x: -18, y: 0, z: -9}
   sensor: {fileID: 0}
+--- !u!114 &81778961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81778957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b7c475b3e4cf24a9d9cf31e371163b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &144970489
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
-      value: Crate (3)
+      value: Crate
       objectReference: {fileID: 0}
     - target: {fileID: 6990958650386205991, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,7 +622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
-      value: Crate (5)
+      value: Crate
       objectReference: {fileID: 0}
     - target: {fileID: 6990958650386205991, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -920,7 +933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
-      value: Crate (2)
+      value: Crate
       objectReference: {fileID: 0}
     - target: {fileID: 6990958650386205991, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2052,7 +2065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
-      value: Crate (4)
+      value: Crate
       objectReference: {fileID: 0}
     - target: {fileID: 6990958650386205991, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3880,7 +3893,7 @@ Transform:
   m_GameObject: {fileID: 1859763120}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.74999905}
+  m_LocalPosition: {x: 0, y: 0, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4936,7 +4949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7675268532411624680, guid: e30d41eb7de2b6241943409968870d20, type: 3}
       propertyPath: m_Name
-      value: Crate (1)
+      value: QueryCrate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

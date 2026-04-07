@@ -11,6 +11,8 @@ public class PlayerController : Controller
     public static PlayerController instance;
     public PushTrigger pt;
     private Grid_testing gt;
+    private GameManager gm;
+
     public bool LogInputStateInfo = false;
     public float MoveSpeed = 1.0f;
 
@@ -43,6 +45,7 @@ public class PlayerController : Controller
         IsHuman = true;
 
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         FindStartCoordinates();
         gt.grid.SetValue(PosX, PosY, (3));
@@ -208,6 +211,7 @@ public class PlayerController : Controller
 
     public void ResetLevel(bool value)
     {
+        gm.IsResetTriggered = true;
         gt.grid.SetValue(PosX, PosY, (0));
         gameObject.transform.position = new Vector3(StartingPosition.x, StartingPosition.y, StartingPosition.z);
         PosX = StartX;
