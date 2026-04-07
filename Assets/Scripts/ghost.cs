@@ -5,7 +5,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class ghost : Common
 {
-    Vector3 myPosition;
+    
     private int down, up, left, right;
     private Rigidbody rb;
     int randomMovement;
@@ -19,7 +19,6 @@ public class ghost : Common
         GridValue = 7;
         StartCoroutine(DelayCoroutine());
         gt.grid.SetValue(PosX, PosY, (GridValue));
-        myPosition = gameObject.transform.position;
         DelayCoroutine();
     }
 
