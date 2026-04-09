@@ -1,14 +1,19 @@
 using UnityEngine;
 
-public class PressureSwitch : MonoBehaviour
+public class PressureSwitch : Common
 {
     public SwitchGate Connection;
     //To Determine if a switch will only work if a player or a crate steps on it
+    bool IsActive = false;
     public bool PlayersOnly = false;
     public bool CratesOnly = false;
 
-    private void Start()
+
+    protected override void Start()
     {
+        base.Start();
+        CanReset = false;
+
         if (PlayersOnly && CratesOnly)
         {
             Debug.LogError(this + ": Cannot have PlayersOnly and CratesOnly be true at the same time!");
@@ -21,15 +26,20 @@ public class PressureSwitch : MonoBehaviour
     {
         PlayerController pc = other.GetComponent<PlayerController>();
         Crate crate = other.GetComponent<Crate>();
+
+        if (!IsActive)
+        {
             if (pc && !CratesOnly)
             {
                 Connection.ToggleActivity();
+                IsActive = true;
             }
-
             if (crate && !PlayersOnly)
             {
                 Connection.ToggleActivity();
+                IsActive = true;
             }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -37,16 +47,21 @@ public class PressureSwitch : MonoBehaviour
         PlayerController pc = other.GetComponent<PlayerController>();
         Crate crate = other.GetComponent<Crate>();
 
-        if (pc && !CratesOnly)
+        if (gt.grid.GetValue(PosX, PosY) == 0)
         {
-            Debug.Log("Switch Stepped Off, Player");
-            Connection.ToggleActivity();
-        }
+            if (pc && !CratesOnly)
+            {
+                Debug.Log("Switch Stepped Off, Player");
+                Connection.ToggleActivity();
+                IsActive = false;
+            }
 
-        if (crate && !PlayersOnly)
-        {
-             Debug.Log("Switch Stepped Off, Crate");
-             Connection.ToggleActivity();
+            if (crate && !PlayersOnly)
+            {
+                Debug.Log("Switch Stepped Off, Crate");
+                Connection.ToggleActivity();
+                IsActive = false;
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ public class PlayerController : Controller
     private GameManager gm;
 
     public bool LogInputStateInfo = false;
+    public bool IsCaught = false;
     public float MoveSpeed = 1.0f;
 
     public int PosX;
@@ -102,25 +103,28 @@ public class PlayerController : Controller
         Vector3 gridPos = gt.grid.GetWorldPosition(PosX, PosY) + new Vector3(gt.cellSize, 0, gt.cellSize) * .5f;
         Vector3 myPos = gameObject.transform.position;
 
-        if (myPos.z > gridPos.z + 1.5)
+        if (!IsCaught)
         {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosY += 1;
-        }
-        if (myPos.z < gridPos.z - 1.5)
-        {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosY -= 1;
-        }
-        if (myPos.x > gridPos.x + 1.5)
-        {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosX += 1;
-        }
-        if (myPos.x < gridPos.x - 1.5)
-        {
-            gt.grid.SetValue(PosX, PosY, (0));
-            PosX -= 1;
+            if (myPos.z > gridPos.z + 1.5)
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosY += 1;
+            }
+            if (myPos.z < gridPos.z - 1.5)
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosY -= 1;
+            }
+            if (myPos.x > gridPos.x + 1.5)
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosX += 1;
+            }
+            if (myPos.x < gridPos.x - 1.5)
+            {
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosX -= 1;
+            }
         }
     }
 
@@ -143,16 +147,19 @@ public class PlayerController : Controller
 
     protected virtual void ProcessInput()
     {
-        if (InputCurrent.buttonEast)
+        if (!IsCaught)
         {
-            Push(InputCurrent.buttonEast);
-        }
-        if (InputCurrent.selectButton)
-        {
-            ResetLevel(InputCurrent.selectButton);
-        }
+            if (InputCurrent.buttonEast)
+            {
+                Push(InputCurrent.buttonEast);
+            }
+            if (InputCurrent.selectButton)
+            {
+                ResetLevel(InputCurrent.selectButton);
+            }
 
-        PlayerMovement(InputCurrent.leftStick);
+            PlayerMovement(InputCurrent.leftStick);
+        }
     }
 
     //Tests for which direction the player moves in, then rotates the player accordingly.
@@ -197,6 +204,7 @@ public class PlayerController : Controller
             }
         }
     }
+
     public virtual void Push(bool value)
     {
         if (value)
