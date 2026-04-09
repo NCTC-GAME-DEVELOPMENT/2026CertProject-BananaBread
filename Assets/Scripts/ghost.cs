@@ -16,7 +16,7 @@ public class ghost : Common
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody>();
 
-        GridValue = 7;
+        GridValue = 4;
         StartCoroutine(DelayCoroutine());
         gt.grid.SetValue(PosX, PosY, (GridValue));
         DelayCoroutine();
@@ -35,7 +35,7 @@ public class ghost : Common
         up = gt.grid.GetValue(PosX, PosY + 1);
         left = gt.grid.GetValue(PosX - 1, PosY);
         right = gt.grid.GetValue(PosX + 1, PosY);
-        if ((down == 3 && up == 3) || (down == 3 && left == 3) || (down == 3 && right == 3) || (up == 3 && left == 3) || (up == 3 && right == 3) || (left == 3 && right == 3) || (down == 3) || (up == 3) || (left == 3) || (right == 3))
+        if ((down == 3) || (up == 3) || (left == 3) || (right == 3))
         {
             if (down == 3)
             {
@@ -100,9 +100,9 @@ public class ghost : Common
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                 PosY = PosY - 1;
-                rb.linearVelocity = new Vector3(0, -0, -11);
+                rb.linearVelocity = new Vector3(0, 0, -11);
             }
-            if ((down == 1) && (up == 1) || (down == 2) && (up == 1) || (down == 1) && (up == 2))
+            if ((down == 1) && (up == 1) || (down == 2) && (up == 1) || (down == 1) && (up == 2) || (down== 2) && (up == 2))
             {
                 randomMovement = Random.Range(1, 2);
                 if (randomMovement == 1)
@@ -173,8 +173,8 @@ public class ghost : Common
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX - 1;
-                    rb.linearVelocity = new Vector3(-11, 0, 0);
+                    PosX = PosX + 1;
+                    rb.linearVelocity = new Vector3(11, 0, 0);
                 }
             }
             if ((up == 1) && (right == 1) || (up == 2) && (right == 1) || (up == 1) && (right == 2))
@@ -185,7 +185,7 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, -0, -11);
+                    rb.linearVelocity = new Vector3(0, 0, -11);
                 }
                 if (randomMovement == 2)
                 {
@@ -204,7 +204,7 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, -0, -11);
+                    rb.linearVelocity = new Vector3(0, 0, -11);
                 }
                 if (randomMovement == 2)
                 {
@@ -227,7 +227,7 @@ public class ghost : Common
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX - 1, PosY, (7));
+                    gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                     PosX = PosX - 1;
                     rb.linearVelocity = new Vector3(-11, 0, 0);
 
@@ -248,7 +248,7 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, -0, -11);
+                    rb.linearVelocity = new Vector3(0, 0, -11);
                 }
                 if (randomMovement == 2)
                 {
@@ -282,7 +282,7 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, -0, -11);
+                    rb.linearVelocity = new Vector3(0, 0, -11);
                 }
                 if (randomMovement == 3)
                 {
@@ -316,7 +316,7 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, -0, -11);
+                    rb.linearVelocity = new Vector3(0, 0, -11);
                 }
             }
 
@@ -330,7 +330,7 @@ public class ghost : Common
                 gt.grid.SetValue(PosX, PosY, (0));
                 gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                 PosY = PosY - 1;
-                rb.linearVelocity = new Vector3(0, -0, -11);
+                rb.linearVelocity = new Vector3(0, 0, -11);
             }
             if (randomMovement == 2)
             {
@@ -353,10 +353,6 @@ public class ghost : Common
                 PosX = PosX + 1;
                 rb.linearVelocity = new Vector3(11, 0, 0);
             }
-        }
-        else
-        {
-            Debug.Log("Not Accounted for");
         }
         StartCoroutine(DelayCoroutine());
         DelayCoroutine();
