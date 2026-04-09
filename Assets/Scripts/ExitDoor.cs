@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,10 @@ public class ExitDoor : Common
 
     //Grid_testing variable.
     private Grid_testing grid;
-    private QueryCrate[] winCrates;
+
+    //A list is a bit better to work with than an array.
+    private List<QueryCrate> winCrates = new List<QueryCrate>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
@@ -45,25 +49,37 @@ public class ExitDoor : Common
         }
         gameObject.transform.position = location;
 
-        // Find the Query Crate for the scene.
-        winCrates = Object.FindObjectsByType<QueryCrate>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        // Find the Query Crates for the scene.
+        QueryCrate[] tempCrates = Object.FindObjectsByType<QueryCrate>(FindObjectsSortMode.None);
+        // Add to the list for code use.
+        winCrates.AddRange(tempCrates);
+        // Log the find.
+        Debug.Log($"Found Crates: {tempCrates.Length}!");
+
     }
 
     protected override void Update()
     {
         base.Update();
 
-        // First if statement; if there are still winCrates in the array.
-        if (winCrates.Length > 0)
+        // First if statement; if there are still winCrates in the list.
+        if (winCrates.Count > 0)
         {
             // Loop through all available crates.
-            for (int x = 0; x < winCrates.Length; x++)
+            for (int x = 0; x < winCrates.Count; x++)
             {
                 // If one of those crates is in position, 
-                if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
+                if (winCrates[x] && winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
-                    Debug.Log("Win crate found in Exit Door!");
+                    // Destroy the crate.
                     Destroy(winCrates[x].gameObject);
+                    // Remove from the list.
+                    winCrates.RemoveAt(x);
+                    // Changes grid value to 0.
+                    gt.grid.SetValue(PosX, PosY, (0));
+                    // Log the change.
+                    Debug.Log($"Crates left: {winCrates.Count}!");
+
                 }
             }
         }
@@ -79,15 +95,16 @@ public class ExitDoor : Common
         // Create variables for player and crate.
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 
-        // If the player goes into the door,
-        // and the other player hasn't left,
-        // and the crate has been sent through,
-        // delete player and mark a player as left.
-        // Null the variable so that it doesn't then immediately run a win condition.
+        // If there's a player, someone hasn't left yet, and the crates are gone...
         if (player && !PlayerLeft && CrateSent)
         {
+            // Destroy 
             Destroy(collision.gameObject);
+            // Changes grid value to 0.
+            gt.grid.SetValue(PosX, PosY, (0));
+            // Mark that a player has left.
             PlayerLeft = true;
+            // Empty variable so that it doesn't just go "Player wins!" immediately.
             player = null;
         }
 

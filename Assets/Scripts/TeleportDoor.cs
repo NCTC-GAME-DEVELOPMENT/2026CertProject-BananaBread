@@ -1,5 +1,7 @@
+using System.Globalization;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor.Build.Content;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class TeleportDoor : Common
@@ -71,7 +73,7 @@ public class TeleportDoor : Common
             destination.y = 1f;
 
             // Add half the cell size to center it on the grid cell.
-            destination.x = destination.x + (grid.cellSize/2f);
+            destination.x = destination.x + (grid.cellSize / 2f);
             destination.z = destination.z + (grid.cellSize / 2f);
 
             // If the grid is a 0 value...
@@ -79,6 +81,48 @@ public class TeleportDoor : Common
             {
                 // Teleport.
                 collision.gameObject.transform.position = destination;
+            }
+            else if (destinationSpace == 2)
+            {
+                // First, convert the facing direction to string because Crate doesn't use the enum.
+                string doorFacing;
+                if (destinationDoor.Facing == currentDirection.North)
+                {
+                    doorFacing = "North";
+                }
+                else if (destinationDoor.Facing == currentDirection.South)
+                {
+                    doorFacing = "South";
+                }
+                else if (destinationDoor.Facing == currentDirection.West)
+                {
+                    doorFacing = "West";
+                }
+                else
+                {
+                    doorFacing = "East";
+                }
+
+                for (int x = 0; x < crates.Length; x++)
+                {
+                    // Find the crate at the destination door.
+                    if (crates[x].PosX == destinationDoor.PosX && crates[x].PosY == destinationDoor.PosY)
+                    {
+                        //Try to push it.
+                        crates[x].MoveCrate(doorFacing);
+
+                        // Re-obtain the value.
+                        destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
+
+                        // If it's empty now..
+                        if (destinationSpace == 0)
+                        {
+                            // Teleport.
+                            collision.gameObject.transform.position = destination;
+                        }
+                    }
+                }
+
             }
         }
 
