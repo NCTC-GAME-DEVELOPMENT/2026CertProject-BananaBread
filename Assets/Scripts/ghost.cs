@@ -13,8 +13,7 @@ public class ghost : Common
     bool playerC = false;
     protected override void Start()
     {
-        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+       base.Start();
         rb = GetComponent<Rigidbody>();
 
         GridValue = 4;
