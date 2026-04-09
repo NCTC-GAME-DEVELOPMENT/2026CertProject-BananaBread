@@ -25,6 +25,7 @@ public class PushTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Crate crate = other.gameObject.GetComponent<Crate>();
+        ghost g = other.gameObject.GetComponent<ghost>();
 
         if (crate)
         {

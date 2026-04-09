@@ -10,10 +10,10 @@ public class ghost : Common
     private Rigidbody rb;
     int randomMovement;
     public int ghostSpeed = 10;
+    bool playerC = false;
     protected override void Start()
     {
-        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+       base.Start();
         rb = GetComponent<Rigidbody>();
 
         GridValue = 4;
@@ -43,6 +43,7 @@ public class ghost : Common
                 gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                 PosY = PosY - 1;
                 rb.linearVelocity = new Vector3(0, -0, -11);
+                playerC = true;
             }
             if (up == 3)
             {
@@ -50,6 +51,7 @@ public class ghost : Common
                 gt.grid.SetValue(PosX, PosY + 1, (GridValue));
                 PosY = PosY + 1;
                 rb.linearVelocity = new Vector3(0, 0, 11);
+                playerC = true;
             }
             if (left == 3)
             {
@@ -57,6 +59,7 @@ public class ghost : Common
                 gt.grid.SetValue(PosX - 1, PosY, (GridValue));
                 PosX = PosX - 1;
                 rb.linearVelocity = new Vector3(-11, 0, 0);
+                playerC = true;
 
             }
             if (right == 3)
@@ -65,6 +68,7 @@ public class ghost : Common
                 gt.grid.SetValue(PosX + 1, PosY, (GridValue));
                 PosX = PosX + 1;
                 rb.linearVelocity = new Vector3(11, 0, 0);
+                playerC = true;
             }
         }
         if ((down == 1) || (up == 1) || (left == 1) || (right == 1) || (down == 2) || (up == 2) || (left == 2) || (right == 2))
