@@ -2,31 +2,34 @@ using UnityEngine;
 
 public class SwitchGate : Common
 {
+    protected GateForce gf;
     public GameObject Gate;
+    public GameObject ForceVolume;
     public bool IsActive = false;
-    private bool DefaultState;
+    protected bool DefaultState;
 
     protected override void Start()
     {
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gf = GetComponentInChildren<GateForce>();
         StartingPosition = gameObject.transform.position;
+        gf.myPosition = StartingPosition;
 
         DefaultState = IsActive;
         FindStartCoordinates();
         RaiseLowerGate();
     }
 
-    //Find a way to implement this failsafe
-    /*public bool IsGateSpaceOccupied()
+    protected override void Update()
     {
-        if (gt.grid.GetValue(PosX, PosY) == 0 || gt.grid.GetValue(PosX, PosY) == 1)
-        {
-            return true;
-        }
+        base.Update();
 
-        return false;
-    }*/
+        if (!IsActive)
+        {
+            gt.grid.SetValue(PosX, PosY, (1));
+        }
+    }
 
     public void ToggleActivity()
     {
@@ -48,11 +51,13 @@ public class SwitchGate : Common
         if (IsActive)
         {
             Gate.SetActive(false);
+            ForceVolume.SetActive(false);
             gt.grid.SetValue(PosX, PosY, (0));
         }
         else
         {
             Gate.SetActive(true);
+            ForceVolume.SetActive(true);
             gt.grid.SetValue(PosX, PosY, (1));
         }
     }
