@@ -4,7 +4,7 @@ public class SwitchGate : Common
 {
     public GameObject Gate;
     public bool IsActive = false;
-    private bool defaultState;
+    private bool DefaultState;
 
     protected override void Start()
     {
@@ -12,24 +12,35 @@ public class SwitchGate : Common
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         StartingPosition = gameObject.transform.position;
 
-        defaultState = IsActive;
+        DefaultState = IsActive;
         FindStartCoordinates();
         RaiseLowerGate();
     }
 
-    //Oversight: Player or Crate inside of the gate area if it raises again could break level. Find a fix soon.
+    //Find a way to implement this failsafe
+    /*public bool IsGateSpaceOccupied()
+    {
+        if (gt.grid.GetValue(PosX, PosY) == 0 || gt.grid.GetValue(PosX, PosY) == 1)
+        {
+            return true;
+        }
+
+        return false;
+    }*/
+
     public void ToggleActivity()
     {
-        if (IsActive)
-        {
-            IsActive = false;
-        }
-        else
-        {
-            IsActive = true;
-        }
-        Debug.Log("Gate toggled, " + IsActive);
-        RaiseLowerGate();
+        //while (!IsGateSpaceOccupied()) { }
+            if (IsActive)
+            {
+                IsActive = false;
+            }
+            else
+            {
+                IsActive = true;
+            }
+            Debug.Log("Gate toggled, " + IsActive);
+            RaiseLowerGate();
     }
 
     public void RaiseLowerGate()
@@ -48,7 +59,7 @@ public class SwitchGate : Common
 
     public override void ResetPosition()
     {
-        IsActive = defaultState;
+        IsActive = DefaultState;
         RaiseLowerGate();
     }
 }

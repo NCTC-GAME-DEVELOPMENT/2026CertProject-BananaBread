@@ -167,14 +167,14 @@ public class ghost : Common
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX, PosY - 1, (GridValue));
                     PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, -0, -11);
+                    rb.linearVelocity = new Vector3(0, 0, -11);
                 }
                 if (randomMovement == 2)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
                     gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX + 1;
-                    rb.linearVelocity = new Vector3(11, 0, 0);
+                    PosX = PosX - 1;
+                    rb.linearVelocity = new Vector3(-11, 0, 0);
                 }
             }
             if ((up == 1) && (right == 1) || (up == 2) && (right == 1) || (up == 1) && (right == 2))
