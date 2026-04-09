@@ -9,6 +9,7 @@ public class TeleportDoor : Common
 
     public TeleportDoor destinationDoor;
     bool crateDetected = false;
+    bool crateTeleported = false;
 
     //Grid_testing variable.
     private Grid_testing grid;
@@ -51,10 +52,51 @@ public class TeleportDoor : Common
         gameObject.transform.position = location;
 
         // Create an array containing all crates.
-        // The intention is that it'll later sense when a crate is on the teleport spot, and teleport it...
-        // ... when it is shoved into the opposite direction of facing.
-        // May require the function to be written on the crate side, though.
         crates = Object.FindObjectsByType<Crate>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+    }
+
+    // Update for moving crates.
+    protected override void Update()
+    {
+        // If a crate hasn't been teleported.
+        if (!crateTeleported)
+        {
+            // Loop through the crates.
+            for (int x = 0; x < crates.Length; x++)
+            {
+                // If it's at the teleporter...
+                if (crates[x] && crates[x].PosX == PosX && crates[x].PosY == PosY)
+                {
+                    //.. mark the destination as being teleported.
+                    destinationDoor.crateTeleported = true;
+
+                    // Find destination.
+                    Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
+                    // Get destination cell's value.
+                    int destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
+                    // Correct the Y so that it isn't embedded in the floor.
+                    destination.y = 1f;
+
+                    // Add half the cell size to center it on the grid cell.
+                    destination.x = destination.x + (grid.cellSize / 2f);
+                    destination.z = destination.z + (grid.cellSize / 2f);
+
+                    //Send it through.
+                    gt.grid.SetValue(PosX, PosY, (0));
+                    crates[x].PosX = destinationDoor.PosX;
+                    crates[x].PosY = destinationDoor.PosY;
+                    gt.grid.SetValue(destinationDoor.PosX, destinationDoor.PosY, (2));
+                    crates[x].gameObject.transform.position = destination;
+
+
+                }
+            }
+        }
+        // Remove the condition after the teleporter has been cleared again.
+        else if (grid.grid.GetValue(PosX, PosY) != 2)
+        {
+            crateTeleported = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -80,28 +122,15 @@ public class TeleportDoor : Common
             if (destinationSpace == 0)
             {
                 // Teleport.
+                player.PosX = destinationDoor.PosX;
+                player.PosY = destinationDoor.PosY;
+                gt.grid.SetValue(PosX, PosY, (0));
                 collision.gameObject.transform.position = destination;
             }
             else if (destinationSpace == 2)
             {
-                // First, convert the facing direction to string because Crate doesn't use the enum.
-                string doorFacing;
-                if (destinationDoor.Facing == currentDirection.North)
-                {
-                    doorFacing = "North";
-                }
-                else if (destinationDoor.Facing == currentDirection.South)
-                {
-                    doorFacing = "South";
-                }
-                else if (destinationDoor.Facing == currentDirection.West)
-                {
-                    doorFacing = "West";
-                }
-                else
-                {
-                    doorFacing = "East";
-                }
+                // First, convert the facing direction to string.
+                string doorFacing = destinationDoor.Facing.ToString();
 
                 for (int x = 0; x < crates.Length; x++)
                 {
@@ -110,6 +139,10 @@ public class TeleportDoor : Common
                     {
                         //Try to push it.
                         crates[x].MoveCrate(doorFacing);
+                        // Note: crate disappears after being pushed this way.
+                        // But only after being teleported first.
+                        // Not working yet.
+                        // Think I'll alter it to calculate the XY location from current location and destined location.
 
                         // Re-obtain the value.
                         destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
@@ -118,7 +151,10 @@ public class TeleportDoor : Common
                         if (destinationSpace == 0)
                         {
                             // Teleport.
-                            collision.gameObject.transform.position = destination;
+                            player.PosX = destinationDoor.PosX;
+                            player.PosY = destinationDoor.PosY;
+                            gt.grid.SetValue(PosX, PosY, (0));
+                            player.gameObject.transform.position = destination;
                         }
                     }
                 }

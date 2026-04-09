@@ -69,7 +69,7 @@ public class ExitDoor : Common
             for (int x = 0; x < winCrates.Count; x++)
             {
                 // If one of those crates is in position, 
-                if (winCrates[x] && winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
+                if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
                     // Destroy the crate.
                     Destroy(winCrates[x].gameObject);
