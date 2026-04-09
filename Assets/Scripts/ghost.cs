@@ -104,7 +104,7 @@ public class ghost : Common
             }
             if ((down == 1) && (up == 1) || (down == 2) && (up == 1) || (down == 1) && (up == 2) || (down== 2) && (up == 2))
             {
-                randomMovement = Random.Range(1, 2);
+                randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -124,7 +124,7 @@ public class ghost : Common
             }
             if ((down == 1) && (left == 1) || (down == 2) && (left == 1) || (down == 1) && (left == 2))
             {
-                randomMovement = Random.Range(1, 2);
+                randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -142,7 +142,7 @@ public class ghost : Common
             }
             if ((down == 1) && (right == 1) || (down == 2) && (right == 1) || (down == 1) && (right == 2))
             {
-                randomMovement = Random.Range(1, 2);
+                randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -161,7 +161,7 @@ public class ghost : Common
             }
             if ((up == 1) && (left == 1) || (up == 2) && (left == 1) || (up == 1) && (left == 2))
             {
-                randomMovement = Random.Range(1, 2);
+                randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -179,7 +179,7 @@ public class ghost : Common
             }
             if ((up == 1) && (right == 1) || (up == 2) && (right == 1) || (up == 1) && (right == 2))
             {
-                randomMovement = Random.Range(1, 2);
+                randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -198,7 +198,7 @@ public class ghost : Common
             }
             if ((left == 1) && (right == 1) || (left == 2) && (right == 1) || (left == 1) && (right == 2))
             {
-                randomMovement = Random.Range(1, 2);
+                randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -216,7 +216,7 @@ public class ghost : Common
             }
             if ((down == 1) || (down == 2))
             {
-                randomMovement = Random.Range(1, 3);
+                randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -242,7 +242,7 @@ public class ghost : Common
             }
             if ((up == 1) || (up == 2))
             {
-                randomMovement = Random.Range(1, 3);
+                randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -269,7 +269,7 @@ public class ghost : Common
             if ((left == 1) || (left == 2))
             {
                 Debug.Log("left wall");
-                randomMovement = Random.Range(1, 3);
+                randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -295,7 +295,7 @@ public class ghost : Common
             if ((right == 1) || (right == 2))
             {
                 Debug.Log("right wall");
-                randomMovement = Random.Range(1, 3);
+                randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
                     gt.grid.SetValue(PosX, PosY, (0));
@@ -323,7 +323,7 @@ public class ghost : Common
         }
         if (down == 0 && up == 0 && left == 0 && right == 0)
         {
-            randomMovement = Random.Range(1, 4);
+            randomMovement = Random.Range(1, 5);
 
             if (randomMovement == 1)
             {
