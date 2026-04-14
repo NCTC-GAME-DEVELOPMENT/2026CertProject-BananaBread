@@ -318,7 +318,8 @@ MonoBehaviour:
   PosY: 0
   Facing: 0
   CanReset: 1
-  Connection: {fileID: 5758833681022516064}
+  Connections:
+  - {fileID: 8301326667329640924}
   PlayersOnly: 0
   CratesOnly: 0
 --- !u!1 &8301326667329640924

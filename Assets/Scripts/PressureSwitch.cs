@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PressureSwitch : Common
 {
-    public SwitchGate Connection;
+    public SwitchGate[] Connections;
     //To Determine if a switch will only work if a player or a crate steps on it
     bool IsActive = false;
     public bool PlayersOnly = false;
@@ -29,15 +29,18 @@ public class PressureSwitch : Common
 
         if (!IsActive)
         {
-            if (pc && !CratesOnly)
+            for (int c = 0; c < Connections.Length; c++)
             {
-                Connection.ToggleActivity();
-                IsActive = true;
-            }
-            if (crate && !PlayersOnly)
-            {
-                Connection.ToggleActivity();
-                IsActive = true;
+                if (pc && !CratesOnly)
+                {
+                    Connections[c].ToggleActivity();
+                    IsActive = true;
+                }
+                if (crate && !PlayersOnly)
+                {
+                    Connections[c].ToggleActivity();
+                    IsActive = true;
+                }
             }
         }
     }
@@ -47,20 +50,23 @@ public class PressureSwitch : Common
         PlayerController pc = other.GetComponent<PlayerController>();
         Crate crate = other.GetComponent<Crate>();
 
-        if (gt.grid.GetValue(PosX, PosY) == 0)
+        for (int c = 0; c < Connections.Length; c++)
         {
-            if (pc && !CratesOnly)
+            if (gt.grid.GetValue(PosX, PosY) == 0)
             {
-                Debug.Log("Switch Stepped Off, Player");
-                Connection.ToggleActivity();
-                IsActive = false;
-            }
+                if (pc && !CratesOnly)
+                {
+                    Debug.Log("Switch Stepped Off, Player");
+                    Connections[c].ToggleActivity();
+                    IsActive = false;
+                }
 
-            if (crate && !PlayersOnly)
-            {
-                Debug.Log("Switch Stepped Off, Crate");
-                Connection.ToggleActivity();
-                IsActive = false;
+                if (crate && !PlayersOnly)
+                {
+                    Debug.Log("Switch Stepped Off, Crate");
+                    Connections[c].ToggleActivity();
+                    IsActive = false;
+                }
             }
         }
     }
