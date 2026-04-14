@@ -19,6 +19,11 @@ public class SwitchGate : Common
         gf.myPosition = StartingPosition;
 
         DefaultState = IsActive;
+
+        if (Facing == currentDirection.North || Facing == currentDirection.South)
+        {
+            Gate.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        }
         FindStartCoordinates();
         RaiseLowerGate();
     }

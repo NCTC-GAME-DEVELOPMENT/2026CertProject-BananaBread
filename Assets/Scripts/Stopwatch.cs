@@ -45,4 +45,10 @@ public class Stopwatch : MonoBehaviour
     {
         stopwatchActive = false;
     }
+
+    public string FinalTimeText()
+    {
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);
+        return time.ToString(@"m\:ss\:fff");
+    }
 }

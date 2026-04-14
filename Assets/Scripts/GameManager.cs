@@ -11,12 +11,16 @@ public class GameManager : Info
     private PlayerController P1;
     private PlayerController P2;
     private Stopwatch stopwatch;
+    private GameObject ClearScreen;
 
     private void Start()
     {
         P1 = GameObject.Find("P1").GetComponent<PlayerController>();
         P2 = GameObject.Find("P2").GetComponent<PlayerController>();
         stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>();
+        ClearScreen = GameObject.Find("ClearScreen");
+
+        ClearScreen.SetActive(false);
     }
 
     private void Update()
@@ -34,6 +38,13 @@ public class GameManager : Info
         stopwatch.stopwatchActive = true;
         P1.IsActive = true;
         P2.IsActive = true;
+    }
+
+    public void ClearLevel()
+    {
+        //When a level is cleared, calls this function
+        stopwatch.stopwatchActive = false;
+        ClearScreen.SetActive(true);
     }
 
     //If Both players are 'Caught', Game Over!
