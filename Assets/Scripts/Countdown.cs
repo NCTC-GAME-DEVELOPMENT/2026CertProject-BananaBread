@@ -9,21 +9,28 @@ public class Countdown : MonoBehaviour
 	public TextMeshProUGUI NumberText;
     public GameObject CdText;
     public GameObject GoText;
+	private GameManager gm;
 	
 	public int TimeValue = 3;
 
 	void Start()
 	{
-		GoText.SetActive(false);
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        CdText = GameObject.Find("CountdownText");
+        GoText = GameObject.Find("GoText");
+		NumberText = CdText.GetComponent<TextMeshProUGUI>();
+
+        GoText.SetActive(false);
 		StartCoroutine(TickDownTime(TimeValue));
 	}
 
 	IEnumerator TickDownTime(int tv)
 	{
-		for (int t = tv; t > 0; t--)
+        NumberText.text = tv.ToString();
+        for (int t = tv; t > 0; t--)
 		{
-			yield return new WaitForSeconds(1.0f);
-			NumberText.text = TimeValue.ToString();
+            NumberText.text = t.ToString();
+            yield return new WaitForSeconds(1.0f);
 		}
 
 		CdText.SetActive(false);
@@ -31,5 +38,6 @@ public class Countdown : MonoBehaviour
 
 		yield return new WaitForSeconds(1.0f);
 		GoText.SetActive(false);
+		gm.StartGame();
 	}
 }

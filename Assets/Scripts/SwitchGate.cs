@@ -35,7 +35,6 @@ public class SwitchGate : Common
 
     public void ToggleActivity()
     {
-        //while (!IsGateSpaceOccupied()) { }
             if (IsActive)
             {
                 IsActive = false;

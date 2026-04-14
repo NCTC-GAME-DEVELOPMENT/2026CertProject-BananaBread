@@ -17,7 +17,8 @@ public class PlayerController : Controller
     public Animator anim;
     public bool LogInputStateInfo = false;
     public bool IsCaught = false;
-    public bool IsPushing = false;
+    public bool IsActive = false;
+    private bool IsPushing = false;
     public float MoveSpeed = 1.0f;
 
     public int PosX;
@@ -108,7 +109,7 @@ public class PlayerController : Controller
         Vector3 gridPos = gt.grid.GetWorldPosition(PosX, PosY) + new Vector3(gt.cellSize, 0, gt.cellSize) * .5f;
         Vector3 myPos = gameObject.transform.position;
 
-        if (!IsCaught)
+        if (!IsCaught && IsActive)
         {
             if (myPos.z > gridPos.z + 1.5)
             {
@@ -152,7 +153,7 @@ public class PlayerController : Controller
 
     protected virtual void ProcessInput()
     {
-        if (!IsCaught)
+        if (!IsCaught && IsActive)
         {
             if (InputCurrent.buttonEast)
             {

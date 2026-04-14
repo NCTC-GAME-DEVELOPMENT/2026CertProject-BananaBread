@@ -14,7 +14,7 @@ public class Grid
     public const int sortingOrderDefault = 5000;
 
     // grid size
-    public Grid(int width, int height, float cellSize, Vector3 originPosition, GameObject volume)
+    public Grid(int width, int height, float cellSize, Vector3 originPosition)
     {
         this.width = width;
         this.height = height;

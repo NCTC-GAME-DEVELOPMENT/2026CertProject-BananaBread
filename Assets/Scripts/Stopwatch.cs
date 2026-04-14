@@ -10,12 +10,15 @@ public class Stopwatch : MonoBehaviour
     public bool stopwatchActive;
     public float currentTime;
     public int startTime;
-    public TextMeshProUGUI[] StopwatchText;
-    public TextMeshProUGUI[] FinalTime;
-    public GameObject GameManager;
+    public TextMeshProUGUI StopwatchText;
+    public TextMeshProUGUI FinalTime;
+    public GameObject gm;
 
     void Start()
     {
+        gm = GameObject.Find("GameManager");
+        StopwatchText = GameObject.Find("Stopwatch").GetComponent<TextMeshProUGUI>();
+        FinalTime = GameObject.Find("FinalTime").GetComponent<TextMeshProUGUI>();
         currentTime = 0;
         stopwatchActive = false;
     }
@@ -25,32 +28,21 @@ public class Stopwatch : MonoBehaviour
         if (stopwatchActive == true)
         {
             currentTime = currentTime + Time.deltaTime;
-            if (currentTime >= 120 )
+            if (currentTime >= 5999 )
             {
                 stopwatchActive = false;
                 Debug.Log("Too much time taken! Game Failed!");
             }
         }
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
-        /*if (!GameManager.IsUsingKeyboard) {
-            StopwatchText[0].text = time.ToString(@"m\:ss\:fff");
-            StopwatchText[1].text = time.ToString(@"m\:ss\:fff");
-        }
-        else
-        {
-            StopwatchText[2].text = time.ToString(@"m\:ss\:fff");
-        }
 
-        if (!stopwatchActive)
-        {
-            if (!GameManager.IsUsingKeyboard) {
-            FinalTime[0].text = time.ToString(@"m\:ss\:fff");
-            FinalTime[1].text = time.ToString(@"m\:ss\:fff");
-            }
-            else
-            {
-                FinalTime[2].text = time.ToString(@"m\:ss\:fff");
-            }
-        }*/
+        StopwatchText.text = time.ToString(@"m\:ss\:fff");
+
+        FinalTime.text = time.ToString(@"m\:ss\:fff");
+    }
+
+    public void PauseBetweenLevels()
+    {
+        stopwatchActive = false;
     }
 }
