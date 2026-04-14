@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Animations;
 using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerController : Controller
@@ -13,8 +14,10 @@ public class PlayerController : Controller
     private Grid_testing gt;
     private GameManager gm;
 
+    public Animator anim;
     public bool LogInputStateInfo = false;
     public bool IsCaught = false;
+    public bool IsPushing = false;
     public float MoveSpeed = 1.0f;
 
     public int PosX;
@@ -45,6 +48,7 @@ public class PlayerController : Controller
         base.Start();
         IsHuman = true;
 
+        anim = GetComponentInChildren<Animator>();
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
@@ -60,8 +64,9 @@ public class PlayerController : Controller
         else
         {
             Debug.Log("Rigidbody Found");
+            
         }
-
+        
         if (!inputPoller)
         {
             LOG_ERROR("****PLAYER CONTROLER: No Input Poller in Scene");
@@ -153,23 +158,28 @@ public class PlayerController : Controller
             {
                 Push(InputCurrent.buttonEast);
             }
-            if (InputCurrent.selectButton)
+            if (!IsPushing)
             {
-                ResetLevel(InputCurrent.selectButton);
-            }
+                if (InputCurrent.selectButton)
+                {
+                    ResetLevel(InputCurrent.selectButton);
+                }
 
-            PlayerMovement(InputCurrent.leftStick);
+                PlayerMovement(InputCurrent.leftStick);
+            }
         }
     }
 
     //Tests for which direction the player moves in, then rotates the player accordingly.
     public virtual void PlayerMovement(Vector2 value)
     {
-        
+        if (!IsPushing)
+        {
         if (Mathf.Abs(value.x) > Mathf.Abs(value.y))
         {
             if (value.x > 0)
             {
+                anim.SetBool("IsMoving", true);
                 Facing = currentDirection.East;
                 //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * value.x * MoveSpeed;
@@ -177,6 +187,7 @@ public class PlayerController : Controller
             }
             else
             {
+                anim.SetBool("IsMoving", true);
                 Facing = currentDirection.West;
                 //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * (value.x * -1) * MoveSpeed;
@@ -187,6 +198,7 @@ public class PlayerController : Controller
         {
             if (value.y > 0)
             {
+                anim.SetBool("IsMoving", true);
                 Facing = currentDirection.North;
                 //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * value.y * MoveSpeed;
@@ -194,14 +206,17 @@ public class PlayerController : Controller
             }
             else
             {
+                anim.SetBool("IsMoving", false);
                 rb.linearVelocity = gameObject.transform.forward * (value.y * -1) * MoveSpeed;
-                if (value.y < 0) 
+                if (value.y < 0)
                 {
+                    anim.SetBool("IsMoving", true);
                     rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                     Facing = currentDirection.South;
                     //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 }
             }
+        }
         }
     }
 
@@ -210,6 +225,9 @@ public class PlayerController : Controller
         if (value)
         {
             LOG("Push Push");
+            IsPushing = true;
+            anim.SetBool("IsPushing", true);
+            StartCoroutine(Cooldown(0.3f));
             StartCoroutine(pt.PushAction());
         }
     }
@@ -225,5 +243,12 @@ public class PlayerController : Controller
 
         rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
         Facing = currentDirection.East;
+    }
+
+    IEnumerator Cooldown(float value)
+    {
+        yield return new WaitForSeconds(value);
+        anim.SetBool("IsPushing", false);
+        IsPushing = false;
     }
 }

@@ -17,6 +17,7 @@ public class PushTrigger : MonoBehaviour
 
     public IEnumerator PushAction()
     {
+        yield return new WaitForSeconds(0.1f);
         PushVolume.enabled = true;
         yield return new WaitForSeconds(0.25f);
         PushVolume.enabled = false;

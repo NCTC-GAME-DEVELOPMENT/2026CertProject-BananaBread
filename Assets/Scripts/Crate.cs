@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class Crate : Common
 {
     float moveAmount = 3.0f;
+    public Animator anim;
 
     //PlayerController senses a crate to push in front of it.
     //If success, pushes the crate in its facing direction, moving x or y based on the current push direction.
@@ -10,6 +12,7 @@ public class Crate : Common
     protected override void Start()
     {
         base.Start();
+        anim = GetComponentInChildren<Animator>();
 
         GridValue = 2;
         gt.grid.SetValue(PosX, PosY, (GridValue));
@@ -21,35 +24,43 @@ public class Crate : Common
         {
             if (direction == "North")
             {
+                anim.SetBool("PushNorth", true);
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosY += 1;
                 gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z + moveAmount));
                 myPosition = gameObject.transform.position;
+                StartCoroutine(Cooldown(0.5f));
             }
             else if (direction == "South")
             {
+                anim.SetBool("PushSouth", true);
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosY -= 1;
                 gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z - moveAmount));
                 myPosition = gameObject.transform.position;
+                StartCoroutine(Cooldown(0.5f));
             }
             else if (direction == "East")
             {
+                anim.SetBool("PushEast", true);
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosX += 1;
                 gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3((myPosition.x + moveAmount), myPosition.y, myPosition.z);
                 myPosition = gameObject.transform.position;
+                StartCoroutine(Cooldown(0.5f));
             }
             else
             {
+                anim.SetBool("PushWest", true);
                 gt.grid.SetValue(PosX, PosY, (0));
                 PosX -= 1;
                 gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
                 myPosition = gameObject.transform.position;
+                StartCoroutine(Cooldown(0.5f));
             }
         }
     }
@@ -79,4 +90,13 @@ public class Crate : Common
             return false;
         }
     }
-}
+
+        IEnumerator Cooldown(float value)
+        {
+            yield return new WaitForSeconds(value);
+            anim.SetBool("PushNorth", false);
+            anim.SetBool("PushEast", false);
+            anim.SetBool("PushSouth", false);
+            anim.SetBool("PushWest", false);
+        }
+    }
