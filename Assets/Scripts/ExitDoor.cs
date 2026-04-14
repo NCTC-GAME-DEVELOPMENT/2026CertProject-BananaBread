@@ -20,6 +20,9 @@ public class ExitDoor : Common
     //Grid_testing variable.
     private Grid_testing grid;
 
+    //Get the game manager.
+    private GameManager manager;
+
     //A list is a bit better to work with than an array.
     private List<QueryCrate> winCrates = new List<QueryCrate>();
 
@@ -33,6 +36,9 @@ public class ExitDoor : Common
 
         // Get the grid.
         grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
+
+        // Get the manager.
+        manager = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
 
         //Default scene name to reset the local scene.
         if (sceneName.Length == 0) sceneName = SceneManager.GetActiveScene().name;
@@ -122,20 +128,9 @@ public class ExitDoor : Common
         // If the player enters after the create is sent, win.
         if (player && PlayerLeft && CrateSent)
         {
-            PlayerWins();
+            manager.ClearLevel();
         }
     }
-
-    // Made a separate function for simpler modifying and use.
-    public void PlayerWins()
-    {
-        Debug.Log("You win!");
-        // Currently rough.
-        // If loading current scene, wont re-initialize the code.
-        // Other scenes require being in the scene manager.
-        SceneManager.LoadScene(sceneName);
-    }
-
 
     // Turned this into a script so that it can be called by the crate.
     public void SendQueryCrate(QueryCrate inCrate)

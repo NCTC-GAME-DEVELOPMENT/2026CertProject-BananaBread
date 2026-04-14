@@ -12,7 +12,9 @@ using static UnityEngine.Rendering.DebugUI;
  * 
  * This is because of how crates innately work, and the CanPushHere function.
  * 
- * Short-term hacky answer is to design puzzles so that crates have to be pushed into doors, and out from doors.
+ * Would need to allow crates to sense doors somehow, and then add that to the push conditions that bypasses CanPushHere.
+ * 
+ * Short-term hacky answer is to design puzzles so that crates can only be pushed into doors, and out from doors. Never pushed in while at door position.
  */
 
 
@@ -20,7 +22,6 @@ public class TeleportDoor : Common
 {
 
     public TeleportDoor destinationDoor;
-    bool crateDetected = false;
     bool crateTeleported = false;
 
     //Grid_testing variable.
@@ -151,7 +152,6 @@ public class TeleportDoor : Common
                     {
                         //Try to push it.
                         crates[x].MoveCrate(doorFacing);
-                        // Note: crate disappears after being pushed this way.
 
                         // Re-obtain the value.
                         destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);

@@ -181,7 +181,6 @@ MonoBehaviour:
   height: 6
   cellSize: 3
   origin: {x: -18, y: 0, z: -9}
-  sensor: {fileID: 0}
 --- !u!114 &81778961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2807,7 +2806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.364056
+      value: -16.5
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2815,7 +2814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.4365783
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalRotation.w
