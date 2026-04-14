@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ExitDoor : Common
 {
@@ -9,6 +11,9 @@ public class ExitDoor : Common
     bool CrateSent = false;
     // Bool check for first player going through.
     bool PlayerLeft = false;
+
+    float timer = 0f;
+    float waitTime = 2.0f;
 
     public string sceneName;
 
@@ -22,6 +27,9 @@ public class ExitDoor : Common
     protected override void Start()
     {
         base.Start();
+
+        // Start the timer.
+        timer = waitTime;
 
         // Get the grid.
         grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
@@ -71,14 +79,17 @@ public class ExitDoor : Common
                 // If one of those crates is in position, 
                 if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
-                    // Destroy the crate.
-                    Destroy(winCrates[x].gameObject);
-                    // Remove from the list.
-                    winCrates.RemoveAt(x);
-                    // Changes grid value to 0.
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    // Log the change.
-                    Debug.Log($"Crates left: {winCrates.Count}!");
+                    // Start the timer.
+                    if (timer > 0)
+                    {
+                        timer -= Time.deltaTime;
+                    }
+                    // Once the timer is up..
+                    else
+                    {
+                        SendQueryCrate(winCrates[x]);
+                    }
+
 
                 }
             }
@@ -123,5 +134,27 @@ public class ExitDoor : Common
         // If loading current scene, wont re-initialize the code.
         // Other scenes require being in the scene manager.
         SceneManager.LoadScene(sceneName);
+    }
+
+
+    // Turned this into a script so that it can be called by the crate.
+    public void SendQueryCrate(QueryCrate inCrate)
+    {
+        // Loop through the crates.
+        for (int x = 0; x < winCrates.Count; x++)
+        {
+            // If one of those crates is the caller. 
+            if (winCrates[x] == inCrate)
+            {
+                // Destroy the crate.
+                Destroy(inCrate.gameObject);
+                // Remove from the list.
+                winCrates.RemoveAt(x);
+                // Changes grid value to 0.
+                gt.grid.SetValue(PosX, PosY, (0));
+                // Log the change.
+                Debug.Log($"Crates left: {winCrates.Count}!");
+            }
+        }
     }
 }

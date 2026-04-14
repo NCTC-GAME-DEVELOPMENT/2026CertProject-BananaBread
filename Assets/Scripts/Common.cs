@@ -44,6 +44,20 @@ public class Common : MonoBehaviour
         }
     }
 
+    public virtual void ChangeLocation(int newX, int newY, Vector3 newLocation)
+    {
+        // Set value to 0.
+        gt.grid.SetValue(PosX, PosY, (0));
+        // Alter PosX, PosY, and myPosition.
+        PosX = newX;
+        PosY = newY;
+        myPosition = newLocation;
+        //Physically move it.
+        gameObject.transform.position = newLocation;
+        // Set the new position to the grid value.
+        gt.grid.SetValue(PosX, PosY, (GridValue));
+    }
+
     //Uses the object's world position to set its starting coordinates
     public virtual void FindStartCoordinates()
     {

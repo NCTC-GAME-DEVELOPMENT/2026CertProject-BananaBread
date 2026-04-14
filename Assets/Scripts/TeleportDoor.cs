@@ -1,8 +1,20 @@
 using System.Globalization;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+
+/*
+ * Not one behavior.
+ * You can't push a crate into a door.
+ * 
+ * This is because of how crates innately work, and the CanPushHere function.
+ * 
+ * Short-term hacky answer is to design puzzles so that crates have to be pushed into doors, and out from doors.
+ */
+
 
 public class TeleportDoor : Common
 {
@@ -64,7 +76,7 @@ public class TeleportDoor : Common
             // Loop through the crates.
             for (int x = 0; x < crates.Length; x++)
             {
-                // If it's at the teleporter...
+                // If it's at the current teleporter...
                 if (crates[x] && crates[x].PosX == PosX && crates[x].PosY == PosY)
                 {
                     //.. mark the destination as being teleported.
@@ -81,13 +93,13 @@ public class TeleportDoor : Common
                     destination.x = destination.x + (grid.cellSize / 2f);
                     destination.z = destination.z + (grid.cellSize / 2f);
 
-                    //Send it through.
+                    //Set the old position to 0.
                     gt.grid.SetValue(PosX, PosY, (0));
-                    crates[x].PosX = destinationDoor.PosX;
-                    crates[x].PosY = destinationDoor.PosY;
+                    // Set the PosX and PosY to the new destination.
+                    // Set its internal position to the position.
+                    crates[x].ChangeLocation(destinationDoor.PosX, destinationDoor.PosY, destination);
+                    // Set the destination to the new value..
                     gt.grid.SetValue(destinationDoor.PosX, destinationDoor.PosY, (2));
-                    crates[x].gameObject.transform.position = destination;
-
 
                 }
             }
@@ -126,7 +138,7 @@ public class TeleportDoor : Common
                 player.PosY = destinationDoor.PosY;
                 gt.grid.SetValue(PosX, PosY, (0));
                 collision.gameObject.transform.position = destination;
-            }
+            } // Else if there's a pushable block.
             else if (destinationSpace == 2)
             {
                 // First, convert the facing direction to string.
@@ -140,9 +152,6 @@ public class TeleportDoor : Common
                         //Try to push it.
                         crates[x].MoveCrate(doorFacing);
                         // Note: crate disappears after being pushed this way.
-                        // But only after being teleported first.
-                        // Not working yet.
-                        // Think I'll alter it to calculate the XY location from current location and destined location.
 
                         // Re-obtain the value.
                         destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
