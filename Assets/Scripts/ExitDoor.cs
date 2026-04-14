@@ -129,6 +129,7 @@ public class ExitDoor : Common
         // If the player enters after the create is sent, win.
         if (player && PlayerLeft && CrateSent)
         {
+            Destroy(collision.gameObject);
             manager.ClearLevel();
         }
     }

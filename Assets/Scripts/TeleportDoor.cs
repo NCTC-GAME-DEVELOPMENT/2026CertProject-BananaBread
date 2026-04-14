@@ -7,14 +7,17 @@ using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
 /*
- * Not one behavior.
- * You can't push a crate into a door.
+ * Note one behavior.
+ * 
+ * You can't push a crate into a door from in front of the door.
  * 
  * This is because of how crates innately work, and the CanPushHere function.
  * 
- * Would need to allow crates to sense doors somehow, and then add that to the push conditions that bypasses CanPushHere.
+ * This would need to be solved on the crate side.
  * 
  * Short-term hacky answer is to design puzzles so that crates can only be pushed into doors, and out from doors. Never pushed in while at door position.
+ * 
+ * It's not wonderful, but no reason we can't design things that way.
  */
 
 
@@ -27,6 +30,7 @@ public class TeleportDoor : Common
     //Grid_testing variable.
     private Grid_testing grid;
 
+    // Array for all crates in level.
     private Crate[] crates;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,7 +42,9 @@ public class TeleportDoor : Common
         grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
 
-
+        // Code for moving self to center wall of grid space.
+        // It is troublesome and doesn't work cleanly..
+        // But you need to cleanly tell where it is in the grid.
         Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(PosX, PosY);
         if(Facing == currentDirection.West)
         {
@@ -51,7 +57,6 @@ public class TeleportDoor : Common
         }
         else if (Facing == currentDirection.North)
         {
-            //location.z = location.z + (grid.cellSize /2f);
             location.x = location.x + (grid.cellSize /2f);
         }
         else
@@ -60,11 +65,12 @@ public class TeleportDoor : Common
             location.z = location.z + (grid.cellSize);
 
         }
-
+        // Keep it from being embedded in floor.
         location.y = 1;
+        // Move to location.
         gameObject.transform.position = location;
 
-        // Create an array containing all crates.
+        // Fillcrate array with all crates.
         crates = Object.FindObjectsByType<Crate>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
     }
 
@@ -82,6 +88,8 @@ public class TeleportDoor : Common
                 {
                     //.. mark the destination as being teleported.
                     destinationDoor.crateTeleported = true;
+                    // And self to keep further teleportations from happening.
+                    crateTeleported = true;
 
                     // Find destination.
                     Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
@@ -105,10 +113,12 @@ public class TeleportDoor : Common
                 }
             }
         }
-        // Remove the condition after the teleporter has been cleared again.
-        else if (grid.grid.GetValue(PosX, PosY) != 2)
+        // If both the door and destination are 0..
+        else if (grid.grid.GetValue(PosX, PosY) != 2 && grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY) != 2)
         {
+            // Set the crateTeleported variables back to false.
             crateTeleported = false;
+            destinationDoor.crateTeleported = false;
         }
     }
 
@@ -137,8 +147,9 @@ public class TeleportDoor : Common
                 // Teleport.
                 player.PosX = destinationDoor.PosX;
                 player.PosY = destinationDoor.PosY;
-                gt.grid.SetValue(PosX, PosY, (0));
                 collision.gameObject.transform.position = destination;
+                gt.grid.SetValue(PosX, PosY, (0));
+
             } // Else if there's a pushable block.
             else if (destinationSpace == 2)
             {
@@ -162,8 +173,9 @@ public class TeleportDoor : Common
                             // Teleport.
                             player.PosX = destinationDoor.PosX;
                             player.PosY = destinationDoor.PosY;
-                            gt.grid.SetValue(PosX, PosY, (0));
                             player.gameObject.transform.position = destination;
+                            gt.grid.SetValue(PosX, PosY, (0));
+
                         }
                     }
                 }
