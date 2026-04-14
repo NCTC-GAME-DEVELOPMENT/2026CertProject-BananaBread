@@ -94,6 +94,7 @@ public class ExitDoor : Common
                     else
                     {
                         SendQueryCrate(winCrates[x]);
+                        timer = waitTime;
                     }
 
 
