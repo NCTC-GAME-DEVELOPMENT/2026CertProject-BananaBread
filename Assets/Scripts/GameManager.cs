@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : Info
@@ -12,6 +13,7 @@ public class GameManager : Info
     private PlayerController P2;
     private Stopwatch stopwatch;
     private GameObject ClearScreen;
+    private TextMeshProUGUI FinalTime;
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class GameManager : Info
         P2 = GameObject.Find("P2").GetComponent<PlayerController>();
         stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>();
         ClearScreen = GameObject.Find("ClearScreen");
+        FinalTime = GameObject.Find("FinalTime").GetComponent<TextMeshProUGUI>();
 
         ClearScreen.SetActive(false);
     }
@@ -44,6 +47,7 @@ public class GameManager : Info
     {
         //When a level is cleared, calls this function
         stopwatch.stopwatchActive = false;
+        FinalTime.text = stopwatch.FinalTimeText();
         ClearScreen.SetActive(true);
     }
 

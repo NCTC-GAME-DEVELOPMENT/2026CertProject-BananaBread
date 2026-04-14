@@ -369,13 +369,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106345283}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 271261879}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &127146498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3613,7 +3613,6 @@ MonoBehaviour:
   currentTime: 0
   startTime: 0
   StopwatchText: {fileID: 0}
-  FinalTime: {fileID: 0}
   gm: {fileID: 0}
 --- !u!4 &1027955421
 Transform:
@@ -8066,16 +8065,35 @@ PrefabInstance:
     - target: {fileID: 3118530119920983789, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 8753239082632938273}
+    - target: {fileID: 3118530119920983789, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Button_mainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 4273601378905989253, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 8753239082632938273}
+    - target: {fileID: 4273601378905989253, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Button_NextLevel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
+--- !u!114 &8753239082632938273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8422241392635816435, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
+  m_PrefabInstance: {fileID: 8753239082632938272}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6b1bcd490529a4abd89ca98a64a5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
