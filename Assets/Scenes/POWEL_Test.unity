@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 81778959}
   - component: {fileID: 81778958}
   - component: {fileID: 81778960}
+  - component: {fileID: 81778961}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -530,7 +531,19 @@ MonoBehaviour:
   height: 6
   cellSize: 3
   origin: {x: -18, y: 0, z: -9}
-  sensor: {fileID: 0}
+--- !u!114 &81778961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81778957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b7c475b3e4cf24a9d9cf31e371163b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsResetTriggered: 0
 --- !u!1 &144970489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,6 +1453,7 @@ GameObject:
   - component: {fileID: 1569302671}
   - component: {fileID: 1569302670}
   - component: {fileID: 1569302669}
+  - component: {fileID: 1569302674}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -1557,12 +1571,29 @@ Transform:
   m_GameObject: {fileID: 1569302668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.45, y: 1.2, z: 5.75}
+  m_LocalPosition: {x: 13.5, y: 1.2, z: 4.5}
   m_LocalScale: {x: 1.25, y: 2.5, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569302674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569302668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bb692dde20bc647b8a2cfc613566ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PosX: 0
+  PosY: 0
+  Facing: 0
+  CanReset: 1
+  ghostSpeed: 10
 --- !u!1 &1657895655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,7 +2022,10 @@ MonoBehaviour:
   InputPlayerNumber: 2
   PlayerNumber: 2
   pt: {fileID: 1859763121}
+  anim: {fileID: 0}
   LogInputStateInfo: 0
+  IsCaught: 0
+  IsActive: 0
   MoveSpeed: 5
   PosX: 0
   PosY: 0
@@ -2445,7 +2479,10 @@ MonoBehaviour:
   InputPlayerNumber: 1
   PlayerNumber: 1
   pt: {fileID: 1093667743}
+  anim: {fileID: 0}
   LogInputStateInfo: 0
+  IsCaught: 0
+  IsActive: 0
   MoveSpeed: 5
   PosX: 0
   PosY: 0

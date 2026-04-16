@@ -7,6 +7,7 @@ public class ghost : Common
 {
     
     private int down, up, left, right;
+    private bool downBlocked, upBlocked, leftBlocked, rightBlocked;
     private Rigidbody rb;
     int randomMovement;
     public int ghostSpeed = 10;
@@ -15,6 +16,9 @@ public class ghost : Common
     {
        base.Start();
         rb = GetComponent<Rigidbody>();
+
+        // Set default values to false.
+        clearBlocks();
 
         GridValue = 4;
         StartCoroutine(DelayCoroutine());
@@ -35,330 +39,302 @@ public class ghost : Common
         up = gt.grid.GetValue(PosX, PosY + 1);
         left = gt.grid.GetValue(PosX - 1, PosY);
         right = gt.grid.GetValue(PosX + 1, PosY);
+
+        // Check for blockages at the start.
+        if (down == 1 || down == 2 || down == -1)
+        {
+            downBlocked = true;
+        }
+        if (left == -1 || left == 1 || left == 2)
+        {
+            leftBlocked = true;
+        }
+        if (right == -1 || right == 1 || right == 2)
+        {
+            rightBlocked = true;
+        }
+        if (up == -1 || up == 1 || up == 2)
+        {
+            upBlocked = true;
+        }
+
+        // Checking for player in adjacent space.
         if ((down == 3) || (up == 3) || (left == 3) || (right == 3))
         {
             if (down == 3)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                PosY = PosY - 1;
-                rb.linearVelocity = new Vector3(0, -0, -11);
-                playerC = true;
+                moveDown();
             }
             if (up == 3)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                PosY = PosY + 1;
-                rb.linearVelocity = new Vector3(0, 0, 11);
-                playerC = true;
+                moveUp();
             }
             if (left == 3)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                PosX = PosX - 1;
-                rb.linearVelocity = new Vector3(-11, 0, 0);
-                playerC = true;
+                moveLeft();
 
             }
             if (right == 3)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                PosX = PosX + 1;
-                rb.linearVelocity = new Vector3(11, 0, 0);
-                playerC = true;
+                moveRight();
             }
         }
-        if ((down == 1) || (up == 1) || (left == 1) || (right == 1) || (down == 2) || (up == 2) || (left == 2) || (right == 2))
+        // The blockages checks.
+        else if (upBlocked || downBlocked || leftBlocked || rightBlocked)
         {
-            if ((down == 1) && (up == 1) && (left == 1) && (right == 1) || ((down == 2) & (up == 1) & (left == 1) & (right == 1)) || ((down == 1) & (up == 2) & (left == 1) & (right == 1)) || ((down == 1) & (up == 1) & (left == 2) & (right == 1)) || ((down == 1) & (up == 1) & (left == 1) & (right == 2)))
+            // If blocked on all sides, give debug message.
+            if (upBlocked && downBlocked && leftBlocked && rightBlocked)
             {
                 Debug.Log("Ghost Trapped");
             }
-            if ((down == 1) && (up == 1) && (left == 1))
+            // If blocked on up/down/left, move right.
+            else if (downBlocked && upBlocked && leftBlocked)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                PosX = PosX + 1;
-                rb.linearVelocity = new Vector3(11, 0, 0);
+                moveRight();
             }
-            if ((down == 1) && (up == 1) && (right == 1) || (down == 2) && (up == 1) && (right == 1) || (down == 1) && (up == 2) && (right == 1) ||(down == 1) && (up == 1) && (right == 2))
+            // If blocked on down/up/right, move left.
+            else if (downBlocked && upBlocked && rightBlocked)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                PosX = PosX - 1;
-                rb.linearVelocity = new Vector3(-11, 0, 0);
+                moveLeft();
 
             }
-            if ((down == 1) && (right == 1) && (left == 1) || (down == 2) && (right == 1) && (left == 1) || (down == 1) && (right == 2) && (left == 1) || (down == 1) && (right == 1) && (left == 2))
+            // If blocked down/right/left, move up.
+            else if (downBlocked && rightBlocked && leftBlocked)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                PosY = PosY + 1;
-                rb.linearVelocity = new Vector3(0, 0, 11);
+                moveUp();
             }
-            if ((right == 1) && (up == 1) && (left == 1))
+            // If blocked right up and left, move down.
+            else if (downBlocked && rightBlocked && leftBlocked)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                PosY = PosY - 1;
-                rb.linearVelocity = new Vector3(0, 0, -11);
+                moveDown();
             }
-            if ((down == 1) && (up == 1) || (down == 2) && (up == 1) || (down == 1) && (up == 2) || (down== 2) && (up == 2))
+            // If blocked down/up, move left or right randomly.
+            else if (downBlocked && upBlocked)
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                    PosX = PosX - 1;
-                    rb.linearVelocity = new Vector3(-11, 0, 0);
+                    moveRight();
 
                 }
-                if (randomMovement == 1)
+                if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX + 1;
-                    rb.linearVelocity = new Vector3(11, 0, 0);
+                    moveLeft();
                 }
 
             }
-            if ((down == 1) && (left == 1) || (down == 2) && (left == 1) || (down == 1) && (left == 2))
+            // If blocked down/left, move right or up randomly.
+            else if (downBlocked && leftBlocked)
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                    PosY = PosY + 1;
-                    rb.linearVelocity = new Vector3(0, 0, 11);
+                    moveUp();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX + 1;
-                    rb.linearVelocity = new Vector3(11, 0, 0);
+                    moveRight();
                 }
             }
-            if ((down == 1) && (right == 1) || (down == 2) && (right == 1) || (down == 1) && (right == 2))
+            // If down/right blocked, move up or left randomly.
+            else if (downBlocked && rightBlocked)
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                    PosY = PosY + 1;
-                    rb.linearVelocity = new Vector3(0, 0, 11);
+                    moveLeft();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                    PosX = PosX - 1;
-                    rb.linearVelocity = new Vector3(-11, 0, 0);
+                    moveUp();
 
                 }
             }
-            if ((up == 1) && (left == 1) || (up == 2) && (left == 1) || (up == 1) && (left == 2))
+            // If up/left blocked, move down or right randomly.
+            else if (upBlocked && leftBlocked)
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                    PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, 0, -11);
+                    moveRight();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX + 1;
-                    rb.linearVelocity = new Vector3(11, 0, 0);
+                    moveDown();
                 }
             }
-            if ((up == 1) && (right == 1) || (up == 2) && (right == 1) || (up == 1) && (right == 2))
+            // if up/right blocked, move down or left randomly.
+            else if (upBlocked && rightBlocked)
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                    PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, 0, -11);
+                    moveLeft();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                    PosX = PosX - 1;
-                    rb.linearVelocity = new Vector3(-11, 0, 0);
+                    moveDown();
 
                 }
             }
-            if ((left == 1) && (right == 1) || (left == 2) && (right == 1) || (left == 1) && (right == 2))
+            // If left/right blocked, move up or down randomly.
+            else if (leftBlocked && rightBlocked)
             {
                 randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                    PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, 0, -11);
+                    moveDown();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                    PosY = PosY + 1;
-                    rb.linearVelocity = new Vector3(0, 0, 11);
+                    moveUp();
                 }
             }
-            if ((down == 1) || (down == 2))
+            // if down blocked, move elsewhere randomly.
+            else if (downBlocked)
             {
-                randomMovement = Random.Range(1, 4);
+                randomMovement = Random.Range(1, 3);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                    PosY = PosY + 1;
-                    rb.linearVelocity = new Vector3(0, 0, 11);
+                    moveRight();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                    PosX = PosX - 1;
-                    rb.linearVelocity = new Vector3(-11, 0, 0);
+                    moveLeft();
 
                 }
                 if (randomMovement == 3)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX + 1;
-                    rb.linearVelocity = new Vector3(11, 0, 0);
+                    moveUp();
                 }
             }
-            if ((up == 1) || (up == 2))
+            // If up blocked, move elsewhere randomly.
+            else if (upBlocked)
             {
                 randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                    PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, 0, -11);
+                    moveRight();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                    PosX = PosX - 1;
-                    rb.linearVelocity = new Vector3(-11, 0, 0);
+                    moveLeft();
 
                 }
                 if (randomMovement == 3)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX + 1;
-                    rb.linearVelocity = new Vector3(11, 0, 0);
+                    moveDown();
                 }
             }
-            if ((left == 1) || (left == 2))
+            // If left blocked, move elsewhere randomly.
+            else if (leftBlocked)
             {
                 Debug.Log("left wall");
                 randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                    PosY = PosY + 1;
-                    rb.linearVelocity = new Vector3(0, 0, 11);
+                    moveDown();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                    PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, 0, -11);
+                    moveUp();
                 }
                 if (randomMovement == 3)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                    PosX = PosX + 1;
-                    rb.linearVelocity = new Vector3(11, 0, 0);
+                    moveRight();
                 }
             }
-            if ((right == 1) || (right == 2))
+            // If right blocked, move elsewhere randomly.
+            else if (rightBlocked)
             {
                 Debug.Log("right wall");
                 randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                    PosY = PosY + 1;
-                    rb.linearVelocity = new Vector3(0, 0, 11);
+                    moveUp();
                 }
                 if (randomMovement == 2)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                    PosX = PosX - 1;
-                    rb.linearVelocity = new Vector3(-11, 0, 0);
+                    moveLeft();
 
                 }
                 if (randomMovement == 3)
                 {
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                    PosY = PosY - 1;
-                    rb.linearVelocity = new Vector3(0, 0, -11);
+                    moveDown();
                 }
             }
 
         }
+        // If unblocked, move anywhere randomly.
         if (down == 0 && up == 0 && left == 0 && right == 0)
         {
             randomMovement = Random.Range(1, 5);
 
             if (randomMovement == 1)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-                PosY = PosY - 1;
-                rb.linearVelocity = new Vector3(0, 0, -11);
+                moveDown();
             }
             if (randomMovement == 2)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-                PosY = PosY + 1;
-                rb.linearVelocity = new Vector3(0, 0, 11);
+                moveUp();
             }
             if (randomMovement == 3)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-                PosX = PosX - 1;
-                rb.linearVelocity = new Vector3(-11, 0, 0);
+                moveLeft();
             }
             if (randomMovement == 4)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
-                gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-                PosX = PosX + 1;
-                rb.linearVelocity = new Vector3(11, 0, 0);
+                moveRight();
             }
         }
         StartCoroutine(DelayCoroutine());
         DelayCoroutine();
+    }
+
+    private void moveLeft()
+    {
+        gt.grid.SetValue(PosX, PosY, (0));
+        gt.grid.SetValue(PosX - 1, PosY, (GridValue));
+        PosX = PosX - 1;
+        rb.linearVelocity = new Vector3(-11, 0, 0);
+        Debug.Log("Moved left!");
+        clearBlocks();
+    }
+    private void moveRight()
+    {
+        gt.grid.SetValue(PosX, PosY, (0));
+        gt.grid.SetValue(PosX + 1, PosY, (GridValue));
+        PosX = PosX + 1;
+        rb.linearVelocity = new Vector3(11, 0, 0);
+        Debug.Log("Moved right!");
+        clearBlocks();
+    }
+
+    private void moveUp()
+    {
+        gt.grid.SetValue(PosX, PosY, (0));
+        gt.grid.SetValue(PosX, PosY + 1, (GridValue));
+        PosY = PosY + 1;
+        rb.linearVelocity = new Vector3(0, 0, 11);
+        Debug.Log("Moved up!");
+        clearBlocks();
+    }
+
+    private void moveDown()
+    {
+        gt.grid.SetValue(PosX, PosY, (0));
+        gt.grid.SetValue(PosX, PosY - 1, (GridValue));
+        PosY = PosY - 1;
+        rb.linearVelocity = new Vector3(0, 0, -11);
+        Debug.Log("Moved down!");
+        clearBlocks();
+    }
+
+    private void clearBlocks()
+    {
+        downBlocked = false;
+        leftBlocked = false;
+        downBlocked = false;
+        rightBlocked = false;
     }
 }
