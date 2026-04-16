@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class GameManager : Info
 {
@@ -12,17 +13,30 @@ public class GameManager : Info
     private PlayerController P1;
     private PlayerController P2;
     private Stopwatch stopwatch;
+
+
     private GameObject ClearScreen;
     private TextMeshProUGUI FinalTime;
+    private TextMeshProUGUI LevelTime;
+    public GameObject StopwatchManager;
 
     private void Start()
     {
+        if (GameObject.Find("StopwatchManager") == false)
+        {
+            Debug.Log("Stopwatch not detected. Making one now");
+            GameObject.Instantiate(StopwatchManager);
+            stopwatch = GameObject.Find("StopwatchManager(Clone)").GetComponent<Stopwatch>();
+        }
+        else { stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>(); }
+
         P1 = GameObject.Find("P1").GetComponent<PlayerController>();
         P2 = GameObject.Find("P2").GetComponent<PlayerController>();
-        stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>();
         ClearScreen = GameObject.Find("ClearScreen");
         FinalTime = GameObject.Find("FinalTime").GetComponent<TextMeshProUGUI>();
+        LevelTime = GameObject.Find("LevelTime").GetComponent<TextMeshProUGUI>();
 
+        stopwatch.currentTime = 0;
         ClearScreen.SetActive(false);
     }
 
@@ -45,10 +59,22 @@ public class GameManager : Info
 
     public void ClearLevel()
     {
+
         //When a level is cleared, calls this function
         stopwatch.stopwatchActive = false;
         FinalTime.text = stopwatch.FinalTimeText();
+
         ClearScreen.SetActive(true);
+
+        GameObject lt = GameObject.Find("LevelTime");
+
+        if (stopwatch.FinalTime == 0)
+        {
+            lt.SetActive(false);
+        }
+
+        LevelTime.text = ("+" + stopwatch.currentTime.ToString(@"mm\:ss\:fff"));
+        stopwatch.LevelCleared();
     }
 
     //If Both players are 'Caught', Game Over!
@@ -63,7 +89,7 @@ public class GameManager : Info
     IEnumerator ReturnResetOff()
     {
         //Debug.Log("Reset Successful");
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
         IsResetTriggered = false;
     }
 }
