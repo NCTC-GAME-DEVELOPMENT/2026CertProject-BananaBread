@@ -1,10 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.VersionControl.Asset;
 
 public class Crate : Common
 {
     float moveAmount = 3.0f;
     public Animator anim;
+
+    // Array for all teleport doors in level.
+    private TeleportDoor[] doors;
 
     //PlayerController senses a crate to push in front of it.
     //If success, pushes the crate in its facing direction, moving x or y based on the current push direction.
@@ -16,12 +20,37 @@ public class Crate : Common
 
         GridValue = 2;
         gt.grid.SetValue(PosX, PosY, (GridValue));
+
+        // Get the doors.
+        doors = Object.FindObjectsByType<TeleportDoor>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
     }
     public void MoveCrate(string direction)
     {
         Debug.Log("Push Detected");
+
+        // Loop through the doors.
+        for (int x = 0; x < doors.Length; x++)
+        {
+            // If it's at the current teleporter...
+            if (doors[x] && doors[x].PosX == PosX && doors[x].PosY == PosY)
+            {
+                if ((direction == "North" && doors[x].Facing == currentDirection.South) || 
+                    (direction == "South" && doors[x].Facing == currentDirection.North) ||
+                    (direction == "East" && doors[x].Facing == currentDirection.West) ||
+                    (direction == "West" && doors[x].Facing == currentDirection.East))
+                {
+                    // move it, if being pushed away from where the door is facing, that is, into the teleport.
+                    doors[x].moveCrate(this);
+                }
+
+                // end function so that it doesn't then try to move again.
+                return;
+            }
+        }
         if (CanPushHere(direction))
         {
+
             if (direction == "North")
             {
                 anim.SetBool("PushNorth", true);

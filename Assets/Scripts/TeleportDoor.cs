@@ -78,44 +78,9 @@ public class TeleportDoor : Common
     // Update for moving crates.
     protected override void Update()
     {
-        // If a crate hasn't been teleported.
-        if (!crateTeleported)
-        {
-            // Loop through the crates.
-            for (int x = 0; x < crates.Length; x++)
-            {
-                // If it's at the current teleporter...
-                if (crates[x] && crates[x].PosX == PosX && crates[x].PosY == PosY)
-                {
-                    //.. mark the destination as being teleported.
-                    destinationDoor.crateTeleported = true;
-                    // And self to keep further teleportations from happening.
-                    crateTeleported = true;
 
-                    // Find destination.
-                    Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
-                    // Get destination cell's value.
-                    int destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
-                    // Correct the Y so that it isn't embedded in the floor.
-                    destination.y = 1f;
-
-                    // Add half the cell size to center it on the grid cell.
-                    destination.x = destination.x + (grid.cellSize / 2f);
-                    destination.z = destination.z + (grid.cellSize / 2f);
-
-                    //Set the old position to 0.
-                    gt.grid.SetValue(PosX, PosY, (0));
-                    // Set the PosX and PosY to the new destination.
-                    // Set its internal position to the position.
-                    crates[x].ChangeLocation(destinationDoor.PosX, destinationDoor.PosY, destination);
-                    // Set the destination to the new value..
-                    gt.grid.SetValue(destinationDoor.PosX, destinationDoor.PosY, (2));
-
-                }
-            }
-        }
         // If both the door and destination are 0..
-        else if (grid.grid.GetValue(PosX, PosY) != 2 && grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY) != 2)
+        if (grid.grid.GetValue(PosX, PosY) != 2 && grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY) != 2)
         {
             // Set the crateTeleported variables back to false.
             crateTeleported = false;
@@ -154,6 +119,7 @@ public class TeleportDoor : Common
                 // First, convert the facing direction to string.
                 string doorFacing = destinationDoor.Facing.ToString();
 
+                // Loop through the crates.
                 for (int x = 0; x < crates.Length; x++)
                 {
                     // Find the crate at the destination door.
@@ -180,13 +146,47 @@ public class TeleportDoor : Common
 
     }
 
+    // Function for crate teleportation.
+    public void moveCrate(Crate crate)
+    {
+        //.. mark the destination as being teleported.
+        destinationDoor.crateTeleported = true;
+        // And self to keep further teleportations from happening.
+        crateTeleported = true;
+
+        // Find destination.
+        Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
+        // Get destination cell's value.
+        int destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
+        // Correct the Y so that it isn't embedded in the floor.
+        destination.y = 1f;
+
+        // Add half the cell size to center it on the grid cell.
+        destination.x = destination.x + (grid.cellSize / 2f);
+        destination.z = destination.z + (grid.cellSize / 2f);
+
+        //Set the old position to 0.
+        gt.grid.SetValue(PosX, PosY, (0));
+        // Set the PosX and PosY to the new destination.
+        // Set its internal position to the position.
+        crate.ChangeLocation(destinationDoor.PosX, destinationDoor.PosY, destination);
+        // Set the destination to the new value..
+        gt.grid.SetValue(destinationDoor.PosX, destinationDoor.PosY, (2));
+    }
+
+    // Made a separate function for readability and editability.
     private void movePlayer(PlayerController player, Vector3 destination)
     {
 
+        // Set player positions to the destination door position.
         player.PosX = destinationDoor.PosX;
         player.PosY = destinationDoor.PosY;
+        //Move them physically to the destination.
         player.gameObject.transform.position = destination;
-        Quaternion newRotation = player.gameObject.transform.rotation;
+        // Create a Quaternion for rotation.
+        Quaternion newRotation;
+
+        // If statements to rotate to the proper direction, and physically rotate the player.
         if(destinationDoor.Facing == currentDirection.North)
         {
             newRotation = Quaternion.Euler(0, 0, 0);
@@ -207,7 +207,8 @@ public class TeleportDoor : Common
             newRotation = Quaternion.Euler(0, -90, 0);
             player.gameObject.transform.rotation = newRotation;
         }
-            gt.grid.SetValue(PosX, PosY, (0));
+        // Set teleporter grid value to open once done.
+        gt.grid.SetValue(PosX, PosY, (0));
     }
     
 }

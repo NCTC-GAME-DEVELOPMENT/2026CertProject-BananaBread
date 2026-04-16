@@ -35,12 +35,11 @@ public class ghost : Common
 
     public void Move()
     {
+        // Grab whether a direction is blocked or not.
         down = gt.grid.GetValue(PosX, PosY - 1);
         up = gt.grid.GetValue(PosX, PosY + 1);
         left = gt.grid.GetValue(PosX - 1, PosY);
         right = gt.grid.GetValue(PosX + 1, PosY);
-
-        Debug.LogFormat("Down: {0} Up: {1} Left: {2} Right: {3}", down, up, left, right);
 
         // Check for blockages at the start.
         if (down == 1 || down == 2 || down == -1)
