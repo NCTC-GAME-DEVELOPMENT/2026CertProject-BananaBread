@@ -7,18 +7,18 @@ using TMPro;
 
 public class Stopwatch : MonoBehaviour
 {
-    public bool stopwatchActive;
-    public float currentTime;
-    public int startTime;
+    public bool stopwatchActive = false;
+    public float currentTime = 0;
+    public float FinalTime = 0;
+    float BestTime = 0;
     public TextMeshProUGUI StopwatchText;
-    public GameObject gm;
+    public GameManager gm;
 
     void Start()
     {
-        gm = GameObject.Find("GameManager");
+        DontDestroyOnLoad(this);
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         StopwatchText = GameObject.Find("Stopwatch").GetComponent<TextMeshProUGUI>();
-        currentTime = 0;
-        stopwatchActive = false;
     }
 
     void Update()
@@ -35,11 +35,26 @@ public class Stopwatch : MonoBehaviour
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
 
         StopwatchText.text = time.ToString(@"mm\:ss\:fff");
+
+        if (gm.IsResetTriggered)
+        {
+            currentTime = 0;
+        }
     }
 
-    public void PauseBetweenLevels()
+    public void LevelCleared()
     {
         stopwatchActive = false;
+        FinalTime += currentTime;
+    }
+
+
+    public void SetHighScore()
+    {
+        if (BestTime > FinalTime)
+        {
+            BestTime = FinalTime;
+        }
     }
 
     public string FinalTimeText()
