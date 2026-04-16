@@ -36,6 +36,7 @@ public class TeleportDoor : Common
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
+        // 0 is up, 90 is right, -90 is left, 180 is down.
         base.Start();
 
         // Get the grid.
@@ -145,10 +146,7 @@ public class TeleportDoor : Common
             if (destinationSpace == 0)
             {
                 // Teleport.
-                player.PosX = destinationDoor.PosX;
-                player.PosY = destinationDoor.PosY;
-                collision.gameObject.transform.position = destination;
-                gt.grid.SetValue(PosX, PosY, (0));
+                movePlayer(player, destination);
 
             } // Else if there's a pushable block.
             else if (destinationSpace == 2)
@@ -171,10 +169,7 @@ public class TeleportDoor : Common
                         if (destinationSpace == 0)
                         {
                             // Teleport.
-                            player.PosX = destinationDoor.PosX;
-                            player.PosY = destinationDoor.PosY;
-                            player.gameObject.transform.position = destination;
-                            gt.grid.SetValue(PosX, PosY, (0));
+                            movePlayer(player, destination);
 
                         }
                     }
@@ -183,6 +178,36 @@ public class TeleportDoor : Common
             }
         }
 
+    }
+
+    private void movePlayer(PlayerController player, Vector3 destination)
+    {
+
+        player.PosX = destinationDoor.PosX;
+        player.PosY = destinationDoor.PosY;
+        player.gameObject.transform.position = destination;
+        Quaternion newRotation = player.gameObject.transform.rotation;
+        if(destinationDoor.Facing == currentDirection.North)
+        {
+            newRotation = Quaternion.Euler(0, 0, 0);
+            player.gameObject.transform.rotation = newRotation;
+        }
+        else if (destinationDoor.Facing == currentDirection.South)
+        {
+            newRotation = Quaternion.Euler(0, 180, 0);
+            player.gameObject.transform.rotation = newRotation;
+        }
+        else if (destinationDoor.Facing == currentDirection.East)
+        {
+            newRotation = Quaternion.Euler(0, 90, 0);
+            player.gameObject.transform.rotation = newRotation;
+        }
+        else if (destinationDoor.Facing == currentDirection.West)
+        {
+            newRotation = Quaternion.Euler(0, -90, 0);
+            player.gameObject.transform.rotation = newRotation;
+        }
+            gt.grid.SetValue(PosX, PosY, (0));
     }
     
 }
