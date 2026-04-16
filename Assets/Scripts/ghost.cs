@@ -40,6 +40,8 @@ public class ghost : Common
         left = gt.grid.GetValue(PosX - 1, PosY);
         right = gt.grid.GetValue(PosX + 1, PosY);
 
+        Debug.LogFormat("Down: {0} Up: {1} Left: {2} Right: {3}", down, up, left, right);
+
         // Check for blockages at the start.
         if (down == 1 || down == 2 || down == -1)
         {
@@ -193,7 +195,7 @@ public class ghost : Common
             // if down blocked, move elsewhere randomly.
             else if (downBlocked)
             {
-                randomMovement = Random.Range(1, 3);
+                randomMovement = Random.Range(1, 4);
                 if (randomMovement == 1)
                 {
                     moveRight();
@@ -266,7 +268,7 @@ public class ghost : Common
 
         }
         // If unblocked, move anywhere randomly.
-        if (down == 0 && up == 0 && left == 0 && right == 0)
+        else if (down == 0 && up == 0 && left == 0 && right == 0)
         {
             randomMovement = Random.Range(1, 5);
 
