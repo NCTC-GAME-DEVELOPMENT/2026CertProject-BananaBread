@@ -1,36 +1,36 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ghost : Common
 {
 
     private int down, up, left, right;
-    private bool downBlocked, upBlocked, leftBlocked, rightBlocked;
-    private Rigidbody rb;
     int randomMovement;
-    public int ghostSpeed = 10;
+    public int ghostSpeed = 1;
     bool playerC = false;
+
+    private PlayerController[] players;
     protected override void Start()
     {
         base.Start();
-        rb = GetComponent<Rigidbody>();
 
-        // Set default values to false.
-        clearBlocks();
 
         GridValue = 4;
-        StartCoroutine(DelayCoroutine());
+        //Delay at start until 3 second starting timer is up.
+        StartCoroutine(DelayCoroutine(4));
         gt.grid.SetValue(PosX, PosY, (GridValue));
-        DelayCoroutine();
+        DelayCoroutine(4);
+
+        // Grab all players.
+        players = UnityEngine.Object.FindObjectsByType<PlayerController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
     }
 
-    IEnumerator DelayCoroutine()
+    IEnumerator DelayCoroutine(int timer)
     {
-
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(timer);
         Move();
     }
 
@@ -43,59 +43,77 @@ public class ghost : Common
         right = gt.grid.GetValue(PosX + 1, PosY);
 
 
-        // Turn it into a list.
-        var directionList = new List<Action>();
-        directionList.Add(moveUp);
-        directionList.Add(moveDown);
-        directionList.Add(moveLeft);
-        directionList.Add(moveRight);
+        // Turn move functions into a list.
+        List<string> directionList = new List<string>();
+        directionList.Add("Up");
+        directionList.Add("Down");
+        directionList.Add("Left");
+        directionList.Add("Right");
 
-        // Check for blockages at the start.
-        // .. and remove from list invalid directions.
+        // Remove from list invalid directions.
         if (down == 1 || down == 2 || down == -1)
         {
-            downBlocked = true;
-            directionList.Remove(moveUp);
+            directionList.Remove("Down");
         }
         if (left == -1 || left == 1 || left == 2)
         {
-            leftBlocked = true;
-            directionList.Remove(moveLeft);
+            directionList.Remove("Left");
         }
         if (right == -1 || right == 1 || right == 2)
         {
-            rightBlocked = true;
-            directionList.Remove(moveRight);
+            directionList.Remove("Right");
         }
         if (up == -1 || up == 1 || up == 2)
         {
-            upBlocked = true;
-            directionList.Remove(moveDown);
+            directionList.Remove("Up");
         }
 
+        // Run code to check if in the same position as a player.
+        CapturePlayer();
+
+        // If both players are in position...
+        if ((players[0].PosX == PosX && players[0].PosY == PosY) && (players[1].PosX == PosX && players[1].PosY == PosY))
+        {
+            // Reset everything.
+            ResetPosition();
+            players[0].IsCaught = false;
+            players[1].IsCaught = false;
+            playerC = false;
+
+            // Then time out briefly.
+            StartCoroutine(DelayCoroutine(5));
+            DelayCoroutine(5);
+            // Return so that it doesn't continue moving despite the delay timer.
+            return;
+
+        }
+
+        if (playerC)
+        {
+            // Condition for skipping the rest of the else if statements if player captured.
+        }
         // Checking for player in adjacent space.
-        if ((down == 3) || (up == 3) || (left == 3) || (right == 3))
+        else if ((down == 3) || (up == 3) || (left == 3) || (right == 3))
         {
             if (down == 3)
             {
-                moveDown();
+                moveGhost("Down");
             }
             if (up == 3)
             {
-                moveUp();
+                moveGhost("Up");
             }
             if (left == 3)
             {
-                moveLeft();
-
+                moveGhost("Left");
             }
             if (right == 3)
             {
-                moveRight();
+                moveGhost("Right");
             }
         }
         // If there are no movement options, debug message.
-        else if (directionList.Count() == 0)
+        else if (directionList.Count == 0)
         {
             Debug.Log("Ghost Trapped");
             // End function.
@@ -104,59 +122,68 @@ public class ghost : Common
         // Otherwise..
         else
         {
-            // Grab a direction index from the list.
+            // Grab a direction index from the list randomly.
             int randomIndex = UnityEngine.Random.Range(0, directionList.Count);
             // Run it.
-            directionList[randomIndex].Invoke();
+            moveGhost(directionList[randomIndex]);
         }
-        StartCoroutine(DelayCoroutine());
-        DelayCoroutine();
+
+        // If it reached this point it moved normally.
+        // So delay by speed.
+        StartCoroutine(DelayCoroutine(ghostSpeed));
+        DelayCoroutine(ghostSpeed);
     }
 
-    private void moveLeft()
+    // Code for setting bools to true for capture.
+    private void CapturePlayer()
     {
-        gt.grid.SetValue(PosX, PosY, (0));
-        gt.grid.SetValue(PosX - 1, PosY, (GridValue));
-        PosX = PosX - 1;
-        rb.linearVelocity = new Vector3(-gt.cellSize, 0, 0);
-        Debug.Log("Moved left!");
-        clearBlocks();
-    }
-    private void moveRight()
-    {
-        gt.grid.SetValue(PosX, PosY, (0));
-        gt.grid.SetValue(PosX + 1, PosY, (GridValue));
-        PosX = PosX + 1;
-        rb.linearVelocity = new Vector3(gt.cellSize, 0, 0);
-        Debug.Log("Moved right!");
-        clearBlocks();
+        if (players[0].PosX == PosX && players[0].PosY == PosY)
+        {
+            playerC = true;
+            players[0].IsCaught = true;
+        }
+        else if (players[1].PosX == PosX && players[1].PosY == PosY)
+        {
+            playerC = true;
+            players[1].IsCaught = true;
+        }
     }
 
-    private void moveUp()
+    private void moveGhost(string direction)
     {
+        // Set grid value to 0.
         gt.grid.SetValue(PosX, PosY, (0));
-        gt.grid.SetValue(PosX, PosY + 1, (GridValue));
-        PosY = PosY + 1;
-        rb.linearVelocity = new Vector3(0, 0, gt.cellSize);
-        Debug.Log("Moved up!");
-        clearBlocks();
-    }
+        // Get current location.
+        Vector3 newLocation = myPosition;
+        // Set new position.
+        if (direction == "Right")
+        {
+            PosX += 1;
+            newLocation.x += gt.cellSize;
+        }
+        else if (direction == "Left")
+        {
+            PosX -= 1;
+            newLocation.x -= gt.cellSize;
+        }
+        else if (direction == "Up")
+        {
+            PosY += 1;
+            newLocation.z += gt.cellSize;
+        }
+        else if (direction == "Down")
+        {
+            PosY -= 1;
+            newLocation.z -= gt.cellSize;
+        }
 
-    private void moveDown()
-    {
-        gt.grid.SetValue(PosX, PosY, (0));
-        gt.grid.SetValue(PosX, PosY - 1, (GridValue));
-        PosY = PosY - 1;
-        rb.linearVelocity = new Vector3(0, 0, -gt.cellSize);
-        Debug.Log("Moved down!");
-        clearBlocks();
-    }
-
-    private void clearBlocks()
-    {
-        downBlocked = false;
-        leftBlocked = false;
-        downBlocked = false;
-        rightBlocked = false;
+        // Correct position.
+        myPosition = newLocation;
+        // Set transform.
+        gameObject.transform.position = newLocation;
+        // Change grid value.
+        gt.grid.SetValue(PosX, PosY, (GridValue));
+        // Set myPosition.
+        myPosition = gameObject.transform.position;
     }
 }
