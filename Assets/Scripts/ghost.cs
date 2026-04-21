@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,22 +6,24 @@ public class ghost : Common
 {
 
     private int down, up, left, right;
-    int randomMovement;
     public int ghostSpeed = 1;
+    public int resetTime = 5;
     bool playerC = false;
+
+    private bool playerDown, playerUp, playerLeft, playerRight;
 
     private PlayerController[] players;
     protected override void Start()
     {
         base.Start();
 
-
         GridValue = 4;
-        //Delay at start until 3 second starting timer is up.
-        StartCoroutine(DelayCoroutine(4));
+        // Grab starting countdown time. + 1 for "Go" still gripping player,
+        int startCountdown = gm.GetComponent<Countdown>().TimeValue + 1;
+        // Delay at start by countdown timer.
+        StartCoroutine(DelayCoroutine(startCountdown));
         gt.grid.SetValue(PosX, PosY, (GridValue));
-        DelayCoroutine(4);
-
+        DelayCoroutine(startCountdown);
         // Grab all players.
         players = UnityEngine.Object.FindObjectsByType<PlayerController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
 
@@ -36,21 +37,20 @@ public class ghost : Common
 
     public void Move()
     {
-        // Grab whether a direction is blocked or not.
+        // Grab the value of the adjacent squares.
         down = gt.grid.GetValue(PosX, PosY - 1);
         up = gt.grid.GetValue(PosX, PosY + 1);
         left = gt.grid.GetValue(PosX - 1, PosY);
         right = gt.grid.GetValue(PosX + 1, PosY);
 
-
-        // Turn move functions into a list.
+        // Turn move options into a list.
         List<string> directionList = new List<string>();
         directionList.Add("Up");
         directionList.Add("Down");
         directionList.Add("Left");
         directionList.Add("Right");
 
-        // Remove from list invalid directions.
+        // Remove invalid directions from list.
         if (down == 1 || down == 2 || down == -1)
         {
             directionList.Remove("Down");
@@ -68,6 +68,12 @@ public class ghost : Common
             directionList.Remove("Up");
         }
 
+        // Set the bools for if a player is found.
+        FoundPlayer("Down", PosX, PosY - 1);
+        FoundPlayer("Up", PosX, PosY + 1);
+        FoundPlayer("Left", PosX - 1, PosY);
+        FoundPlayer("Right", PosX + 1, PosY);
+
         // Run code to check if in the same position as a player.
         CapturePlayer();
 
@@ -81,36 +87,32 @@ public class ghost : Common
             playerC = false;
 
             // Then time out briefly.
-            StartCoroutine(DelayCoroutine(5));
-            DelayCoroutine(5);
+            StartCoroutine(DelayCoroutine(resetTime));
+            DelayCoroutine(resetTime);
             // Return so that it doesn't continue moving despite the delay timer.
             return;
-
         }
 
         if (playerC)
         {
             // Condition for skipping the rest of the else if statements if player captured.
         }
-        // Checking for player in adjacent space.
-        else if ((down == 3) || (up == 3) || (left == 3) || (right == 3))
+        // If player was found, move
+        else if (playerDown)
         {
-            if (down == 3)
-            {
-                moveGhost("Down");
-            }
-            if (up == 3)
-            {
-                moveGhost("Up");
-            }
-            if (left == 3)
-            {
-                moveGhost("Left");
-            }
-            if (right == 3)
-            {
-                moveGhost("Right");
-            }
+            moveGhost("Down");
+        }
+        else if (playerUp)
+        {
+            moveGhost("Up");
+        }
+        else if (playerLeft)
+        {
+            moveGhost("Left");
+        }
+        else if (playerRight)
+        {
+            moveGhost("Right");
         }
         // If there are no movement options, debug message.
         else if (directionList.Count == 0)
@@ -132,6 +134,93 @@ public class ghost : Common
         // So delay by speed.
         StartCoroutine(DelayCoroutine(ghostSpeed));
         DelayCoroutine(ghostSpeed);
+    }
+
+    private void FoundPlayer(string direction, int XPos, int YPos)
+    {
+        // Get value of the requested grid.
+        int gridValue = gt.grid.GetValue(XPos, YPos);
+
+        if (direction == "Down")
+        {
+            // Return true if player found.
+            if (gridValue == 3)
+            {
+                playerDown = true;
+            }
+            // Move further into the grid if empty space.
+            else if (gridValue == 0)
+            {
+                YPos -= 1;
+                FoundPlayer("Down", XPos, YPos);
+            }
+            // Return false if hit any non-open or non-player space.
+            else
+            { 
+                playerDown = false;
+            }
+
+        }
+        else if (direction == "Up")
+        {
+            // Return true if player found.
+            if (gridValue == 3)
+            {
+                playerUp = true;
+            }
+            // Move further into the grid if empty space.
+            else if (gridValue == 0)
+            {
+                YPos += 2;
+                FoundPlayer("Up", XPos, YPos);
+            }
+            // Return false if hit any non-open or non-player space.
+            else
+            {
+                playerUp = false;
+            }
+
+        }
+        else if (direction == "Left")
+        {
+            // Return true if player found.
+            if (gridValue == 3)
+            {
+                playerLeft = true;
+            }
+            // Move further into the grid if empty space.
+            else if (gridValue == 0)
+            {
+                XPos -= 1;
+                FoundPlayer("Left", XPos, YPos);
+            }
+            // Return false if hit any non-open or non-player space.
+            else
+            {
+                playerLeft = false;
+            }
+
+        }
+        else if (direction == "Right")
+        {
+            // Return true if player found.
+            if (gridValue == 3)
+            {
+                playerRight = true;
+            }
+            // Move further into the grid if empty space.
+            else if (gridValue == 0)
+            {
+                XPos += 1;
+                FoundPlayer("Right", XPos, YPos);
+            }
+            // Return false if hit any non-open or non-player space.
+            else
+            {
+                playerRight = false;
+            }
+
+        }
     }
 
     // Code for setting bools to true for capture.
