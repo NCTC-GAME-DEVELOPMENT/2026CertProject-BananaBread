@@ -118,7 +118,7 @@ public class ghost : Common
         gt.grid.SetValue(PosX, PosY, (0));
         gt.grid.SetValue(PosX - 1, PosY, (GridValue));
         PosX = PosX - 1;
-        rb.linearVelocity = new Vector3(-11, 0, 0);
+        rb.linearVelocity = new Vector3(-gt.cellSize, 0, 0);
         Debug.Log("Moved left!");
         clearBlocks();
     }
@@ -127,7 +127,7 @@ public class ghost : Common
         gt.grid.SetValue(PosX, PosY, (0));
         gt.grid.SetValue(PosX + 1, PosY, (GridValue));
         PosX = PosX + 1;
-        rb.linearVelocity = new Vector3(11, 0, 0);
+        rb.linearVelocity = new Vector3(gt.cellSize, 0, 0);
         Debug.Log("Moved right!");
         clearBlocks();
     }
@@ -137,7 +137,7 @@ public class ghost : Common
         gt.grid.SetValue(PosX, PosY, (0));
         gt.grid.SetValue(PosX, PosY + 1, (GridValue));
         PosY = PosY + 1;
-        rb.linearVelocity = new Vector3(0, 0, 11);
+        rb.linearVelocity = new Vector3(0, 0, gt.cellSize);
         Debug.Log("Moved up!");
         clearBlocks();
     }
@@ -147,7 +147,7 @@ public class ghost : Common
         gt.grid.SetValue(PosX, PosY, (0));
         gt.grid.SetValue(PosX, PosY - 1, (GridValue));
         PosY = PosY - 1;
-        rb.linearVelocity = new Vector3(0, 0, -11);
+        rb.linearVelocity = new Vector3(0, 0, -gt.cellSize);
         Debug.Log("Moved down!");
         clearBlocks();
     }

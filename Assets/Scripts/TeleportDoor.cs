@@ -66,8 +66,6 @@ public class TeleportDoor : Common
             location.z = location.z + (grid.cellSize);
 
         }
-        // Keep it from being embedded in floor.
-        location.y = 1;
         // Move to location.
         gameObject.transform.position = location;
 
@@ -100,8 +98,6 @@ public class TeleportDoor : Common
             Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
             // Get destination cell's value.
             int destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
-            // Correct the Y so that it isn't embedded in the floor.
-            destination.y = 1f;
 
             // Add half the cell size to center it on the grid cell.
             destination.x = destination.x + (grid.cellSize / 2f);
