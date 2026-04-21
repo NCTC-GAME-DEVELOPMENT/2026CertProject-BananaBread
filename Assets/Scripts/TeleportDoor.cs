@@ -45,7 +45,7 @@ public class TeleportDoor : Common
 
         // Code for moving self to center wall of grid space.
         // It is troublesome and doesn't work cleanly..
-        // But you need to cleanly tell where it is in the grid.
+        // But it's the best solution I could come up with.
         Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(PosX, PosY);
         if(Facing == currentDirection.West)
         {
@@ -127,6 +127,7 @@ public class TeleportDoor : Common
                     {
                         //Try to push it.
                         crates[x].MoveCrate(doorFacing);
+                        Debug.Log("Crate pushed from door!");
 
                         // Re-obtain the value.
                         destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
@@ -156,8 +157,6 @@ public class TeleportDoor : Common
 
         // Find destination.
         Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
-        // Get destination cell's value.
-        int destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
         // Correct the Y so that it isn't embedded in the floor.
         destination.y = 1f;
 
@@ -165,13 +164,8 @@ public class TeleportDoor : Common
         destination.x = destination.x + (grid.cellSize / 2f);
         destination.z = destination.z + (grid.cellSize / 2f);
 
-        //Set the old position to 0.
-        gt.grid.SetValue(PosX, PosY, (0));
-        // Set the PosX and PosY to the new destination.
-        // Set its internal position to the position.
+        // Run the move function.
         crate.ChangeLocation(destinationDoor.PosX, destinationDoor.PosY, destination);
-        // Set the destination to the new value..
-        gt.grid.SetValue(destinationDoor.PosX, destinationDoor.PosY, (2));
     }
 
     // Made a separate function for readability and editability.

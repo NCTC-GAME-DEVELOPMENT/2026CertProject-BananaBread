@@ -51,12 +51,23 @@ public class Common : MonoBehaviour
         // Alter PosX, PosY, and myPosition.
         PosX = newX;
         PosY = newY;
-        myPosition = newLocation;
-        //Physically move it.
-        gameObject.transform.position = newLocation;
         // Set the new position to the grid value.
         gt.grid.SetValue(PosX, PosY, (GridValue));
+        //Physically move it.
+        gameObject.transform.position = newLocation;
+        // change myPosition to the new location.
+        myPosition = newLocation;
     }
+
+    /*
+     *                 
+     *          anim.SetBool("PushWest", true);
+                gt.grid.SetValue(PosX, PosY, (0));
+                PosX -= 1;
+                gt.grid.SetValue(PosX, PosY, (GridValue));
+                gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
+                myPosition = gameObject.transform.position;
+                StartCoroutine(Cooldown(0.5f));*/
 
     //Uses the object's world position to set its starting coordinates
     public virtual void FindStartCoordinates()

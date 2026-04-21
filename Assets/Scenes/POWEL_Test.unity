@@ -436,6 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsResetTriggered: 0
+  StopwatchManager: {fileID: 0}
 --- !u!1 &263632782
 GameObject:
   m_ObjectHideFlags: 0

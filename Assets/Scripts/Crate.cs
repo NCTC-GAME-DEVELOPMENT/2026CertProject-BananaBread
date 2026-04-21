@@ -35,17 +35,16 @@ public class Crate : Common
             // If it's at the current teleporter...
             if (doors[x] && doors[x].PosX == PosX && doors[x].PosY == PosY)
             {
-                if ((direction == "North" && doors[x].Facing == currentDirection.South) || 
+                if ((direction == "North" && doors[x].Facing == currentDirection.South) ||
                     (direction == "South" && doors[x].Facing == currentDirection.North) ||
                     (direction == "East" && doors[x].Facing == currentDirection.West) ||
                     (direction == "West" && doors[x].Facing == currentDirection.East))
                 {
                     // move it, if being pushed away from where the door is facing, that is, into the teleport.
                     doors[x].moveCrate(this);
+                    // end function so that it doesn't then try to move again.
+                    return;
                 }
-
-                // end function so that it doesn't then try to move again.
-                return;
             }
         }
         if (CanPushHere(direction))
@@ -119,6 +118,8 @@ public class Crate : Common
             return false;
         }
     }
+
+
 
         IEnumerator Cooldown(float value)
         {
