@@ -1,15 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class endlevel : MonoBehaviour
 {
-    public string nextLevel;
     private int MainMenu = 0;
 
     private Stopwatch stopwatch;
     private GameManager gm;
 
-    private void Start()
+    public Button NextButton;
+    public Button MenuButton;
+
+    private void Awake()
     {
         stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();

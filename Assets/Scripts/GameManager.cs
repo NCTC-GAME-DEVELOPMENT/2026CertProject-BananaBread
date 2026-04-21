@@ -16,8 +16,8 @@ public class GameManager : Info
     private Stopwatch stopwatch;
 
     private GameObject ClearScreen;
-    private TextMeshProUGUI FinalTime;
-    private TextMeshProUGUI LevelTime;
+    public TextMeshProUGUI FinalTime;
+    public TextMeshProUGUI LevelTime;
     public GameObject StopwatchManager;
 
     private void Start()
@@ -36,6 +36,7 @@ public class GameManager : Info
         FinalTime = GameObject.Find("FinalTime").GetComponent<TextMeshProUGUI>();
         LevelTime = GameObject.Find("LevelTime").GetComponent<TextMeshProUGUI>();
 
+        stopwatch.ConfigureSceneSettings();
         stopwatch.currentTime = 0;
         ClearScreen.SetActive(false);
     }
@@ -73,7 +74,7 @@ public class GameManager : Info
             lt.SetActive(false);
         }
 
-        LevelTime.text = ("+" + stopwatch.currentTime.ToString(@"mm\:ss\:fff"));
+        LevelTime.text = ("+" + stopwatch.LevelTimeText());
         stopwatch.LevelCleared();
     }
 

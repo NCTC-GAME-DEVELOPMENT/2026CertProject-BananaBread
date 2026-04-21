@@ -411,6 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsResetTriggered: 0
+  CurrentScene: 3
   StopwatchManager: {fileID: 7095179546286545390, guid: 3fd7cd2de03aaa94b9ce62536c576778, type: 3}
 --- !u!114 &81778962
 MonoBehaviour:

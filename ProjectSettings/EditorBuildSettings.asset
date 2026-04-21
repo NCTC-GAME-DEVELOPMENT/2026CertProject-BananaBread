@@ -11,6 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/POWEL_Test.unity
     guid: c36f731b58f34ae4e8606f080aa1f45b
+  - enabled: 1
+    path: Assets/Scenes/Levels/TutorialLevel.unity
+    guid: 73f710be55520574ea55931abffb6011
+  - enabled: 1
+    path: Assets/Scenes/Levels/LevelOne.unity
+    guid: 1beeb5f3ce2e37a45995c29c74a4db34
+  - enabled: 1
+    path: Assets/Scenes/Levels/SwitchLevel.unity
+    guid: f9b3b78c082991c4b9f678f088f0cb8f
+  - enabled: 1
+    path: Assets/Scenes/Levels/SimplePortalLevel.unity
+    guid: 8d36edd24328b03408909062c4bde4b5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

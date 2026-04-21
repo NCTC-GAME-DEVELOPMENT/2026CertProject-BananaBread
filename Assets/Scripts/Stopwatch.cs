@@ -17,8 +17,13 @@ public class Stopwatch : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
+    }
+
+    public void ConfigureSceneSettings()
+    {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         StopwatchText = GameObject.Find("Stopwatch").GetComponent<TextMeshProUGUI>();
+        Debug.Log("Successfully Set GameManager and Stopwatch text");
     }
 
     void Update()
@@ -55,6 +60,12 @@ public class Stopwatch : MonoBehaviour
         {
             BestTime = FinalTime;
         }
+    }
+
+    public string LevelTimeText()
+    {
+        TimeSpan time = TimeSpan.FromSeconds(FinalTime);
+        return time.ToString(@"mm\:ss\:fff");
     }
 
     public string FinalTimeText()

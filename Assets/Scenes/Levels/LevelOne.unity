@@ -504,6 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsResetTriggered: 0
+  CurrentScene: 2
   StopwatchManager: {fileID: 7095179546286545390, guid: 3fd7cd2de03aaa94b9ce62536c576778, type: 3}
 --- !u!114 &81778962
 MonoBehaviour:
@@ -3721,7 +3722,9 @@ PrefabInstance:
       value: ClearScreen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6136754168864689249, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
+    - {fileID: 6841336311846939778, guid: 34fb68b03efb939408406c54309b19cf, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34fb68b03efb939408406c54309b19cf, type: 3}

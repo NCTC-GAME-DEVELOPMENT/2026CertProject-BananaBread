@@ -23,7 +23,6 @@ public class InputPoller : Info
             Destroy(Self);
         }
         Self = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called Self per frame
