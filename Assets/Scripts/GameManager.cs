@@ -9,11 +9,11 @@ public class GameManager : Info
 {
     public static GameManager instance;
     public bool IsResetTriggered = false;
+    public int CurrentScene;
 
     private PlayerController P1;
     private PlayerController P2;
     private Stopwatch stopwatch;
-
 
     private GameObject ClearScreen;
     private TextMeshProUGUI FinalTime;
