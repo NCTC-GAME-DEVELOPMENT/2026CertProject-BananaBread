@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class ghost : Common
 {
-
     private int down, up, left, right;
     public int ghostSpeed = 1;
     public int resetTime = 5;
     bool playerC = false;
 
     private bool playerDown, playerUp, playerLeft, playerRight;
+    private currentDirection doorFacing = currentDirection.None;
 
+    private Vector3 doorDestination;
+    private int doorX, doorY;
+
+    private TeleportDoor[] doors;
     private PlayerController[] players;
     protected override void Start()
     {
@@ -25,8 +29,9 @@ public class ghost : Common
         gt.grid.SetValue(PosX, PosY, (GridValue));
         DelayCoroutine(startCountdown);
         // Grab all players.
-        players = UnityEngine.Object.FindObjectsByType<PlayerController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-
+        players = Object.FindObjectsByType<PlayerController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        // Grab all doors.
+        doors = Object.FindObjectsByType<TeleportDoor>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
     }
 
     IEnumerator DelayCoroutine(int timer)
@@ -50,29 +55,32 @@ public class ghost : Common
         directionList.Add("Left");
         directionList.Add("Right");
 
-        // Remove invalid directions from list.
-        if (down == 1 || down == 2 || down == -1)
+        // Set the facing direction for the door if on one.
+        SetDoorFacing();
+
+        // Remove invalid directions from list, only if there's no teleport door there.
+        if ((down == 1 || down == 2 || down == -1) && !(doorFacing == currentDirection.South))
         {
             directionList.Remove("Down");
         }
-        if (left == -1 || left == 1 || left == 2)
+        if ((left == -1 || left == 1 || left == 2) && !(doorFacing == currentDirection.West))
         {
             directionList.Remove("Left");
         }
-        if (right == -1 || right == 1 || right == 2)
+        if ((right == -1 || right == 1 || right == 2) && !(doorFacing == currentDirection.East))
         {
             directionList.Remove("Right");
         }
-        if (up == -1 || up == 1 || up == 2)
+        if ((up == -1 || up == 1 || up == 2) && !(doorFacing == currentDirection.North))
         {
             directionList.Remove("Up");
         }
 
-        // Set the bools for if a player is found.
-        FoundPlayer("Down", PosX, PosY - 1);
-        FoundPlayer("Up", PosX, PosY + 1);
-        FoundPlayer("Left", PosX - 1, PosY);
-        FoundPlayer("Right", PosX + 1, PosY);
+        // Check only available directions for player.
+        for(int x = 0; x < directionList.Count; x++)
+        {
+            FoundPlayer(directionList[x], PosX, PosY);
+        }
 
         // Run code to check if in the same position as a player.
         CapturePlayer();
@@ -126,8 +134,31 @@ public class ghost : Common
         {
             // Grab a direction index from the list randomly.
             int randomIndex = UnityEngine.Random.Range(0, directionList.Count);
-            // Run it.
-            moveGhost(directionList[randomIndex]);
+
+
+
+
+            if (doorFacing == currentDirection.North && directionList[randomIndex] == "Up")
+            {
+                ChangeLocation(doorX, doorY, doorDestination);
+            }
+            else if (doorFacing == currentDirection.South && directionList[randomIndex] == "Down")
+            {
+                ChangeLocation(doorX, doorY, doorDestination);
+            }
+            else if (doorFacing == currentDirection.East && directionList[randomIndex] == "Right")
+            {
+                ChangeLocation(doorX, doorY, doorDestination);
+            }
+            else if (doorFacing == currentDirection.West && directionList[randomIndex] == "Left")
+            {
+                ChangeLocation(doorX, doorY, doorDestination);
+            }
+            else
+            {
+                // Else just move.
+                moveGhost(directionList[randomIndex]);
+            }
         }
 
         // If it reached this point it moved normally.
@@ -138,11 +169,12 @@ public class ghost : Common
 
     private void FoundPlayer(string direction, int XPos, int YPos)
     {
-        // Get value of the requested grid.
-        int gridValue = gt.grid.GetValue(XPos, YPos);
+        int gridValue;
 
         if (direction == "Down")
         {
+            // Get value of the requested grid.
+            gridValue = gt.grid.GetValue(XPos, YPos - 1);
             // Return true if player found.
             if (gridValue == 3)
             {
@@ -163,6 +195,8 @@ public class ghost : Common
         }
         else if (direction == "Up")
         {
+            // Get value of the requested grid.
+            gridValue = gt.grid.GetValue(XPos, YPos + 1);
             // Return true if player found.
             if (gridValue == 3)
             {
@@ -171,7 +205,7 @@ public class ghost : Common
             // Move further into the grid if empty space.
             else if (gridValue == 0)
             {
-                YPos += 2;
+                YPos += 1;
                 FoundPlayer("Up", XPos, YPos);
             }
             // Return false if hit any non-open or non-player space.
@@ -183,6 +217,8 @@ public class ghost : Common
         }
         else if (direction == "Left")
         {
+            // Get value of the requested grid.
+            gridValue = gt.grid.GetValue(XPos - 1, YPos);
             // Return true if player found.
             if (gridValue == 3)
             {
@@ -203,6 +239,8 @@ public class ghost : Common
         }
         else if (direction == "Right")
         {
+            // Get value of the requested grid.
+            gridValue = gt.grid.GetValue(XPos + 1, YPos);
             // Return true if player found.
             if (gridValue == 3)
             {
@@ -219,7 +257,44 @@ public class ghost : Common
             {
                 playerRight = false;
             }
+        }
+    }
 
+    private void SetDoorFacing()
+    {
+
+
+
+
+        // Loop through the doors.
+        for (int x = 0; x < doors.Length; x++)
+        {
+            // If it's at the current teleporter...
+            if (doors[x] && doors[x].PosX == PosX && doors[x].PosY == PosY)
+            {
+                // Get the facing direction.
+                doorFacing = doors[x].Facing;
+
+                // And get its destination.
+                // Find destination.
+                doorDestination = gt.grid.GetWorldPosition(doors[x].destinationDoor.PosX, doors[x].destinationDoor.PosY);
+                // Get destination cell's value.
+                int destinationSpace = gt.grid.GetValue(doors[x].destinationDoor.PosX, doors[x].destinationDoor.PosY);
+
+                // Add half the cell size to center it on the grid cell.
+                doorDestination.x = doorDestination.x + (gt.cellSize / 2f);
+                doorDestination.z = doorDestination.z + (gt.cellSize / 2f);
+
+                //set X and Y.
+                doorX = doors[x].destinationDoor.PosX;
+                doorY = doors[x].destinationDoor.PosY;
+                // return.
+                return;
+            }
+            else
+            {
+                doorFacing = currentDirection.None;
+            }
         }
     }
 
