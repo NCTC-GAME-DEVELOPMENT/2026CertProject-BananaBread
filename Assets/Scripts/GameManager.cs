@@ -58,13 +58,11 @@ public class GameManager : Info
         P2.IsActive = true;
     }
 
+
+    //When a level is cleared, calls this function
     public void ClearLevel()
     {
-
-        //When a level is cleared, calls this function
         stopwatch.stopwatchActive = false;
-        FinalTime.text = stopwatch.FinalTimeText();
-
         ClearScreen.SetActive(true);
 
         GameObject lt = GameObject.Find("LevelTime");
@@ -75,7 +73,9 @@ public class GameManager : Info
         }
 
         LevelTime.text = ("+" + stopwatch.LevelTimeText());
+
         stopwatch.LevelCleared();
+        FinalTime.text = stopwatch.FinalTimeText();
     }
 
     //If Both players are 'Caught', Game Over!

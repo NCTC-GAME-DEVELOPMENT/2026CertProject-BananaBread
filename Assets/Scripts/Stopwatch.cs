@@ -64,13 +64,13 @@ public class Stopwatch : MonoBehaviour
 
     public string LevelTimeText()
     {
-        TimeSpan time = TimeSpan.FromSeconds(FinalTime);
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);
         return time.ToString(@"mm\:ss\:fff");
     }
 
     public string FinalTimeText()
     {
-        TimeSpan time = TimeSpan.FromSeconds(currentTime);
+        TimeSpan time = TimeSpan.FromSeconds(FinalTime);
         return time.ToString(@"mm\:ss\:fff");
     }
 }

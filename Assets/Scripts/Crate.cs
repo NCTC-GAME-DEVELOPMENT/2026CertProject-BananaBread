@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEditor.VersionControl.Asset;
 
 public class Crate : Common
 {
     float moveAmount = 3.0f;
     public Animator anim;
+    private bool canPush = true;
 
     // Array for all teleport doors in level.
     private TeleportDoor[] doors;
@@ -47,9 +47,8 @@ public class Crate : Common
                 }
             }
         }
-        if (CanPushHere(direction))
+        if (CanPushHere(direction) && canPush)
         {
-
             if (direction == "North")
             {
                 anim.SetBool("PushNorth", true);
@@ -59,6 +58,7 @@ public class Crate : Common
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z + moveAmount));
                 myPosition = gameObject.transform.position;
                 StartCoroutine(Cooldown(0.5f));
+                StartCoroutine(AnimationCooldown(0.5f));
             }
             else if (direction == "South")
             {
@@ -69,6 +69,7 @@ public class Crate : Common
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z - moveAmount));
                 myPosition = gameObject.transform.position;
                 StartCoroutine(Cooldown(0.5f));
+                StartCoroutine(AnimationCooldown(0.5f));
             }
             else if (direction == "East")
             {
@@ -79,6 +80,7 @@ public class Crate : Common
                 gameObject.transform.position = new Vector3((myPosition.x + moveAmount), myPosition.y, myPosition.z);
                 myPosition = gameObject.transform.position;
                 StartCoroutine(Cooldown(0.5f));
+                StartCoroutine(AnimationCooldown(0.5f));
             }
             else
             {
@@ -89,6 +91,7 @@ public class Crate : Common
                 gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
                 myPosition = gameObject.transform.position;
                 StartCoroutine(Cooldown(0.5f));
+                StartCoroutine(AnimationCooldown(0.5f));
             }
         }
     }
@@ -118,15 +121,19 @@ public class Crate : Common
             return false;
         }
     }
-
-
-
-        IEnumerator Cooldown(float value)
+        IEnumerator AnimationCooldown(float value)
         {
             yield return new WaitForSeconds(value);
             anim.SetBool("PushNorth", false);
             anim.SetBool("PushEast", false);
             anim.SetBool("PushSouth", false);
             anim.SetBool("PushWest", false);
+        }
+
+        IEnumerator Cooldown(float value)
+        {
+            canPush = false;
+            yield return new WaitForSeconds(value);
+            canPush = true;
         }
     }
