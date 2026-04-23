@@ -506,6 +506,7 @@ MonoBehaviour:
   height: 10
   cellSize: 3
   origin: {x: -30, y: 0, z: -15}
+  areDebugNumbersVisible: 0
 --- !u!114 &81778961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +520,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsResetTriggered: 0
-  CurrentScene: 3
+  CurrentScene: 4
+  stopwatch: {fileID: 0}
   FinalTime: {fileID: 0}
   LevelTime: {fileID: 0}
   StopwatchManager: {fileID: 7095179546286545390, guid: 3fd7cd2de03aaa94b9ce62536c576778, type: 3}
@@ -18381,6 +18383,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1565370705896981853, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
+      propertyPath: MoveSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3012016028966289562, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_Name
       value: P1
@@ -18526,6 +18532,10 @@ PrefabInstance:
     - target: {fileID: 3889811511821343513, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
       propertyPath: m_Name
       value: P2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180096820690076218, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: MoveSpeed
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
