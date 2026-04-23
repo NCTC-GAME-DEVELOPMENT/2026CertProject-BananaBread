@@ -8,7 +8,6 @@ public class TeleportDoor : Common
     bool crateTeleported = false;
 
     //Grid_testing variable.
-    private Grid_testing grid;
 
     // Array for all crates in level.
     private Crate[] crates;
@@ -20,34 +19,34 @@ public class TeleportDoor : Common
         base.Start();
 
         // Get the grid.
-        grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
+        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
 
         // Code for moving self to center wall of grid space.
         // It is troublesome and doesn't work cleanly..
         // But it's the best solution I could come up with.
-        Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(PosX, PosY);
+        Vector3 location = gameObject.transform.position = gt.grid.GetWorldPosition(PosX, PosY);
         if(Facing == currentDirection.West)
         {
-            location.z = location.z + (grid.cellSize / 2f);
-            location.x = location.x + (grid.cellSize);
+            location.z = location.z + (gt.cellSize / 2f);
+            location.x = location.x + (gt.cellSize);
         }
         else if (Facing == currentDirection.East)
         {
-            location.z = location.z + (grid.cellSize / 2f);
+            location.z = location.z + (gt.cellSize / 2f);
         }
         else if (Facing == currentDirection.North)
         {
-            location.x = location.x + (grid.cellSize /2f);
+            location.x = location.x + (gt.cellSize /2f);
         }
         else
         {
-            location.x = location.x + (grid.cellSize / 2f);
-            location.z = location.z + (grid.cellSize);
+            location.x = location.x + (gt.cellSize / 2f);
+            location.z = location.z + (gt.cellSize);
 
         }
         // Offset the GetWorldPosition Y zeroing.
-        location.y += 2f;
+        location.y = 1f;
         // Move to location.
         gameObject.transform.position = location;
 
@@ -60,7 +59,7 @@ public class TeleportDoor : Common
     {
 
         // If both the door and destination are 0..
-        if (grid.grid.GetValue(PosX, PosY) != 2 && grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY) != 2)
+        if (gt.grid.GetValue(PosX, PosY) != 2 && gt.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY) != 2)
         {
             // Set the crateTeleported variables back to false.
             crateTeleported = false;
@@ -77,13 +76,13 @@ public class TeleportDoor : Common
         if (player)
         {
             // Find destination.
-            Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
+            Vector3 destination = gt.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
             // Get destination cell's value.
-            int destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
+            int destinationSpace = gt.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
 
             // Add half the cell size to center it on the grid cell.
-            destination.x = destination.x + (grid.cellSize / 2f);
-            destination.z = destination.z + (grid.cellSize / 2f);
+            destination.x = destination.x + (gt.cellSize / 2f);
+            destination.z = destination.z + (gt.cellSize / 2f);
 
             // If the grid is a 0 value...
             if (destinationSpace == 0)
@@ -108,7 +107,7 @@ public class TeleportDoor : Common
                         Debug.Log("Crate pushed from door!");
 
                         // Re-obtain the value.
-                        destinationSpace = grid.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
+                        destinationSpace = gt.grid.GetValue(destinationDoor.PosX, destinationDoor.PosY);
 
                         // If it's empty now..
                         if (destinationSpace == 0)
@@ -134,13 +133,13 @@ public class TeleportDoor : Common
         crateTeleported = true;
 
         // Find destination.
-        Vector3 destination = grid.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
+        Vector3 destination = gt.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
         // Correct the Y so that it isn't embedded in the floor.
         destination.y = 1f;
 
         // Add half the cell size to center it on the grid cell.
-        destination.x = destination.x + (grid.cellSize / 2f);
-        destination.z = destination.z + (grid.cellSize / 2f);
+        destination.x = destination.x + (gt.cellSize / 2f);
+        destination.z = destination.z + (gt.cellSize / 2f);
 
         // Run the move function.
         crate.ChangeLocation(destinationDoor.PosX, destinationDoor.PosY, destination);
@@ -180,7 +179,7 @@ public class TeleportDoor : Common
             player.gameObject.transform.rotation = newRotation;
         }
         // Set teleporter grid value to open once done.
-        gt.grid.SetValue(PosX, PosY, (0));
+        base.gt.grid.SetValue(PosX, PosY, (0));
     }
     
 }

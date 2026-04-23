@@ -37,6 +37,7 @@ public class Stopwatch : MonoBehaviour
                 Debug.Log("Too much time taken! Game Failed!");
             }
         }
+
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
 
         StopwatchText.text = time.ToString(@"mm\:ss\:fff");

@@ -22,7 +22,7 @@ public class GameManager : Info
 
     private void Start()
     {
-        if (GameObject.Find("StopwatchManager") == false)
+        if (GameObject.Find("StopwatchManager") == false && GameObject.Find("StopwatchManager(Clone)") == false)
         {
             Debug.Log("Stopwatch not detected. Making one now");
             GameObject.Instantiate(StopwatchManager);
