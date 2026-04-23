@@ -1,25 +1,5 @@
-using System.Globalization;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
-using UnityEditor.Build.Content;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
-
-/*
- * Note one behavior.
- * 
- * You can't push a crate into a door from in front of the door.
- * 
- * This is because of how crates innately work, and the CanPushHere function.
- * 
- * This would need to be solved on the crate side.
- * 
- * Short-term hacky answer is to design puzzles so that crates can only be pushed into doors, and out from doors. Never pushed in while at door position.
- * 
- * It's not wonderful, but no reason we can't design things that way.
- */
-
 
 public class TeleportDoor : Common
 {
@@ -66,6 +46,8 @@ public class TeleportDoor : Common
             location.z = location.z + (grid.cellSize);
 
         }
+        // Offset the GetWorldPosition Y zeroing.
+        location.y += 2f;
         // Move to location.
         gameObject.transform.position = location;
 

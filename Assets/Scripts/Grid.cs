@@ -10,10 +10,17 @@ public class Grid
     private float cellSize;
     Vector3 originPosistion;
     private TextMesh[,] DebugTextArray;
+    public bool displayDebugText = false;
 
     public const int sortingOrderDefault = 5000;
 
     // grid size
+
+    public void setDebugVisibility(bool value)
+    {
+        displayDebugText = value;
+    }
+
     public Grid(int width, int height, float cellSize, Vector3 originPosition)
     {
         this.width = width;
@@ -30,7 +37,11 @@ public class Grid
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                DebugTextArray[x, y] = CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
+                if (displayDebugText)
+                {
+                    DebugTextArray[x, y] = CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleCenter);
+                }
+
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
 
@@ -95,7 +106,10 @@ public class Grid
         if(x >= 0 && y >= 0 && x < width && y < height)
         {
             gridArray[x, y] = value;
-            DebugTextArray[x, y].text = gridArray[x, y].ToString();
+            if (displayDebugText)
+            {
+                DebugTextArray[x, y].text = gridArray[x, y].ToString();
+            }
         }
        
     }

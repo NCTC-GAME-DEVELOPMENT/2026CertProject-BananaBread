@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 355181886914209848, guid: 61158eeb67b70df4ca58d5f05a9d69e4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.41
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 355181886914209848, guid: 61158eeb67b70df4ca58d5f05a9d69e4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -239,6 +239,7 @@ MonoBehaviour:
   height: 10
   cellSize: 3
   origin: {x: -30, y: 0, z: -15}
+  areDebugNumbersVisible: 0
 --- !u!114 &81778961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsResetTriggered: 0
   CurrentScene: 0
+  stopwatch: {fileID: 0}
   FinalTime: {fileID: 0}
   LevelTime: {fileID: 0}
   StopwatchManager: {fileID: 0}
@@ -3258,7 +3260,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18dfbb850c0cca4a97011a163098c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 32b266a50b3cccf46a06b33d5d379f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &994646427
@@ -4602,7 +4604,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18dfbb850c0cca4a97011a163098c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 32b266a50b3cccf46a06b33d5d379f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1455946630
@@ -5867,7 +5869,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18dfbb850c0cca4a97011a163098c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 32b266a50b3cccf46a06b33d5d379f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1802140159
@@ -7330,6 +7332,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2586260605976184847, guid: ab6d22f7c166f8b4988cea31f3f0fbb9, type: 3}
+      propertyPath: ghostSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7247508399442427515, guid: ab6d22f7c166f8b4988cea31f3f0fbb9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.5
