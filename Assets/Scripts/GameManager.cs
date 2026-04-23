@@ -13,7 +13,7 @@ public class GameManager : Info
 
     private PlayerController P1;
     private PlayerController P2;
-    private Stopwatch stopwatch;
+    public Stopwatch stopwatch;
 
     private GameObject ClearScreen;
     public TextMeshProUGUI FinalTime;

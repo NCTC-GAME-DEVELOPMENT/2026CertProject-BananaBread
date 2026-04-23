@@ -14,8 +14,9 @@ public class endlevel : MonoBehaviour
 
     private void Awake()
     {
-        stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        stopwatch = gm.stopwatch;
     }
 
     public void Button_NextLevel()
