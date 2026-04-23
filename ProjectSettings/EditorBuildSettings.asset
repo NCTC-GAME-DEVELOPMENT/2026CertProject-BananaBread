@@ -23,6 +23,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/SimplePortalLevel.unity
     guid: 8d36edd24328b03408909062c4bde4b5
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 3c75afd8b2759734f90e9022207c622c
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 07ea1383477e58645adc9a50b1c28a11
+  - enabled: 1
+    path: Assets/Scenes/Quit.unity
+    guid: 8b626b1323aeb3249a1afcc1e41a897d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
