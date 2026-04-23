@@ -38,6 +38,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quit.unity
     guid: 8b626b1323aeb3249a1afcc1e41a897d
+  - enabled: 1
+    path: Assets/Scenes/Levels/FinalLevel.unity
+    guid: 03ab46d3b896be84287e1970d8313b5d
+  - enabled: 1
+    path: Assets/Scenes/Levels/TeaserLevel.unity
+    guid: c366bb719655a7848b97b67e4b61d3a9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
