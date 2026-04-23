@@ -15,7 +15,6 @@ public class mainMenu : MonoBehaviour
     public string Credits;
     public string FirstLevel;
     public string LevelSelect;
-    public string Quit;
 
 
 
@@ -31,7 +30,7 @@ public class mainMenu : MonoBehaviour
     }
     public void Button_Quit()
     {
-        SceneManager.LoadScene(Quit);
+        Application.Quit();
     }
     public void Button_Credits()
     {
