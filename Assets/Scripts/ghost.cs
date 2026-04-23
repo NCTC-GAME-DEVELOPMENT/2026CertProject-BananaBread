@@ -150,10 +150,10 @@ public class ghost : Common
             (moveDirection == currentDirection.East && directionList[randomIndex] == "Right") ||
             (moveDirection == currentDirection.West && directionList[randomIndex] == "Left"))
             {
+                // Set the animation before moving.
+                RunAnimation(destinationDirection);
                 // Move.
                 ChangeLocation(destinationX, destinationY, doorDestination);
-                // .. and for the animation, because it animates after it moves.
-                moveDirection = destinationDirection;
             }
             // Otherwise just move.
             else
@@ -302,6 +302,7 @@ public class ghost : Common
                 destinationY = doors[x].destinationDoor.PosY;
                 // Wanted to try to animate on both sides, but probably need a single teleport animation that takes input destination and moves it from door.
                 destinationDirection = doors[x].destinationDoor.Facing;
+                // This isn't actually used because I couldn't get it to run the animation twice around the move smoothly.
                 moveDirection = ReverseFacing(doors[x].Facing);
                 doorDestination = gt.grid.GetWorldPosition(destinationX, destinationY);
                 // Add offsest so it isn't embedded in the floor or on a corner.
@@ -374,15 +375,14 @@ public class ghost : Common
             PosY -= 1;
             newLocation.z -= gt.cellSize;
         }
-
+        // Set the animation before actually moving.
+        RunAnimation(moveDirection);
         // Correct position.
         myPosition = newLocation;
         // Set transform.
         gameObject.transform.position = newLocation;
         // Change grid value.
         gt.grid.SetValue(PosX, PosY, (GridValue));
-        // Set myPosition.
-        myPosition = gameObject.transform.position;
     }
 
     // Animation timer.
@@ -397,13 +397,13 @@ public class ghost : Common
     // Delay timer.
     IEnumerator AnimationCoroutine(float time)
     {
-        RunAnimation(moveDirection);
         // Time the wait for the animation speed.
         yield return new WaitForSeconds(0.5f);
         // Reset animations.
         AnimationReset();
         // Wait the rest of the move speed.
-        yield return new WaitForSeconds(ghostSpeed - 0.5f); AnimationReset();
+        yield return new WaitForSeconds(ghostSpeed - 0.5f); 
+        AnimationReset();
         // Return to Move,
         Move();
     }

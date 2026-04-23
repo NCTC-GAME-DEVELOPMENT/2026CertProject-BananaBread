@@ -13,7 +13,8 @@ public class ExitDoor : Common
     bool PlayerLeft = false;
 
     float timer = 0f;
-    float waitTime = 2.0f;
+    // Set to animation time of QueryCrate.
+    float waitTime = 0.5f;
 
     public string sceneName;
 
