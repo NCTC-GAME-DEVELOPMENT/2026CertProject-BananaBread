@@ -10,7 +10,7 @@ public class Grid
     private float cellSize;
     Vector3 originPosistion;
     private TextMesh[,] DebugTextArray;
-    public bool displayDebugText = false;
+    public bool displayDebugText = true;
 
     public const int sortingOrderDefault = 5000;
 
