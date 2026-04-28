@@ -10,7 +10,7 @@ public class Stopwatch : MonoBehaviour
     public bool stopwatchActive = false;
     public float currentTime = 0;
     public float FinalTime = 0;
-    float BestTime = 0;
+    public float BestTime = 0;
     public TextMeshProUGUI StopwatchText;
     public GameManager gm;
 

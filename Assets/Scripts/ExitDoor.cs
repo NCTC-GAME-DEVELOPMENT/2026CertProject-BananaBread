@@ -1,7 +1,8 @@
-using NUnit.Framework.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ExitDoor : Common
 {
@@ -13,7 +14,7 @@ public class ExitDoor : Common
 
     float timer = 0f;
     // Set to animation time of QueryCrate.
-    float waitTime;
+    float waitTime = 0.5f;
 
     public string sceneName;
 
@@ -30,6 +31,9 @@ public class ExitDoor : Common
     protected override void Start()
     {
         base.Start();
+
+        // Start the timer.
+        timer = waitTime;
 
         // Get the grid.
         grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
@@ -62,13 +66,6 @@ public class ExitDoor : Common
 
         // Find the Query Crates for the scene.
         QueryCrate[] tempCrates = Object.FindObjectsByType<QueryCrate>(FindObjectsSortMode.None);
-
-        // Get time from one of the crates; they're presumably on the same animation.
-        waitTime = tempCrates[0].animationTime;
-
-        // Start the timer.
-        timer = waitTime;
-
         // Add to the list for code use.
         winCrates.AddRange(tempCrates);
         // Log the find.
@@ -89,18 +86,7 @@ public class ExitDoor : Common
                 // If one of those crates is in position, 
                 if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
-                    // Start the timer.
-                    if (timer > 0)
-                    {
-                        timer -= Time.deltaTime;
-                    }
-                    // Once the timer is up..
-                    else
-                    {
-                        // Send the crate, having waited out its animation.
-                        SendQueryCrate(winCrates[x]);
-                        timer = waitTime;
-                    }
+                  SendQueryCrate(winCrates[x]);
                 }
             }
         }
@@ -147,7 +133,7 @@ public class ExitDoor : Common
             if (winCrates[x] == inCrate)
             {
                 // Destroy the crate.
-                Destroy(inCrate.gameObject);
+                StartCoroutine(inCrate.RemoveChest());
                 // Remove from the list.
                 winCrates.RemoveAt(x);
                 // Changes grid value to 0.
