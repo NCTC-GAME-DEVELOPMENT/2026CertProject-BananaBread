@@ -19,8 +19,6 @@ public class Grid_testing : MonoBehaviour
         //3: Player
         //4: Ghost
 
-        grid.setDebugVisibility(areDebugNumbersVisible);
-
         Debug.Log(grid.GetValue(0, 1));
     }
 
