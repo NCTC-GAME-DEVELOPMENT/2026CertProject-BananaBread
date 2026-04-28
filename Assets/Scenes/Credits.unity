@@ -233,7 +233,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -400, y: 269}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 230.5, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144577822
 MonoBehaviour:
@@ -257,9 +257,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Made By:
 
-    ####
+    Troy Powell
 
-    ####
+    Lesley Waren
 
     ####'
   m_isRightToLeft: 0
@@ -881,7 +881,6 @@ MonoBehaviour:
   Credits: 
   FirstLevel: start_Menu_test
   LevelSelect: 
-  Quit: 
 --- !u!114 &1613587825
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,12 +14,14 @@ public class LevelSlect : MonoBehaviour
     public Button level4;
     public Button level5;
     public Button level6;
+    public Button back;
     public string first;
     public string second;
     public string third;
     public string fourth;
     public string fifth;
     public string sixth;
+    public string retu;
 
 
 
@@ -48,5 +50,9 @@ public class LevelSlect : MonoBehaviour
     public void Button_Level6()
     {
         SceneManager.LoadScene(sixth);
+    }
+    public void Button_back()
+    {
+        SceneManager.LoadScene(retu);
     }
 }
