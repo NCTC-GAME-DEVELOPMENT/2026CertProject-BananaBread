@@ -4,6 +4,7 @@ using UnityEngine;
 public class Crate : Common
 {
     float moveAmount = 3.0f;
+    public float animationTime = 0.5f;
     public Animator anim;
     private bool canPush = true;
 
@@ -49,50 +50,37 @@ public class Crate : Common
         }
         if (CanPushHere(direction) && canPush)
         {
+            gt.grid.SetValue(PosX, PosY, (0));
             if (direction == "North")
             {
                 anim.SetBool("PushNorth", true);
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosY += 1;
-                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z + moveAmount));
-                myPosition = gameObject.transform.position;
-                StartCoroutine(Cooldown(0.5f));
-                StartCoroutine(AnimationCooldown(0.5f));
             }
             else if (direction == "South")
             {
                 anim.SetBool("PushSouth", true);
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosY -= 1;
-                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3(myPosition.x, myPosition.y, (myPosition.z - moveAmount));
-                myPosition = gameObject.transform.position;
-                StartCoroutine(Cooldown(0.5f));
-                StartCoroutine(AnimationCooldown(0.5f));
             }
             else if (direction == "East")
             {
                 anim.SetBool("PushEast", true);
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosX += 1;
-                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3((myPosition.x + moveAmount), myPosition.y, myPosition.z);
-                myPosition = gameObject.transform.position;
-                StartCoroutine(Cooldown(0.5f));
-                StartCoroutine(AnimationCooldown(0.5f));
             }
             else
             {
                 anim.SetBool("PushWest", true);
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosX -= 1;
-                gt.grid.SetValue(PosX, PosY, (GridValue));
                 gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
-                myPosition = gameObject.transform.position;
-                StartCoroutine(Cooldown(0.5f));
-                StartCoroutine(AnimationCooldown(0.5f));
+
             }
+            // Moved repeated lines outside of the if statement; they only need to be written once.
+            gt.grid.SetValue(PosX, PosY, (GridValue));
+            myPosition = gameObject.transform.position;
+            StartCoroutine(Cooldown(animationTime));
+            StartCoroutine(AnimationCooldown(animationTime));
         }
     }
 

@@ -30,13 +30,8 @@ public class PressureSwitch : Common
         if (!IsActive)
         {
             for (int c = 0; c < Connections.Length; c++)
-            {
-                if (pc && !CratesOnly)
-                {
-                    Connections[c].ToggleActivity();
-                    IsActive = true;
-                }
-                if (crate && !PlayersOnly)
+            {   // Two if statements were identical in function, merged into one OR condition.
+                if ((pc && !CratesOnly) || (crate && !PlayersOnly))
                 {
                     Connections[c].ToggleActivity();
                     IsActive = true;
@@ -53,17 +48,10 @@ public class PressureSwitch : Common
         for (int c = 0; c < Connections.Length; c++)
         {
             if (gt.grid.GetValue(PosX, PosY) == 0)
-            {
-                if (pc && !CratesOnly)
+            {   // Same duplicate if with different conditions here.
+                if ((pc && !CratesOnly) || (crate && !PlayersOnly))
                 {
                     Debug.Log("Switch Stepped Off, Player");
-                    Connections[c].ToggleActivity();
-                    IsActive = false;
-                }
-
-                if (crate && !PlayersOnly)
-                {
-                    Debug.Log("Switch Stepped Off, Crate");
                     Connections[c].ToggleActivity();
                     IsActive = false;
                 }
