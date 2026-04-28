@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Crate : Common
 {
@@ -24,7 +25,6 @@ public class Crate : Common
 
         // Get the doors.
         doors = Object.FindObjectsByType<TeleportDoor>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-
     }
     public void MoveCrate(string direction)
     {
@@ -109,6 +109,20 @@ public class Crate : Common
             return false;
         }
     }
+
+    public Vector3 SetYValue()
+    {
+        return new Vector3(0, StartingPosition.y, 0);
+    }
+
+    public override void ChangeLocation(int newX, int newY, Vector3 newLocation)
+    {
+        base.ChangeLocation(newX, newY, newLocation);
+
+
+        StartCoroutine(AnimationCooldown(animationTime));
+    }
+
         IEnumerator AnimationCooldown(float value)
         {
             yield return new WaitForSeconds(value);
@@ -117,8 +131,29 @@ public class Crate : Common
             anim.SetBool("PushSouth", false);
             anim.SetBool("PushWest", false);
         }
+        public void ExecuteTeleportation(int newX, int newY, Vector3 newLocation, string direction)
+        {
+            ChangeLocation(newX, newY, newLocation);
 
-        IEnumerator Cooldown(float value)
+            if (direction == "South")
+            {
+                anim.SetBool("PushNorth", true);
+            }
+            else if (direction == "North")
+            {
+                anim.SetBool("PushSouth", true);
+            }
+            else if (direction == "West")
+            {
+                anim.SetBool("PushEast", true);
+            }
+            else
+            {
+                anim.SetBool("PushWest", true);
+            }
+        }
+
+    IEnumerator Cooldown(float value)
         {
             canPush = false;
             yield return new WaitForSeconds(value);

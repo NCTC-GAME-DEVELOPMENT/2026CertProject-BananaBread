@@ -135,14 +135,14 @@ public class TeleportDoor : Common
         // Find destination.
         Vector3 destination = gt.grid.GetWorldPosition(destinationDoor.PosX, destinationDoor.PosY);
         // Correct the Y so that it isn't embedded in the floor.
-        destination.y = 1f;
+        destination.y = crate.SetYValue().y;
 
         // Add half the cell size to center it on the grid cell.
         destination.x = destination.x + (gt.cellSize / 2f);
         destination.z = destination.z + (gt.cellSize / 2f);
 
         // Run the move function.
-        crate.ChangeLocation(destinationDoor.PosX, destinationDoor.PosY, destination);
+        crate.ExecuteTeleportation(destinationDoor.PosX, destinationDoor.PosY, destination, Facing.ToString());
     }
 
     // Made a separate function for readability and editability.
