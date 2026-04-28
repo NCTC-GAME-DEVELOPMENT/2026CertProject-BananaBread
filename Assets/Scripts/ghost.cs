@@ -19,6 +19,9 @@ public class ghost : Common
     private TeleportDoor[] doors;
     private PlayerController[] players;
 
+    private Rigidbody rb;
+    private Vector3 newLocation;
+
     // initialize door variables to invalid values.
     // Destinatino X and Y for GetWorldPosition.
     private int destinationX = -1;
@@ -31,14 +34,21 @@ public class ghost : Common
 
     protected override void Start()
     {
+        // 0 is up, 90 is right, -90 is left, 180 is down.
+        // Start pointing down for testing purposes.
         base.Start();
 
         // Grab animator.
         anim = GetComponentInChildren<Animator>();
         GridValue = 4;
+        // Grab rigidbody for rotation.
+        rb = gameObject.GetComponent<Rigidbody>();
         // Grab starting countdown time. + 1 for "Go".
         int startCountdown = gm.GetComponent<Countdown>().TimeValue + 1;
         gt.grid.SetValue(PosX, PosY, (GridValue));
+        // Start ghost facing South.
+        Quaternion rotation = Quaternion.Euler(0, 180, 0);
+        rb.rotation = rotation;
         // Grab all players.
         players = Object.FindObjectsByType<PlayerController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         // Grab all doors.
@@ -49,6 +59,7 @@ public class ghost : Common
 
     public void Move()
     {
+        int randomIndex = 0;
         // Grab the value of the adjacent squares.
         down = gt.grid.GetValue(PosX, PosY - 1);
         up = gt.grid.GetValue(PosX, PosY + 1);
@@ -117,19 +128,23 @@ public class ghost : Common
         // If player was found, move towards them.
         else if (playerDown)
         {
-            moveGhost("Down");
+            StartCoroutine(AnimationCoroutine(ghostSpeed, "Down"));
+            return;
         }
         else if (playerUp)
         {
-            moveGhost("Up");
+            StartCoroutine(AnimationCoroutine(ghostSpeed, "Up"));
+            return;
         }
         else if (playerLeft)
         {
-            moveGhost("Left");
+            StartCoroutine(AnimationCoroutine(ghostSpeed, "Left"));
+            return;
         }
         else if (playerRight)
         {
-            moveGhost("Right");
+            StartCoroutine(AnimationCoroutine(ghostSpeed, "Right"));
+            return;
         }
         // If there are no movement options, debug message.
         else if (directionList.Count == 0)
@@ -142,7 +157,7 @@ public class ghost : Common
         else
         {
             // Grab a direction index from the list randomly.
-            int randomIndex = UnityEngine.Random.Range(0, directionList.Count);
+            randomIndex = UnityEngine.Random.Range(0, directionList.Count);
 
             // Use the door if it chose to move into a door..
             if ((moveDirection == currentDirection.North && directionList[randomIndex] == "Up") ||
@@ -150,40 +165,37 @@ public class ghost : Common
             (moveDirection == currentDirection.East && directionList[randomIndex] == "Right") ||
             (moveDirection == currentDirection.West && directionList[randomIndex] == "Left"))
             {
-                // Set the animation before moving.
-                RunAnimation(destinationDirection);
+                // Set rotation.
+                rb.rotation = SetRotation(directionList[randomIndex]);
                 // Move.
                 ChangeLocation(destinationX, destinationY, doorDestination);
             }
-            // Otherwise just move.
-            else
-            {
-                // Else just move.
-                moveGhost(directionList[randomIndex]);
-            }
+        // If it reaches this point, it just moves on the random index.
         }
         // Run animation coroutine.
-        StartCoroutine(AnimationCoroutine(ghostSpeed));
+        StartCoroutine(AnimationCoroutine(ghostSpeed, directionList[randomIndex]));
     }
 
-    public void RunAnimation(currentDirection moveDirection)
+    private currentDirection DirectionToFacing(string inString)
     {
-        if (moveDirection == currentDirection.North)
+        currentDirection outDirection = currentDirection.None;
+        if (inString == "Up")
         {
-            anim.SetBool("moveNorth", true);
+            outDirection = currentDirection.North;
         }
-        else if (moveDirection == currentDirection.South)
+        else if (inString == "Down")
         {
-            anim.SetBool("moveSouth", true);
+            outDirection = currentDirection.South;
         }
-        else if(moveDirection == currentDirection.West)
+        else if (inString == "Right")
         {
-            anim.SetBool("moveWest", true);
+            outDirection = currentDirection.East;
         }
-        else 
+        else if (inString == "Left")
         {
-            anim.SetBool("moveEast", true);
+            outDirection = currentDirection.West;
         }
+        return outDirection;
     }
 
     private void FoundPlayer(string direction, int XPos, int YPos)
@@ -301,9 +313,9 @@ public class ghost : Common
                 destinationX = doors[x].destinationDoor.PosX;
                 destinationY = doors[x].destinationDoor.PosY;
                 // Wanted to try to animate on both sides, but probably need a single teleport animation that takes input destination and moves it from door.
-                destinationDirection = doors[x].destinationDoor.Facing;
+                moveDirection = doors[x].destinationDoor.Facing;
                 // This isn't actually used because I couldn't get it to run the animation twice around the move smoothly.
-                moveDirection = ReverseFacing(doors[x].Facing);
+                destinationDirection = ReverseFacing(doors[x].Facing);
                 doorDestination = gt.grid.GetWorldPosition(destinationX, destinationY);
                 // Add offsest so it isn't embedded in the floor or on a corner.
                 // This is because of how GetWorldPosition works..
@@ -343,12 +355,36 @@ public class ghost : Common
         }
     }
 
+   // Made to have one rotation function I can run in two places.
+    private Quaternion SetRotation(string direction)
+    {
+        Quaternion newRotation = rb.rotation;
+        if (direction == "Left")
+        {
+            newRotation = Quaternion.Euler(0, -90, 0);
+        }
+        else if (direction == "Right")
+        {
+            newRotation = Quaternion.Euler(0, 90, 0);
+        }
+        else if (direction == "Up")
+        {
+            newRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (direction == "Down")
+        {
+            newRotation = Quaternion.Euler(0, 180, 0);
+        }
+
+        return newRotation;
+    }
+
     private void moveGhost(string direction)
     {
         // Set grid value to 0.
         gt.grid.SetValue(PosX, PosY, (0));
         // Get current location.
-        Vector3 newLocation = myPosition;
+        newLocation = myPosition;
         // Set new position.
         if (direction == "Left")
         {
@@ -375,8 +411,12 @@ public class ghost : Common
             PosY -= 1;
             newLocation.z -= gt.cellSize;
         }
-        // Set the animation before actually moving.
-        RunAnimation(moveDirection);
+        rb.rotation = SetRotation(direction);
+    }
+
+    // Made this to make animation smoother; separating the information update from the actual move.
+    public void ChangeLocation()
+    {
         // Correct position.
         myPosition = newLocation;
         // Set transform.
@@ -385,25 +425,22 @@ public class ghost : Common
         gt.grid.SetValue(PosX, PosY, (GridValue));
     }
 
-    // Animation timer.
-    public void AnimationReset()
-    {
-        anim.SetBool("moveNorth", false);
-        anim.SetBool("moveEast", false);
-        anim.SetBool("moveSouth", false);
-        anim.SetBool("moveWest", false);
-    }
-
     // Delay timer.
-    IEnumerator AnimationCoroutine(float time)
+    IEnumerator AnimationCoroutine(float time, string direction)
     {
+        moveGhost(direction);
+
+        // Run the animation.
+        anim.SetBool("moveForward", true);
         // Time the wait for the animation speed.
+        ChangeLocation();
         yield return new WaitForSeconds(0.5f);
+
         // Reset animations.
-        AnimationReset();
+        anim.SetBool("moveForward", false);
+
         // Wait the rest of the move speed.
         yield return new WaitForSeconds(ghostSpeed - 0.5f); 
-        AnimationReset();
         // Return to Move,
         Move();
     }

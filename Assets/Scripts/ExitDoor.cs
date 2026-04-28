@@ -1,8 +1,7 @@
-using System.Collections;
+using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI;
 
 public class ExitDoor : Common
 {
@@ -14,7 +13,7 @@ public class ExitDoor : Common
 
     float timer = 0f;
     // Set to animation time of QueryCrate.
-    float waitTime = 0.5f;
+    float waitTime;
 
     public string sceneName;
 
@@ -31,9 +30,6 @@ public class ExitDoor : Common
     protected override void Start()
     {
         base.Start();
-
-        // Start the timer.
-        timer = waitTime;
 
         // Get the grid.
         grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
@@ -66,6 +62,13 @@ public class ExitDoor : Common
 
         // Find the Query Crates for the scene.
         QueryCrate[] tempCrates = Object.FindObjectsByType<QueryCrate>(FindObjectsSortMode.None);
+
+        // Get time from one of the crates; they're presumably on the same animation.
+        waitTime = tempCrates[0].animationTime;
+
+        // Start the timer.
+        timer = waitTime;
+
         // Add to the list for code use.
         winCrates.AddRange(tempCrates);
         // Log the find.
@@ -94,11 +97,10 @@ public class ExitDoor : Common
                     // Once the timer is up..
                     else
                     {
+                        // Send the crate, having waited out its animation.
                         SendQueryCrate(winCrates[x]);
                         timer = waitTime;
                     }
-
-
                 }
             }
         }

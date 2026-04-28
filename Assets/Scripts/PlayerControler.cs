@@ -111,24 +111,21 @@ public class PlayerController : Controller
 
         if (!IsCaught && IsActive)
         {
+            gt.grid.SetValue(PosX, PosY, (0));
             if (myPos.z > gridPos.z + 1.5)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosY += 1;
             }
             if (myPos.z < gridPos.z - 1.5)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosY -= 1;
             }
             if (myPos.x > gridPos.x + 1.5)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosX += 1;
             }
             if (myPos.x < gridPos.x - 1.5)
             {
-                gt.grid.SetValue(PosX, PosY, (0));
                 PosX -= 1;
             }
         }
@@ -178,9 +175,9 @@ public class PlayerController : Controller
         {
         if (Mathf.Abs(value.x) > Mathf.Abs(value.y))
         {
+            anim.SetBool("IsMoving", true);
             if (value.x > 0)
             {
-                anim.SetBool("IsMoving", true);
                 Facing = currentDirection.East;
                 //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * value.x * MoveSpeed;
@@ -188,7 +185,6 @@ public class PlayerController : Controller
             }
             else
             {
-                anim.SetBool("IsMoving", true);
                 Facing = currentDirection.West;
                 //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * (value.x * -1) * MoveSpeed;

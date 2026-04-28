@@ -59,16 +59,6 @@ public class Common : MonoBehaviour
         myPosition = newLocation;
     }
 
-    /*
-     *                 
-     *          anim.SetBool("PushWest", true);
-                gt.grid.SetValue(PosX, PosY, (0));
-                PosX -= 1;
-                gt.grid.SetValue(PosX, PosY, (GridValue));
-                gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
-                myPosition = gameObject.transform.position;
-                StartCoroutine(Cooldown(0.5f));*/
-
     //Uses the object's world position to set its starting coordinates
     public virtual void FindStartCoordinates()
     {
