@@ -1,9 +1,17 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Animations;
+using static UnityEngine.Rendering.DebugUI;
 
 public class QueryCrate : Crate
 {
-    private void OnDestroy()
+    public IEnumerator RemoveChest()
     {
-        //For the animations of the Treasure when it is sent through the door
+
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("IsInDoor", true);
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Crate removed");
+        Destroy(this.gameObject);
     }
 }

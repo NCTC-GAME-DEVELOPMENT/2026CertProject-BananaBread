@@ -86,19 +86,7 @@ public class ExitDoor : Common
                 // If one of those crates is in position, 
                 if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
-                    // Start the timer.
-                    if (timer > 0)
-                    {
-                        timer -= Time.deltaTime;
-                    }
-                    // Once the timer is up..
-                    else
-                    {
-                        SendQueryCrate(winCrates[x]);
-                        timer = waitTime;
-                    }
-
-
+                  SendQueryCrate(winCrates[x]);
                 }
             }
         }
@@ -145,7 +133,7 @@ public class ExitDoor : Common
             if (winCrates[x] == inCrate)
             {
                 // Destroy the crate.
-                Destroy(inCrate.gameObject);
+                StartCoroutine(inCrate.RemoveChest());
                 // Remove from the list.
                 winCrates.RemoveAt(x);
                 // Changes grid value to 0.
