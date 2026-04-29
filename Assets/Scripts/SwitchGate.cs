@@ -10,20 +10,19 @@ public class SwitchGate : Common
     public bool IsActive = false;
     protected bool DefaultState;
 
+    Animator anim;
+
     protected override void Start()
     {
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         gf = GetComponentInChildren<GateForce>();
+        anim = GetComponentInChildren<Animator>();
         StartingPosition = gameObject.transform.position;
         gf.myPosition = StartingPosition;
 
         DefaultState = IsActive;
 
-        if (Facing == currentDirection.North || Facing == currentDirection.South)
-        {
-            Gate.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
-        }
         FindStartCoordinates();
         RaiseLowerGate();
     }
@@ -56,12 +55,14 @@ public class SwitchGate : Common
     {
         if (IsActive)
         {
+            anim.SetBool("SwitchDown", true);
             Gate.SetActive(false);
             ForceVolume.SetActive(false);
             gt.grid.SetValue(PosX, PosY, (0));
         }
         else
         {
+            anim.SetBool("SwitchDown", false );
             Gate.SetActive(true);
             ForceVolume.SetActive(true);
             gt.grid.SetValue(PosX, PosY, (1));

@@ -78,7 +78,7 @@ public class GameManager : Info
 
     private void Update()
     {
-        FailChecker();
+        //FailChecker();
 
         if (IsResetTriggered)
         {
@@ -114,13 +114,13 @@ public class GameManager : Info
     }
 
     //If Both players are 'Caught', Game Over!
-    public void FailChecker()
+    /*public void FailChecker()
     {
         if (P1.IsCaught && P2.IsCaught)
         {
             //Debug.Log("GAME OVER!");
         }
-    }
+    }*/
 
     IEnumerator ReturnResetOff()
     {
