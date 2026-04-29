@@ -8,11 +8,13 @@ public class PressureSwitch : Common
     public bool PlayersOnly = false;
     public bool CratesOnly = false;
 
+    Animator anim;
 
     protected override void Start()
     {
         base.Start();
         CanReset = false;
+        anim = GetComponent<Animator>();
 
         if (PlayersOnly && CratesOnly)
         {
@@ -29,10 +31,12 @@ public class PressureSwitch : Common
 
         if (!IsActive)
         {
-            for (int c = 0; c < Connections.Length; c++)
-            {   // Two if statements were identical in function, merged into one OR condition.
-                if ((pc && !CratesOnly) || (crate && !PlayersOnly))
-                {
+            if ((pc && !CratesOnly) || (crate && !PlayersOnly))
+            {
+                anim.SetBool("SwitchDown", true);
+
+                for (int c = 0; c < Connections.Length; c++)
+                {   // Two if statements were identical in function, merged into one OR condition.
                     Connections[c].ToggleActivity();
                     IsActive = true;
                 }
@@ -44,6 +48,11 @@ public class PressureSwitch : Common
     {
         PlayerController pc = other.GetComponent<PlayerController>();
         Crate crate = other.GetComponent<Crate>();
+        
+        if ((pc && !CratesOnly) || (crate && !PlayersOnly))
+        {
+            anim.SetBool("SwitchDown", false);
+        }
 
         for (int c = 0; c < Connections.Length; c++)
         {
