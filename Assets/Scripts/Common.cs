@@ -14,6 +14,8 @@ public class Common : MonoBehaviour
     protected int StartX;
     protected int StartY;
 
+    private AudioSource sounds;
+
     public enum currentDirection
     {
         None,
@@ -28,6 +30,8 @@ public class Common : MonoBehaviour
 
     protected virtual void Start()
     {
+        sounds = GetComponentInChildren<AudioSource>();
+
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         StartingPosition = gameObject.transform.position;
@@ -84,5 +88,10 @@ public class Common : MonoBehaviour
         PosX = StartX;
         PosY = StartY;
         gt.grid.SetValue(PosX, PosY, (GridValue));
+    }
+
+    public virtual void PlaySound(AudioClip sound)
+    {
+        sounds.Play();
     }
 }
