@@ -95,11 +95,9 @@ public class PlayerController : Controller
 
         gt.grid.SetValue(PosX, PosY, (3));
         PlayerGridMovement();
-        // Do nothing if it's playing a sound.
-        if (sounds.isPlaying)
-        {
-
-        }
+        // Do nothing if no sounds or if a sound is playing.
+        if (sounds == null){ }
+        else if (sounds.isPlaying) { }
         // If ismoving, play sound effect.
         else if (IsMoving && soundEffectOne.Length > 0)
         {
