@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Common : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class Common : MonoBehaviour
     private AudioSource sounds;
     public AudioClip[] soundEffectOne;
     public AudioClip[] soundEffectTwo;
+
+    public float pitchShiftLowRange = 1f;
+    public float pitchShiftHighRange = 1f;
+
 
     public enum currentDirection
     {
@@ -96,6 +101,7 @@ public class Common : MonoBehaviour
     {
         int index = Random.Range(0, sound.Length);
         sounds.clip = sound[index];
+        sounds.pitch = Random.Range(pitchShiftLowRange, pitchShiftHighRange);
         sounds.Play();
     }
 }
