@@ -1,5 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
+
+// Plays sound effect one when isMoving.
+// Plays sound effect two when isPushing.
 
 public class PlayerController : Controller
 {
@@ -13,6 +17,7 @@ public class PlayerController : Controller
     public bool IsCaught = false;
     public bool IsActive = false;
     private bool IsPushing = false;
+    private bool IsMoving = false;
     public float MoveSpeed = 1.0f;
 
     public int PosX;
@@ -20,6 +25,15 @@ public class PlayerController : Controller
     private Vector3 StartingPosition;
     private int StartX;
     private int StartY;
+
+    private AudioSource sounds;
+
+    public AudioClip[] soundEffectOne;
+    public AudioClip[] soundEffectTwo;
+
+    public float pitchShiftLowRange = 1f;
+    public float pitchShiftHighRange = 1f;
+
 
     public enum currentDirection
     {
@@ -42,6 +56,8 @@ public class PlayerController : Controller
     {
         base.Start();
         IsHuman = true;
+
+        sounds = GetComponentInChildren<AudioSource>();
 
         anim = GetComponentInChildren<Animator>();
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
@@ -79,6 +95,21 @@ public class PlayerController : Controller
 
         gt.grid.SetValue(PosX, PosY, (3));
         PlayerGridMovement();
+        // Do nothing if it's playing a sound.
+        if (sounds.isPlaying)
+        {
+
+        }
+        // If ismoving, play sound effect.
+        else if (IsMoving && soundEffectOne != null)
+        {
+            PlaySound(soundEffectOne);
+        }
+        else if (soundEffectOne == null)
+        {
+            Debug.Log("Sound effect one missing on: " + gameObject.name);
+        }
+
     }
 
     //Uses the object's world position to set its starting coordinates
@@ -167,6 +198,7 @@ public class PlayerController : Controller
         if (Mathf.Abs(value.x) > Mathf.Abs(value.y))
         {
             anim.SetBool("IsMoving", true);
+            IsMoving = true;
             if (value.x > 0)
             {
                 Facing = currentDirection.East;
@@ -187,6 +219,7 @@ public class PlayerController : Controller
             if (value.y > 0)
             {
                 anim.SetBool("IsMoving", true);
+                IsMoving = true;
                 Facing = currentDirection.North;
                 //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
                 rb.linearVelocity = gameObject.transform.forward * value.y * MoveSpeed;
@@ -195,10 +228,12 @@ public class PlayerController : Controller
             else
             {
                 anim.SetBool("IsMoving", false);
+                IsMoving = false;
                 rb.linearVelocity = gameObject.transform.forward * (value.y * -1) * MoveSpeed;
                 if (value.y < 0)
                 {
                     anim.SetBool("IsMoving", true);
+                    IsMoving = true;
                     rb.rotation = gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
                     Facing = currentDirection.South;
                     //Debug.Log("P" + PlayerNumber + " direction: " + Facing);
@@ -212,6 +247,15 @@ public class PlayerController : Controller
     {
         if (value)
         {
+            // Play sound.
+            if (soundEffectTwo != null)
+            {
+                PlaySound(soundEffectTwo);
+            }
+            else
+            {
+                Debug.Log("Sound effect two missing on: " + gameObject.name);
+            }
             LOG("Push Push");
             IsPushing = true;
             anim.SetBool("IsPushing", true);
@@ -238,5 +282,13 @@ public class PlayerController : Controller
         yield return new WaitForSeconds(value);
         anim.SetBool("IsPushing", false);
         IsPushing = false;
+    }
+
+    public virtual void PlaySound(AudioClip[] sound)
+    {
+        int index = Random.Range(0, sound.Length);
+        sounds.clip = sound[index];
+        sounds.pitch = Random.Range(pitchShiftLowRange, pitchShiftHighRange);
+        sounds.Play();
     }
 }
