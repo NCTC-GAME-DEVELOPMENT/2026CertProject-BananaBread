@@ -12,6 +12,12 @@ public class QueryCrate : Crate
         anim.SetBool("IsInDoor", true);
         yield return new WaitForSeconds(0.5f);
         Debug.Log("Crate removed");
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+    }
+
+    public override void ResetPosition()
+    {
+        base.ResetPosition();
+        anim.SetBool("IsInDoor", false);
     }
 }

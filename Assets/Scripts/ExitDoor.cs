@@ -27,6 +27,7 @@ public class ExitDoor : Common
 
     //A list is a bit better to work with than an array.
     private List<QueryCrate> winCrates = new List<QueryCrate>();
+    private List<QueryCrate> recordedCrates = new List<QueryCrate>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
@@ -69,6 +70,7 @@ public class ExitDoor : Common
         QueryCrate[] tempCrates = Object.FindObjectsByType<QueryCrate>(FindObjectsSortMode.None);
         // Add to the list for code use.
         winCrates.AddRange(tempCrates);
+        recordedCrates.AddRange(tempCrates);
         // Log the find.
         Debug.Log($"Found Crates: {tempCrates.Length}!");
 
@@ -81,6 +83,7 @@ public class ExitDoor : Common
         // First if statement; if there are still winCrates in the list.
         if (winCrates.Count > 0)
         {
+            CrateSent = false;
             // Loop through all available crates.
             for (int x = 0; x < winCrates.Count; x++)
             {
@@ -169,6 +172,18 @@ public class ExitDoor : Common
                 // Log the change.
                 Debug.Log($"Crates left: {winCrates.Count}!");
             }
+        }
+    }
+
+    public override void ResetPosition()
+    {
+        winCrates.Clear();
+        winCrates.AddRange(recordedCrates);
+
+        for (int x = 0; x < winCrates.Count; x++)
+        {
+            winCrates[x].gameObject.SetActive(true);
+            winCrates[x].ResetPosition();
         }
     }
 }

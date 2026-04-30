@@ -94,6 +94,7 @@ public class PlayerController : Controller
         InputPrevious = InputCurrent;
 
         gt.grid.SetValue(PosX, PosY, (3));
+
         PlayerGridMovement();
         // Do nothing if no sounds or if a sound is playing.
         if (sounds == null){ }
@@ -134,21 +135,24 @@ public class PlayerController : Controller
 
         if (!IsCaught && IsActive)
         {
-            gt.grid.SetValue(PosX, PosY, (0));
             if (myPos.z > gridPos.z + 1.5)
             {
+                gt.grid.SetValue(PosX, PosY, (0));
                 PosY += 1;
             }
             if (myPos.z < gridPos.z - 1.5)
             {
+                gt.grid.SetValue(PosX, PosY, (0));
                 PosY -= 1;
             }
             if (myPos.x > gridPos.x + 1.5)
             {
+                gt.grid.SetValue(PosX, PosY, (0));
                 PosX += 1;
             }
             if (myPos.x < gridPos.x - 1.5)
             {
+                gt.grid.SetValue(PosX, PosY, (0));
                 PosX -= 1;
             }
         }
