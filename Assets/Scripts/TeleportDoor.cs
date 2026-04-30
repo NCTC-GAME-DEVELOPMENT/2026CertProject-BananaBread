@@ -149,7 +149,7 @@ public class TeleportDoor : Common
         PlaySound(soundEffectOne);
 
         // Run the move function.
-        crate.ExecuteTeleportation(destinationDoor.PosX, destinationDoor.PosY, destination, Facing.ToString());
+        StartCoroutine(crate.ExecuteTeleportation(destinationDoor.PosX, destinationDoor.PosY, destination, Facing.ToString()));
     }
 
     // Made a separate function for readability and editability.
