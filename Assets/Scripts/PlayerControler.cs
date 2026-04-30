@@ -98,6 +98,10 @@ public class PlayerController : Controller
         PlayerGridMovement();
         // Do nothing if no sounds or if a sound is playing.
         if (sounds == null){ }
+        else if (sounds.isPlaying && !IsMoving)
+        {
+            sounds.Stop();
+        }
         else if (sounds.isPlaying) { }
         // If ismoving, play sound effect.
         else if (IsMoving && soundEffectOne.Length > 0)
