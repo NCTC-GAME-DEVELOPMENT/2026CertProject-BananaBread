@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+
+// Plays sound one when being pushed.
+
+
 
 public class Crate : Common
 {
@@ -76,6 +79,16 @@ public class Crate : Common
                 gameObject.transform.position = new Vector3((myPosition.x - moveAmount), myPosition.y, myPosition.z);
 
             }
+            // Play sound.
+            if (soundEffectOne != null)
+            {
+                PlaySound(soundEffectOne);
+            }
+            else
+            {
+                Debug.Log("Sound effect one missing on: " + gameObject.name);
+            }
+
             // Moved repeated lines outside of the if statement; they only need to be written once.
             gt.grid.SetValue(PosX, PosY, (GridValue));
             myPosition = gameObject.transform.position;
