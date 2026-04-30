@@ -15,8 +15,8 @@ public class Common : MonoBehaviour
     protected int StartY;
 
     private AudioSource sounds;
-    public AudioClip soundEffectOne;
-    public AudioClip soundEffectTwo;
+    public AudioClip[] soundEffectOne;
+    public AudioClip[] soundEffectTwo;
 
     public enum currentDirection
     {
@@ -92,9 +92,10 @@ public class Common : MonoBehaviour
         gt.grid.SetValue(PosX, PosY, (GridValue));
     }
 
-    public virtual void PlaySound(AudioClip sound)
+    public virtual void PlaySound(AudioClip[] sound)
     {
-        sounds.clip = sound;
+        int index = Random.Range(0, sound.Length);
+        sounds.clip = sound[index];
         sounds.Play();
     }
 }
