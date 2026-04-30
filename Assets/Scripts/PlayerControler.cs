@@ -1,11 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Animations;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerController : Controller
 {
