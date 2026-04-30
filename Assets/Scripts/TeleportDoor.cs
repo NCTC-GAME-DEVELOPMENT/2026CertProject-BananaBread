@@ -115,7 +115,14 @@ public class TeleportDoor : Common
                         if (destinationSpace == 0)
                         {
                             // Play sound.
-                            PlaySound(soundEffectOne);
+                            if (soundEffectOne != null)
+                            {
+                                PlaySound(soundEffectOne);
+                            }
+                            else
+                            {
+                                Debug.Log("Sound effect one missing on: " + gameObject.name);
+                            }
                             // Teleport.
                             movePlayer(player, destination);
 
@@ -145,8 +152,15 @@ public class TeleportDoor : Common
         destination.x = destination.x + (gt.cellSize / 2f);
         destination.z = destination.z + (gt.cellSize / 2f);
 
-        // Play teleport sound.
-        PlaySound(soundEffectOne);
+        // Play sound.
+        if (soundEffectOne != null)
+        {
+            PlaySound(soundEffectOne);
+        }
+        else
+        {
+            Debug.Log("Sound effect one missing on: " + gameObject.name);
+        }
 
         // Run the move function.
         crate.ExecuteTeleportation(destinationDoor.PosX, destinationDoor.PosY, destination, Facing.ToString());
@@ -186,27 +200,16 @@ public class TeleportDoor : Common
             player.gameObject.transform.rotation = newRotation;
         }
         // Play sound.
-        PlaySound(soundEffectOne);
+        if (soundEffectOne != null)
+        {
+            PlaySound(soundEffectOne);
+        }
+        else
+        {
+            Debug.Log("Sound effect one missing on: " + gameObject.name);
+        }
         // Set teleporter grid value to open once done.
         base.gt.grid.SetValue(PosX, PosY, (0));
     }
     
 }
-/*
- * Pseudo code idea: how to handle crates going through the teleport door.
- * 
- * First: the collission box only checks if it enters collision, not teleports. It has a bool for "inFrontOfDoor".
- * 
- * Second: only teleports if pushed into the door.
- * 
- * Third: If a player enters, and it's blocked by CRATE, attempt to push that crate outward.
- * May need to add the north/south/east/west enum here to tell it which way to attempt to shove the crate in the destination.
- * If it works, teleport player after the push.
- * 
- * 
- * Also, these lines:         
-        Vector3 location = gameObject.transform.position = gt.grid.GetWorldPosition(PosX, PosY);
-        location.x = location.x + (gt.cellSize / 2f);
-        location.z = location.z + (gt.cellSize / 2f);
-        gameObject.transform.position = location;
- */

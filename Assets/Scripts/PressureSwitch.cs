@@ -37,7 +37,14 @@ public class PressureSwitch : Common
             if ((pc && !CratesOnly) || (crate && !PlayersOnly))
             {
                 // Play sound.
-                PlaySound(soundEffectOne);
+                if (soundEffectOne != null)
+                {
+                    PlaySound(soundEffectOne);
+                }
+                else
+                {
+                    Debug.Log("Sound effect one missing on: " + gameObject.name);
+                }
                 anim.SetBool("SwitchDown", true);
 
                 for (int c = 0; c < Connections.Length; c++)
@@ -57,7 +64,14 @@ public class PressureSwitch : Common
         if ((pc && !CratesOnly) || (crate && !PlayersOnly))
         {
             // Play sound.
-            PlaySound(soundEffectTwo);
+            if (soundEffectTwo != null)
+            {
+                PlaySound(soundEffectTwo);
+            }
+            else
+            {
+                Debug.Log("Sound effect two missing on: " + gameObject.name);
+            }
             anim.SetBool("SwitchDown", false);
         }
 

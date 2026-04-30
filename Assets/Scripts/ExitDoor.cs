@@ -88,7 +88,14 @@ public class ExitDoor : Common
                 if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
                     // Play sound.
-                    PlaySound(soundEffectOne);
+                    if (soundEffectOne != null)
+                    {
+                        PlaySound(soundEffectOne);
+                    }
+                    else
+                    {
+                        Debug.Log("Sound effect one missing on: " + gameObject.name);
+                    }
                     SendQueryCrate(winCrates[x]);
                 }
             }
@@ -109,7 +116,14 @@ public class ExitDoor : Common
         if (player && !PlayerLeft && CrateSent)
         {
             // Play sound.
-            PlaySound(soundEffectTwo);
+            if (soundEffectTwo != null)
+            {
+                PlaySound(soundEffectTwo);
+            }
+            else
+            {
+                Debug.Log("Sound effect two missing on: " + gameObject.name);
+            }
             // Destroy 
             Destroy(collision.gameObject);
             // Changes grid value to 0.
@@ -124,7 +138,14 @@ public class ExitDoor : Common
         if (player && PlayerLeft && CrateSent)
         {
             // Play sound.
-            PlaySound(soundEffectTwo);
+            if (soundEffectTwo != null)
+            {
+                PlaySound(soundEffectTwo);
+            }
+            else
+            {
+                Debug.Log("Sound effect two missing on: " + gameObject.name);
+            }
             Destroy(collision.gameObject);
             manager.ClearLevel();
         }
