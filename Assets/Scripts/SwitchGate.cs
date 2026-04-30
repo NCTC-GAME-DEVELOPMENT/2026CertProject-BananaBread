@@ -1,6 +1,6 @@
-using System;
-using System.Collections;
 using UnityEngine;
+
+// Plays soundEffectOne when IsActive. SoundEffectTwo when not.
 
 public class SwitchGate : Common
 {
@@ -55,6 +55,8 @@ public class SwitchGate : Common
     {
         if (IsActive)
         {
+            // Play sound.
+            PlaySound(soundEffectOne);
             anim.SetBool("SwitchDown", true);
             Gate.SetActive(false);
             ForceVolume.SetActive(false);
@@ -62,6 +64,8 @@ public class SwitchGate : Common
         }
         else
         {
+            // Play sound.
+            PlaySound(soundEffectTwo);
             anim.SetBool("SwitchDown", false );
             Gate.SetActive(true);
             ForceVolume.SetActive(true);

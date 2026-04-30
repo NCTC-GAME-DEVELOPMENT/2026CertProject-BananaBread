@@ -1,6 +1,8 @@
 
 using UnityEngine;
 
+// Plays sound effect one when teleporting crates or player.
+
 public class TeleportDoor : Common
 {
 
@@ -112,6 +114,8 @@ public class TeleportDoor : Common
                         // If it's empty now..
                         if (destinationSpace == 0)
                         {
+                            // Play sound.
+                            PlaySound(soundEffectOne);
                             // Teleport.
                             movePlayer(player, destination);
 
@@ -140,6 +144,9 @@ public class TeleportDoor : Common
         // Add half the cell size to center it on the grid cell.
         destination.x = destination.x + (gt.cellSize / 2f);
         destination.z = destination.z + (gt.cellSize / 2f);
+
+        // Play teleport sound.
+        PlaySound(soundEffectOne);
 
         // Run the move function.
         crate.ExecuteTeleportation(destinationDoor.PosX, destinationDoor.PosY, destination, Facing.ToString());
@@ -178,6 +185,8 @@ public class TeleportDoor : Common
             newRotation = Quaternion.Euler(0, -90, 0);
             player.gameObject.transform.rotation = newRotation;
         }
+        // Play sound.
+        PlaySound(soundEffectOne);
         // Set teleporter grid value to open once done.
         base.gt.grid.SetValue(PosX, PosY, (0));
     }

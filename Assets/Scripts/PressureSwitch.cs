@@ -1,5 +1,8 @@
 using UnityEngine;
 
+// Plays sound effect one when switch down.
+// Plays sound effect two when not.
+
 public class PressureSwitch : Common
 {
     public SwitchGate[] Connections;
@@ -33,6 +36,8 @@ public class PressureSwitch : Common
         {
             if ((pc && !CratesOnly) || (crate && !PlayersOnly))
             {
+                // Play sound.
+                PlaySound(soundEffectOne);
                 anim.SetBool("SwitchDown", true);
 
                 for (int c = 0; c < Connections.Length; c++)
@@ -51,6 +56,8 @@ public class PressureSwitch : Common
         
         if ((pc && !CratesOnly) || (crate && !PlayersOnly))
         {
+            // Play sound.
+            PlaySound(soundEffectTwo);
             anim.SetBool("SwitchDown", false);
         }
 

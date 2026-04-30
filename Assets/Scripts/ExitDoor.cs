@@ -1,8 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI;
+
+// Plays sound effect one when sending querycrate.
+// Plays sound effect two when sending player.
 
 public class ExitDoor : Common
 {
@@ -86,7 +87,9 @@ public class ExitDoor : Common
                 // If one of those crates is in position, 
                 if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
-                  SendQueryCrate(winCrates[x]);
+                    // Play sound.
+                    PlaySound(soundEffectOne);
+                    SendQueryCrate(winCrates[x]);
                 }
             }
         }
@@ -105,6 +108,8 @@ public class ExitDoor : Common
         // If there's a player, someone hasn't left yet, and the crates are gone...
         if (player && !PlayerLeft && CrateSent)
         {
+            // Play sound.
+            PlaySound(soundEffectTwo);
             // Destroy 
             Destroy(collision.gameObject);
             // Changes grid value to 0.
@@ -118,6 +123,8 @@ public class ExitDoor : Common
         // If the player enters after the create is sent, win.
         if (player && PlayerLeft && CrateSent)
         {
+            // Play sound.
+            PlaySound(soundEffectTwo);
             Destroy(collision.gameObject);
             manager.ClearLevel();
         }
