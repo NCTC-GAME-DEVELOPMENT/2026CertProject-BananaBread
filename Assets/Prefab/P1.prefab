@@ -357,7 +357,10 @@ MonoBehaviour:
   MoveSpeed: 5
   PosX: 0
   PosY: 4
-  soundEffectOne: []
+  soundEffectOne:
+  - {fileID: 8300000, guid: be0c681c9e4f87545821f3c871f57420, type: 3}
+  - {fileID: 8300000, guid: 56ae2ecdc4a198e40894008476afaf26, type: 3}
+  - {fileID: 8300000, guid: 4cd979b5e8d39784c9842aa8fc5b9330, type: 3}
   soundEffectTwo: []
   pitchShiftLowRange: 1
   pitchShiftHighRange: 1

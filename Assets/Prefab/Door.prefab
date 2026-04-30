@@ -125,6 +125,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosX: 0
   PosY: 0
+  soundEffectOne:
+  - {fileID: 8300000, guid: e6d77d0b5e6936b43b0af6887c88bcca, type: 3}
+  - {fileID: 8300000, guid: 3821ffd90f4fb5f4e8d22cf43599e8b7, type: 3}
+  soundEffectTwo:
+  - {fileID: 8300000, guid: e6d77d0b5e6936b43b0af6887c88bcca, type: 3}
+  - {fileID: 8300000, guid: 3821ffd90f4fb5f4e8d22cf43599e8b7, type: 3}
+  pitchShiftLowRange: 1
+  pitchShiftHighRange: 1
   Facing: 0
   CanReset: 1
   destinationDoor: {fileID: 0}
