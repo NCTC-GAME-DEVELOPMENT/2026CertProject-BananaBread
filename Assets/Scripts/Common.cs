@@ -15,6 +15,8 @@ public class Common : MonoBehaviour
     protected int StartY;
 
     private AudioSource sounds;
+    public AudioClip soundEffectOne;
+    public AudioClip soundEffectTwo;
 
     public enum currentDirection
     {
@@ -92,6 +94,7 @@ public class Common : MonoBehaviour
 
     public virtual void PlaySound(AudioClip sound)
     {
+        sounds.clip = sound;
         sounds.Play();
     }
 }
