@@ -288,7 +288,7 @@ public class PlayerController : Controller
 
     public virtual void PlaySound(AudioClip[] sound)
     {
-        int index = Random.Range(0, sound.Length);
+        int index = Random.Range(0, sound.Length - 1);
         sounds.clip = sound[index];
         sounds.pitch = Random.Range(pitchShiftLowRange, pitchShiftHighRange);
         sounds.Play();
