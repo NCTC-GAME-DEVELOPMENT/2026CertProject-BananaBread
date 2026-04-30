@@ -1,8 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using Debug = UnityEngine.Debug;
 
 public class GameManager : Info
 {
@@ -19,43 +17,36 @@ public class GameManager : Info
     public TextMeshProUGUI LevelTime;
     public GameObject StopwatchManager;
 
-    // For the camera.
-    private Camera mainCam;
-    // Grabbed only for the camera math.
-    private Grid_testing gt;
-
     private void Start()
     {
-        /*
-         * 
-         * Didn't get it working yet.
-         * 
-         * 
-        // Get the grid.
-        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
-
         // Get the camera.
-        mainCam = Camera.main;
-
-        // The math is: with about a 2:1 level design, 7 to the camera's Y per 2:1 makes it viewable.
-        // So, if I grab X of the grid and multiply it by 7, we get a useable Y height for the camera.
-        // May as well set the Z and rotation by default as well.
-        // -61.4 Z, and 51.9 X rotation. May as well see how those look rounded.
-
-        // Let's try this.
-        // Get camera minus game manager location.
-        Vector3 direction = gt.transform.position - mainCam.transform.position;
-        // Create a rotation towards that direction.
+        Camera mainCam = Camera.main;
+        // Get grid height for math
+        float height = GameObject.Find("GameManager").GetComponent<Grid_testing>().height;
+        // Do math for Y location: height * 7 solves it for the 6/8/10 sizes.
+        // Appears to work at 12 too, but the X location breaks at that point.
+        float newY = height * 7f;
+        // Rations for X location:
+        // X10 = -50 X location
+        // X8 = -32 X locatoin
+        // X6 = -22 X location
+        // The newX equation appears to solve that.
+        // At 12, it is slightly off, should be closer to map, but map seeable.
+        float newX = -(height * height) + (9f * height) - 40f;
+        // Apply equations to the camera location.
+        mainCam.transform.position = new Vector3(0f, newY, newX);
+        // With location solved, time to point the camera at the GameManager.
+        // Get game manager minus camera location.
+        Vector3 direction = transform.position - mainCam.transform.position;
+        // Create a rotation looking that way.
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         // Extract only the X rotation.
-        Vector3 rotation = transform.eulerAngles;
-        rotation.x = lookRotation.eulerAngles.x * 1.5f; // Times 1.5 because that works better.
-        mainCam.transform.eulerAngles = rotation;
-
-
-
-        mainCam.transform.position = new Vector3(0f, (gt.height * 7f), (gt.height * -3.5f));
-        */
+        Vector3 rotation = Vector3.zero;
+        rotation.x = lookRotation.x;
+        // Apply rotation to camera.
+        mainCam.transform.rotation = lookRotation;
+        // As long as you stick to the 6/8/10 sizes, it will be fine.
+        // Sizes in between would probably work as well.
 
         if (GameObject.Find("StopwatchManager") == false && GameObject.Find("StopwatchManager(Clone)") == false)
         {
