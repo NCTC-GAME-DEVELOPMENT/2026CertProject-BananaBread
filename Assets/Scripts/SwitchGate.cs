@@ -56,7 +56,7 @@ public class SwitchGate : Common
         if (IsActive)
         {
             // Play sound.
-            if (soundEffectOne != null)
+            if (soundEffectOne.Length > 0)
             {
                 PlaySound(soundEffectOne);
             }
@@ -72,7 +72,7 @@ public class SwitchGate : Common
         else
         {
             // Play sound.
-            if (soundEffectTwo != null)
+            if (soundEffectTwo.Length > 0)
             {
                 PlaySound(soundEffectTwo);
             }

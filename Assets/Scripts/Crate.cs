@@ -80,7 +80,7 @@ public class Crate : Common
 
             }
             // Play sound.
-            if (soundEffectOne != null)
+            if (soundEffectOne.Length > 0)
             {
                 PlaySound(soundEffectOne);
             }

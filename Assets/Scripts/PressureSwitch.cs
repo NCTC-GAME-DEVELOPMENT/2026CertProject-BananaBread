@@ -37,7 +37,7 @@ public class PressureSwitch : Common
             if ((pc && !CratesOnly) || (crate && !PlayersOnly))
             {
                 // Play sound.
-                if (soundEffectOne != null)
+                if (soundEffectOne.Length > 0)
                 {
                     PlaySound(soundEffectOne);
                 }
@@ -64,7 +64,7 @@ public class PressureSwitch : Common
         if ((pc && !CratesOnly) || (crate && !PlayersOnly))
         {
             // Play sound.
-            if (soundEffectTwo != null)
+            if (soundEffectTwo.Length > 0)
             {
                 PlaySound(soundEffectTwo);
             }

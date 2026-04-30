@@ -115,7 +115,7 @@ public class TeleportDoor : Common
                         if (destinationSpace == 0)
                         {
                             // Play sound.
-                            if (soundEffectOne != null)
+                            if (soundEffectOne.Length > 0)
                             {
                                 PlaySound(soundEffectOne);
                             }
@@ -153,7 +153,7 @@ public class TeleportDoor : Common
         destination.z = destination.z + (gt.cellSize / 2f);
 
         // Play sound.
-        if (soundEffectOne != null)
+        if (soundEffectOne.Length > 0)
         {
             PlaySound(soundEffectOne);
         }
@@ -200,7 +200,7 @@ public class TeleportDoor : Common
             player.gameObject.transform.rotation = newRotation;
         }
         // Play sound.
-        if (soundEffectOne != null)
+        if (soundEffectOne.Length > 0)
         {
             PlaySound(soundEffectOne);
         }

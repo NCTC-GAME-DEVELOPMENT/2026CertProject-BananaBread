@@ -101,11 +101,11 @@ public class PlayerController : Controller
 
         }
         // If ismoving, play sound effect.
-        else if (IsMoving && soundEffectOne != null)
+        else if (IsMoving && soundEffectOne.Length > 0)
         {
             PlaySound(soundEffectOne);
         }
-        else if (soundEffectOne == null)
+        else if (soundEffectOne.Length == 0)
         {
             Debug.Log("Sound effect one missing on: " + gameObject.name);
         }
@@ -248,7 +248,7 @@ public class PlayerController : Controller
         if (value)
         {
             // Play sound.
-            if (soundEffectTwo != null)
+            if (soundEffectTwo.Length > 0)
             {
                 PlaySound(soundEffectTwo);
             }

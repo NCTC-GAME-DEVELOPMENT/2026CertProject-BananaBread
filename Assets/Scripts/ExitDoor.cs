@@ -88,7 +88,7 @@ public class ExitDoor : Common
                 if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
                     // Play sound.
-                    if (soundEffectOne != null)
+                    if (soundEffectOne.Length > 0)
                     {
                         PlaySound(soundEffectOne);
                     }
@@ -116,7 +116,7 @@ public class ExitDoor : Common
         if (player && !PlayerLeft && CrateSent)
         {
             // Play sound.
-            if (soundEffectTwo != null)
+            if (soundEffectTwo.Length > 0)
             {
                 PlaySound(soundEffectTwo);
             }
@@ -138,7 +138,7 @@ public class ExitDoor : Common
         if (player && PlayerLeft && CrateSent)
         {
             // Play sound.
-            if (soundEffectTwo != null)
+            if (soundEffectTwo.Length > 0)
             {
                 PlaySound(soundEffectTwo);
             }
