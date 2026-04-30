@@ -357,6 +357,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExitDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 696344619704767320, guid: 0626ecc19acc5204793f4e4010bc299e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 696344619704767320, guid: 0626ecc19acc5204793f4e4010bc299e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.45
+      objectReference: {fileID: 0}
     - target: {fileID: 2093918810589275551, guid: 0626ecc19acc5204793f4e4010bc299e, type: 3}
       propertyPath: Facing
       value: 4
@@ -408,6 +416,14 @@ PrefabInstance:
     - target: {fileID: 2429121887881978114, guid: 0626ecc19acc5204793f4e4010bc299e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759425212036039495, guid: 0626ecc19acc5204793f4e4010bc299e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.500002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7759425212036039495, guid: 0626ecc19acc5204793f4e4010bc299e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

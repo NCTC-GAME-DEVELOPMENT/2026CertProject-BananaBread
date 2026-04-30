@@ -46,7 +46,7 @@ public class ExitDoor : Common
 
         Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(PosX, PosY);
 
-        location.y = 2f;
+        location.y = 0;
 
         if (Facing == currentDirection.West)
         {
