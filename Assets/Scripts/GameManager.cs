@@ -48,15 +48,18 @@ public class GameManager : Info
         // As long as you stick to the 6/8/10 sizes, it will be fine.
         // Sizes in between would probably work as well.
 
+
+        //If a StopwatchManager does not exist, makes one
         if (GameObject.Find("StopwatchManager") == false && GameObject.Find("StopwatchManager(Clone)") == false)
         {
             Debug.Log("Stopwatch not detected. Making one now");
             GameObject.Instantiate(StopwatchManager);
             stopwatch = GameObject.Find("StopwatchManager(Clone)").GetComponent<Stopwatch>();
         }
-        else { stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>(); }
+        else if (GameObject.Find("StopwatchManager") == true) { stopwatch = GameObject.Find("StopwatchManager").GetComponent<Stopwatch>(); }
+        else { stopwatch = GameObject.Find("StopwatchManager(Clone)").GetComponent<Stopwatch>(); }
 
-        P1 = GameObject.Find("P1").GetComponent<PlayerController>();
+            P1 = GameObject.Find("P1").GetComponent<PlayerController>();
         P2 = GameObject.Find("P2").GetComponent<PlayerController>();
         ClearScreen = GameObject.Find("ClearScreen");
         FinalTime = GameObject.Find("FinalTime").GetComponent<TextMeshProUGUI>();

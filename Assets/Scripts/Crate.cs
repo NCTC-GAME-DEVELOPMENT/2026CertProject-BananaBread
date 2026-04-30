@@ -123,35 +123,46 @@ public class Crate : Common
         StartCoroutine(AnimationCooldown(animationTime));
     }
 
-        IEnumerator AnimationCooldown(float value)
-        {
-            yield return new WaitForSeconds(value);
-            anim.SetBool("PushNorth", false);
-            anim.SetBool("PushEast", false);
-            anim.SetBool("PushSouth", false);
-            anim.SetBool("PushWest", false);
-        }
-        public void ExecuteTeleportation(int newX, int newY, Vector3 newLocation, string direction)
-        {
-            ChangeLocation(newX, newY, newLocation);
+    IEnumerator AnimationCooldown(float value)
+    {
+        yield return new WaitForSeconds(value);
+        anim.SetBool("PushNorth", false);
+        anim.SetBool("PushEast", false);
+        anim.SetBool("PushSouth", false);
+        anim.SetBool("PushWest", false);
+    }
 
-            if (direction == "South")
-            {
-                anim.SetBool("PushNorth", true);
-            }
-            else if (direction == "North")
-            {
-                anim.SetBool("PushSouth", true);
-            }
-            else if (direction == "West")
-            {
-                anim.SetBool("PushEast", true);
-            }
-            else
-            {
-                anim.SetBool("PushWest", true);
-            }
+    public IEnumerator ExecuteTeleportation(int newX, int newY, Vector3 newLocation, string direction)
+    {
+        anim.SetBool("InTpDoor", true);
+        SetPushDirection(direction);
+        StartCoroutine(AnimationCooldown(1));
+
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("InTpDoor", false);
+        ChangeLocation(newX, newY, newLocation);
+        SetPushDirection(direction);
+    }
+
+    public void SetPushDirection(string direction)
+    {
+        if (direction == "South")
+        {
+            anim.SetBool("PushNorth", true);
         }
+        else if (direction == "North")
+        {
+            anim.SetBool("PushSouth", true);
+        }
+        else if (direction == "West")
+        {
+            anim.SetBool("PushEast", true);
+        }
+        else
+        {
+            anim.SetBool("PushWest", true);
+        }
+    }
 
     IEnumerator Cooldown(float value)
         {

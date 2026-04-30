@@ -297,7 +297,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7759425212036039495, guid: 0626ecc19acc5204793f4e4010bc299e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.499997
+      value: 7.499997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5968,6 +5968,10 @@ PrefabInstance:
     - target: {fileID: 2155569658653991915, guid: a1bd07fabeca7164cb95f6ed6df2ace8, type: 3}
       propertyPath: m_Name
       value: QueryCrate (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598692808396488160, guid: a1bd07fabeca7164cb95f6ed6df2ace8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

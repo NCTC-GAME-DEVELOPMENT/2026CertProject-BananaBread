@@ -144,21 +144,18 @@ public class PlayerController : Controller
 
     protected virtual void ProcessInput()
     {
-        if (!IsCaught && IsActive)
+        if (!IsCaught && IsActive && !IsPushing)
         {
             if (InputCurrent.buttonEast)
             {
                 Push(InputCurrent.buttonEast);
             }
-            if (!IsPushing)
+            if (InputCurrent.selectButton)
             {
-                if (InputCurrent.selectButton)
-                {
-                    ResetLevel(InputCurrent.selectButton);
-                }
-
-                PlayerMovement(InputCurrent.leftStick);
+                ResetLevel(InputCurrent.selectButton);
             }
+            
+            PlayerMovement(InputCurrent.leftStick);
         }
     }
 
@@ -218,7 +215,7 @@ public class PlayerController : Controller
             LOG("Push Push");
             IsPushing = true;
             anim.SetBool("IsPushing", true);
-            StartCoroutine(Cooldown(0.3f));
+            StartCoroutine(Cooldown(0.4f));
             StartCoroutine(pt.PushAction());
         }
     }
