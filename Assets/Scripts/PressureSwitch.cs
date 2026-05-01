@@ -6,8 +6,9 @@ using UnityEngine;
 public class PressureSwitch : Common
 {
     public SwitchGate[] Connections;
-    //To Determine if a switch will only work if a player or a crate steps on it
     bool IsActive = false;
+
+    //To Determine if a switch will only work if a player or a crate steps on it
     public bool PlayersOnly = false;
     public bool CratesOnly = false;
 
@@ -27,6 +28,8 @@ public class PressureSwitch : Common
         }
     }
 
+    //For some reason, the code will only functions properly when the pc and crate conditions are two separate IF statements, so I had to revert the changes.
+    //However, I condensed the code into one function to have less repeated code.
     private void OnTriggerEnter(Collider other)
     {
         PlayerController pc = other.GetComponent<PlayerController>();
@@ -34,58 +37,86 @@ public class PressureSwitch : Common
 
         if (!IsActive)
         {
-            if ((pc && !CratesOnly) || (crate && !PlayersOnly))
+            if ((pc && !CratesOnly))
             {
-                // Play sound.
-                if (soundEffectOne.Length > 0)
-                {
-                    PlaySound(soundEffectOne);
-                }
-                else
-                {
-                    Debug.Log("Sound effect one missing on: " + gameObject.name);
-                }
-                anim.SetBool("SwitchDown", true);
+                SwitchOnOff(true, soundEffectOne);
+            }
+
+            if ((crate && !PlayersOnly))
+            {
+                SwitchOnOff(true, soundEffectOne);
+            }
 
                 for (int c = 0; c < Connections.Length; c++)
-                {   // Two if statements were identical in function, merged into one OR condition.
-                    Connections[c].ToggleActivity();
-                    IsActive = true;
+                {
+                    if ((pc && !CratesOnly))
+                    {
+                        Connections[c].ToggleActivity();
+                    }
+                    if (crate && !PlayersOnly)
+                    {
+                        Connections[c].ToggleActivity();
+                    }
                 }
             }
         }
-    }
 
     private void OnTriggerExit(Collider other)
     {
         PlayerController pc = other.GetComponent<PlayerController>();
         Crate crate = other.GetComponent<Crate>();
         
-        if ((pc && !CratesOnly) || (crate && !PlayersOnly))
+        if ((pc && !CratesOnly))
         {
-            // Play sound.
-            if (soundEffectTwo.Length > 0)
-            {
-                PlaySound(soundEffectTwo);
-            }
-            else
-            {
-                Debug.Log("Sound effect two missing on: " + gameObject.name);
-            }
-            anim.SetBool("SwitchDown", false);
+            SwitchOnOff(false, soundEffectTwo);
+        }
+
+        if ((crate && !PlayersOnly))
+        {
+            SwitchOnOff(false, soundEffectTwo);
         }
 
         for (int c = 0; c < Connections.Length; c++)
         {
             if (gt.grid.GetValue(PosX, PosY) == 0)
-            {   // Same duplicate if with different conditions here.
-                if ((pc && !CratesOnly) || (crate && !PlayersOnly))
+            {
+                if ((pc && !CratesOnly))
                 {
-                    Debug.Log("Switch Stepped Off, Player");
                     Connections[c].ToggleActivity();
-                    IsActive = false;
+                }
+
+                if (crate && !PlayersOnly)
+                {
+                    Connections[c].ToggleActivity();
                 }
             }
         }
+    }
+
+    private void SwitchOnOff(bool status, AudioClip[] sound)
+    {
+        string debugNum;
+
+        if (status)
+        {
+            debugNum = "one";
+        }
+        else
+        {
+            debugNum = "two";
+        }
+
+        // Play sound.
+        if (sound.Length > 0)
+        {
+            PlaySound(sound);
+        }
+        else
+        {
+            Debug.Log("Sound effect " + debugNum + " missing on: " + gameObject.name);
+        }
+
+        anim.SetBool("SwitchDown", status);
+        IsActive = status;
     }
 }

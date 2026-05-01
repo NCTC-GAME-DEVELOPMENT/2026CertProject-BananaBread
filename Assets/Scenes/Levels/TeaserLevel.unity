@@ -4964,6 +4964,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Pressure Plate
       objectReference: {fileID: 0}
+    - target: {fileID: 7110372212937185399, guid: 19bf9c69e5b78484eb515e63474e5067, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7110372212937185399, guid: 19bf9c69e5b78484eb515e63474e5067, type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7705640316289596793, guid: 19bf9c69e5b78484eb515e63474e5067, type: 3}
       propertyPath: Connections.Array.size
       value: 1
@@ -8467,7 +8475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8538,7 +8546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1718851690449061339, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1718851690449061339, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
       propertyPath: m_LocalPosition.z
