@@ -4494,6 +4494,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate (5)
@@ -6334,6 +6342,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate
@@ -7597,6 +7613,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -22.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate (3)
@@ -12769,6 +12793,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate (6)
@@ -15287,6 +15319,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate (4)
@@ -19331,6 +19371,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate (1)
