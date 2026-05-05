@@ -27,7 +27,7 @@ public class PlayerController : Controller
     private int StartX;
     private int StartY;
 
-    private AudioSource sounds;
+    private AudioSource[] sounds;
 
     public AudioClip[] soundEffectOne;
     public AudioClip[] soundEffectTwo;
@@ -58,8 +58,7 @@ public class PlayerController : Controller
         base.Start();
         IsHuman = true;
 
-        sounds = GetComponentInChildren<AudioSource>();
-
+        sounds = GetComponentsInChildren<AudioSource>();
         anim = GetComponentInChildren<Animator>();
         gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -99,15 +98,17 @@ public class PlayerController : Controller
         PlayerGridMovement();
         // Do nothing if no sounds or if a sound is playing.
         if (sounds == null){ }
-        else if (sounds.isPlaying && !IsMoving)
+        else if (sounds[0].isPlaying && !IsMoving)
         {
-            sounds.Stop();
+            sounds[0].Stop();
+            Debug.Log("Footsteps sound stopped.");
         }
-        else if (sounds.isPlaying) { }
+        else if (sounds[0].isPlaying) { }
         // If ismoving, play sound effect.
         else if (IsMoving && soundEffectOne.Length > 0)
         {
-            PlaySound(soundEffectOne);
+            PlaySoundsSteps(soundEffectOne);
+            Debug.Log("Footsteps sound started.");
         }
         else if (soundEffectOne.Length == 0)
         {
@@ -257,7 +258,8 @@ public class PlayerController : Controller
             // Play sound.
             if (soundEffectTwo.Length > 0)
             {
-                PlaySound(soundEffectTwo);
+                PlaySoundsPush(soundEffectTwo);
+                Debug.Log("Push sound played.");
             }
             else
             {
@@ -297,11 +299,20 @@ public class PlayerController : Controller
         IsPushing = false;
     }
 
-    public virtual void PlaySound(AudioClip[] sound)
+    public virtual void PlaySoundsSteps(AudioClip[] sound)
     {
         int index = Random.Range(0, sound.Length - 1);
-        sounds.clip = sound[index];
-        sounds.pitch = Random.Range(pitchShiftLowRange, pitchShiftHighRange);
-        sounds.Play();
+        sounds[0].clip = sound[index];
+        sounds[0].pitch = Random.Range(pitchShiftLowRange, pitchShiftHighRange);
+        sounds[0].Play();
     }
+
+    public virtual void PlaySoundsPush(AudioClip[] sound)
+    {
+        int index = Random.Range(0, sound.Length - 1);
+        sounds[1].clip = sound[index];
+        sounds[1].pitch = Random.Range(pitchShiftLowRange, pitchShiftHighRange);
+        sounds[1].Play();
+    }
+
 }
