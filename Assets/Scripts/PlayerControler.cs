@@ -96,19 +96,17 @@ public class PlayerController : Controller
         gt.grid.SetValue(PosX, PosY, (3));
 
         PlayerGridMovement();
-        // Do nothing if no sounds or if a sound is playing.
-        if (sounds == null){ }
-        else if (sounds[0].isPlaying && !IsMoving)
+        // If a sound is playing and the player isn't moving, stop the sound.
+        if (sounds[0].isPlaying && !IsMoving)
         {
             sounds[0].Stop();
-            Debug.Log("Footsteps sound stopped.");
         }
+        // If a sound is still playing, and the player is presumably moving, do nothing and end the if checks.
         else if (sounds[0].isPlaying) { }
-        // If ismoving, play sound effect.
+        // If ismoving, play sound effect if there is one..
         else if (IsMoving && soundEffectOne.Length > 0)
         {
             PlaySoundsSteps(soundEffectOne);
-            Debug.Log("Footsteps sound started.");
         }
         else if (soundEffectOne.Length == 0)
         {
@@ -259,7 +257,6 @@ public class PlayerController : Controller
             if (soundEffectTwo.Length > 0)
             {
                 PlaySoundsPush(soundEffectTwo);
-                Debug.Log("Push sound played.");
             }
             else
             {
