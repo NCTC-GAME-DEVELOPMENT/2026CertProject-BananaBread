@@ -17,7 +17,6 @@ public class mainMenu : MonoBehaviour
     public GameObject Credits;
     public GameObject LevelSelect;
 
-
     private void Start()
     {
         MenuMain = GameObject.Find("MainMenu");
@@ -33,8 +32,16 @@ public class mainMenu : MonoBehaviour
 
     public void Button_start()
     {
-        MenuMain.SetActive(false);
-        HowToPlay.SetActive(true);
+        if (GameObject.Find("StopwatchManager(Clone)") == true)
+        {
+            SceneManager.LoadScene(FirstLevel);
+        }
+        else
+        {
+            MenuMain.SetActive(false);
+            HowToPlay.SetActive(true);
+        }
+
     }
 
     public void Button_Play()
