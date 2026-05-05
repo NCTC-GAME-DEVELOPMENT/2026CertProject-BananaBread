@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/FinalLevel.unity
     guid: 03ab46d3b896be84287e1970d8313b5d
   - enabled: 1
+    path: Assets/Scenes/HighScoreMenu.unity
+    guid: 41ef2762dffcf0148a62017a8177446f
+  - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 07ea1383477e58645adc9a50b1c28a11
   - enabled: 1
