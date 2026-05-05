@@ -98,7 +98,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosX: 0
   PosY: 0
-  soundEffectOne: []
+  soundEffectOne:
+  - {fileID: 8300000, guid: 406873413123f01419991a79be65e2e2, type: 3}
+  - {fileID: 8300000, guid: d027eb82de282194a9061ff9eaf98263, type: 3}
+  - {fileID: 8300000, guid: 574819a7667259a42ad12a81718b0d26, type: 3}
   soundEffectTwo: []
   pitchShiftLowRange: 1
   pitchShiftHighRange: 1
