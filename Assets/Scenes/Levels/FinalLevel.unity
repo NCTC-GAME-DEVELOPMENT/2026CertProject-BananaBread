@@ -17375,9 +17375,21 @@ PrefabInstance:
       propertyPath: MoveSpeed
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1565370705896981853, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
+      propertyPath: soundEffectTwo.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565370705896981853, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
+      propertyPath: 'soundEffectTwo.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 1042aae69f43d424688c8109ba80996d, type: 3}
     - target: {fileID: 3012016028966289562, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_Name
       value: P1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185430498474010082, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
+      propertyPath: m_Volume
+      value: 0.685
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17418,6 +17430,10 @@ PrefabInstance:
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054513788221128357, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
+      propertyPath: m_Volume
+      value: 0.679
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17479,6 +17495,30 @@ PrefabInstance:
     - target: {fileID: 8180096820690076218, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
       propertyPath: MoveSpeed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180096820690076218, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: pitchShiftLowRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180096820690076218, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: pitchShiftHighRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180096820690076218, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: soundEffectTwo.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180096820690076218, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: 'soundEffectTwo.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 1042aae69f43d424688c8109ba80996d, type: 3}
+    - target: {fileID: 8359767812888541787, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: m_Volume
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439724122953926937, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: m_Volume
+      value: 0.518
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
