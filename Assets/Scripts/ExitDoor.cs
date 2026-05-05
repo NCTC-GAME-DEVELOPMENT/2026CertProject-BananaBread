@@ -13,55 +13,58 @@ public class ExitDoor : Common
     // Bool check for first player going through.
     bool PlayerLeft = false;
 
+    PlayerController P1;
+    PlayerController P2;
+
     float timer = 0f;
     // Set to animation time of QueryCrate.
     float waitTime = 0.5f;
 
     public string sceneName;
 
-    //Grid_testing variable.
-    private Grid_testing grid;
-
-    //Get the game manager.
-    private GameManager manager;
-
     //A list is a bit better to work with than an array.
     private List<QueryCrate> winCrates = new List<QueryCrate>();
     private List<QueryCrate> recordedCrates = new List<QueryCrate>();
+
+    //A variable used to keep track of the players left. Used for the win condition
+    public int PlayersRemaining = 2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         base.Start();
 
+        P1 = GameObject.Find("P1").GetComponent<PlayerController>();
+        P2 = GameObject.Find("P2").GetComponent<PlayerController>();
+
         // Start the timer.
         timer = waitTime;
 
         // Get the grid.
-        grid = GameObject.Find("GameManager").GetComponent<Grid_testing>();
+        gt = GameObject.Find("GameManager").GetComponent<Grid_testing>();
 
         // Get the manager.
-        manager = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
+        gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
 
         //Default scene name to reset the local scene.
         if (sceneName.Length == 0) sceneName = SceneManager.GetActiveScene().name;
 
-        Vector3 location = gameObject.transform.position = grid.grid.GetWorldPosition(PosX, PosY);
+        Vector3 location = gameObject.transform.position = gt.grid.GetWorldPosition(PosX, PosY);
 
         location.y = 0;
 
         if (Facing == currentDirection.West)
         {
-            location.z = location.z + (grid.cellSize / 2f);
-            location.x = location.x + (grid.cellSize);
+            location.z = location.z + (gt.cellSize / 2f);
+            location.x = location.x + (gt.cellSize);
         }
         else if (Facing == currentDirection.East)
         {
-            location.z = location.z + (grid.cellSize / 2f);
+            location.z = location.z + (gt.cellSize / 2f);
         }
         else
         {
-            location.x = location.x + (grid.cellSize / 2f);
+            location.x = location.x + (gt.cellSize / 2f);
 
         }
         gameObject.transform.position = location;
@@ -115,8 +118,8 @@ public class ExitDoor : Common
         // Create variables for player and crate.
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 
-        // If there's a player, someone hasn't left yet, and the crates are gone...
-        if (player && !PlayerLeft && CrateSent)
+        // If there's a player and the crates are gone...
+        if (player && CrateSent)
         {
             // Play sound.
             if (soundEffectTwo.Length > 0)
@@ -127,30 +130,21 @@ public class ExitDoor : Common
             {
                 Debug.Log("Sound effect two missing on: " + gameObject.name);
             }
-            // Destroy 
-            Destroy(collision.gameObject);
+
+            //Deactivate the player
+            player.gameObject.SetActive(false);
             // Changes grid value to 0.
             gt.grid.SetValue(PosX, PosY, (0));
             // Mark that a player has left.
-            PlayerLeft = true;
+            PlayersRemaining -= 1;
             // Empty variable so that it doesn't just go "Player wins!" immediately.
             player = null;
-        }
 
-        // If the player enters after the create is sent, win.
-        if (player && PlayerLeft && CrateSent)
-        {
-            // Play sound.
-            if (soundEffectTwo.Length > 0)
+            // If no players are left, Clear Level.
+            if (PlayersRemaining == 0)
             {
-                PlaySound(soundEffectTwo);
+                gm.ClearLevel();
             }
-            else
-            {
-                Debug.Log("Sound effect two missing on: " + gameObject.name);
-            }
-            Destroy(collision.gameObject);
-            manager.ClearLevel();
         }
     }
 
@@ -177,8 +171,16 @@ public class ExitDoor : Common
 
     public override void ResetPosition()
     {
+
         winCrates.Clear();
         winCrates.AddRange(recordedCrates);
+
+        PlayersRemaining = 2;
+        P1.gameObject.SetActive(true);
+        P2.gameObject.SetActive(true);
+
+        P1.ResetPos();
+        P2.ResetPos();
 
         for (int x = 0; x < winCrates.Count; x++)
         {

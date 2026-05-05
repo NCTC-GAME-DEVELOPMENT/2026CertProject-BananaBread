@@ -18,6 +18,7 @@ public class PlayerController : Controller
     public bool IsActive = false;
     private bool IsPushing = false;
     private bool IsMoving = false;
+    public bool CanReset = true;
     public float MoveSpeed = 1.0f;
 
     public int PosX;
@@ -187,7 +188,7 @@ public class PlayerController : Controller
             {
                 Push(InputCurrent.buttonEast);
             }
-            if (InputCurrent.selectButton)
+            if (InputCurrent.selectButton && CanReset)
             {
                 ResetLevel(InputCurrent.selectButton);
             }
@@ -270,9 +271,15 @@ public class PlayerController : Controller
         }
     }
 
+    //Trigger a reset
     public void ResetLevel(bool value)
     {
         gm.IsResetTriggered = true;
+    }
+
+    //Trigger actual reset functionality
+    public void ResetPos()
+    {
         gt.grid.SetValue(PosX, PosY, (0));
         gameObject.transform.position = new Vector3(StartingPosition.x, StartingPosition.y, StartingPosition.z);
         PosX = StartX;

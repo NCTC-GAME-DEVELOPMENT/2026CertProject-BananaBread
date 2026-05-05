@@ -96,6 +96,9 @@ public class GameManager : Info
 
         GameObject lt = GameObject.Find("LevelTime");
 
+        P1.CanReset = false;
+        P2.CanReset = false;
+
         if (stopwatch.FinalTime == 0)
         {
             lt.SetActive(false);

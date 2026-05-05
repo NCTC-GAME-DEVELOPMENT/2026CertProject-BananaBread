@@ -726,6 +726,14 @@ PrefabInstance:
       propertyPath: PosY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate
@@ -902,6 +910,14 @@ PrefabInstance:
     - target: {fileID: 826027090267898395, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: PosY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
@@ -3108,6 +3124,10 @@ PrefabInstance:
     - target: {fileID: 826027090267898395, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: PosY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
@@ -7073,38 +7093,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5631693627992967632, guid: 21b6e7128f537d14eae3121ab2075859, type: 3}
   m_PrefabInstance: {fileID: 716766756}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1729260022 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
-  m_PrefabInstance: {fileID: 4208272146976376387}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &1729260028
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729260022}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &1738500043
 GameObject:
   m_ObjectHideFlags: 0
@@ -7828,6 +7816,14 @@ PrefabInstance:
       propertyPath: PosY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate (1)
@@ -7876,43 +7872,8 @@ PrefabInstance:
     - {fileID: -5043429439737625280, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1955815665}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
---- !u!1 &1955815664 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
-  m_PrefabInstance: {fileID: 1955815663}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &1955815665
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955815664}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &1967014821
 GameObject:
   m_ObjectHideFlags: 0
@@ -9532,6 +9493,14 @@ PrefabInstance:
       propertyPath: PosY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_Name
       value: Crate
@@ -9580,10 +9549,7 @@ PrefabInstance:
     - {fileID: -5043429439737625280, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6541381278361973839, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1729260028}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
 --- !u!23 &4387300143208680255
 MeshRenderer:
@@ -9743,13 +9709,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: P1
       objectReference: {fileID: 0}
+    - target: {fileID: 3185430498474010082, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
+      propertyPath: Priority
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185430498474010082, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.5
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8686085248451904320, guid: f17d63bd1c37ac74aacaeb9d400059b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9802,7 +9776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1718851690449061339, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1718851690449061339, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9843,6 +9817,14 @@ PrefabInstance:
     - target: {fileID: 8180096820690076218, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
       propertyPath: IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8359767812888541787, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: Priority
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8359767812888541787, guid: a1ee39daf84b8e24bb1a177e037079e5, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
