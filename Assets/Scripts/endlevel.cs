@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class endlevel : MonoBehaviour
 {
-    private int MainMenu = 0;
-
     private Stopwatch stopwatch;
     private GameManager gm;
 
@@ -16,7 +14,6 @@ public class endlevel : MonoBehaviour
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        stopwatch = gm.stopwatch;
     }
 
     public void Button_NextLevel()
@@ -31,9 +28,10 @@ public class endlevel : MonoBehaviour
     {
         Debug.Log("mainMenu Pressed");
 
+        stopwatch = gm.stopwatch;
         stopwatch.currentTime = 0;
         stopwatch.FinalTime = 0;
 
-        SceneManager.LoadScene(MainMenu);
+        SceneManager.LoadScene("start_Menu_test");
     }
 }
