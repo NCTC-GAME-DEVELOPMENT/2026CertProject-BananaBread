@@ -32,7 +32,7 @@ public class GameManager : Info
         // X6 = -22 X location
         // The newX equation appears to solve that.
         // At 12, it is slightly off, should be closer to map, but map seeable.
-        float newX = -(height * height) + (9f * height) - 40f;
+        float newX = -(height * height) + (9f * height) - 50f;
         // Apply equations to the camera location.
         mainCam.transform.position = new Vector3(0f, newY, newX);
         // With location solved, time to point the camera at the GameManager.
