@@ -66,12 +66,12 @@ public class PressureSwitch : Common
         PlayerController pc = other.GetComponent<PlayerController>();
         Crate crate = other.GetComponent<Crate>();
         
-        if ((pc && !CratesOnly))
+        if ((pc && !CratesOnly) && gt.grid.GetValue(PosX, PosY) == 0)
         {
             SwitchOnOff(false, soundEffectTwo);
         }
 
-        if ((crate && !PlayersOnly))
+        if ((crate && !PlayersOnly) && gt.grid.GetValue(PosX, PosY) == 0)
         {
             SwitchOnOff(false, soundEffectTwo);
         }
@@ -118,5 +118,6 @@ public class PressureSwitch : Common
 
         anim.SetBool("SwitchDown", status);
         IsActive = status;
+        Debug.Log("Is Active: " + IsActive);
     }
 }
