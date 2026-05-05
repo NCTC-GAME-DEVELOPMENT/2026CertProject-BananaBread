@@ -5,29 +5,39 @@ using UnityEngine.UI;
 public class mainMenu : MonoBehaviour
 {
     public Button StartButton;
+    public Button PlayButton;
     public Button SelectLevelButton;
     public Button QuitButton;
     public Button CreditsButton;
     public Button BackButtonCredits;
     public Button BackButtonLevel;
     public string FirstLevel;
+    public GameObject MenuMain;
+    public GameObject HowToPlay;
     public GameObject Credits;
     public GameObject LevelSelect;
-    public GameObject MenuMain;
 
 
     private void Start()
     {
         MenuMain = GameObject.Find("MainMenu");
+        HowToPlay = GameObject.Find("HowToMenu");
         Credits = GameObject.Find("CreditsMenu");
         LevelSelect = GameObject.Find("LevelMenu");
 
         MenuMain.SetActive(true);
+        HowToPlay.SetActive(false);
         Credits.SetActive(false);
         LevelSelect.SetActive(false);
     }
 
     public void Button_start()
+    {
+        MenuMain.SetActive(false);
+        HowToPlay.SetActive(true);
+    }
+
+    public void Button_Play()
     {
         SceneManager.LoadScene(FirstLevel);
     }
