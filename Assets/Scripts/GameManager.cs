@@ -25,14 +25,18 @@ public class GameManager : Info
         float height = GameObject.Find("GameManager").GetComponent<Grid_testing>().height;
         // Do math for Y location: height * 7 solves it for the 6/8/10 sizes.
         // Appears to work at 12 too, but the X location breaks at that point.
-        float newY = height * 7f;
+        // Needed revision for final resolution.
+        // 6 = Y 42
+        // 8 = Y 65
+        // 10 = Y 90
+        float newY = 0.25f * (height * height) + (8f * height) - 15f;
         // Rations for X location:
         // X10 = -50 X location
         // X8 = -32 X locatoin
         // X6 = -22 X location
         // The newX equation appears to solve that.
         // At 12, it is slightly off, should be closer to map, but map seeable.
-        float newX = -(height * height) + (9f * height) - 50f;
+        float newX = -(height * height) + (9f * height) - 40f;
         // Apply equations to the camera location.
         mainCam.transform.position = new Vector3(0f, newY, newX);
         // With location solved, time to point the camera at the GameManager.
