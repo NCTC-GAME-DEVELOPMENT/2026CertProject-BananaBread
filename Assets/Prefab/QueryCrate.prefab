@@ -102,7 +102,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 406873413123f01419991a79be65e2e2, type: 3}
   - {fileID: 8300000, guid: d027eb82de282194a9061ff9eaf98263, type: 3}
   - {fileID: 8300000, guid: 574819a7667259a42ad12a81718b0d26, type: 3}
-  soundEffectTwo: []
+  soundEffectTwo:
+  - {fileID: 8300000, guid: 75f0932aaf55fc7468203fb8129b525f, type: 3}
   pitchShiftLowRange: 0.8
   pitchShiftHighRange: 1.2
   Facing: 0

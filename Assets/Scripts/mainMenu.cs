@@ -16,6 +16,8 @@ public class mainMenu : MonoBehaviour
     public GameObject HowToPlay;
     public GameObject Credits;
     public GameObject LevelSelect;
+    public AudioClip ButtonClickSound;
+    private AudioSource sound;
 
     private void Start()
     {
@@ -23,6 +25,9 @@ public class mainMenu : MonoBehaviour
         HowToPlay = GameObject.Find("HowToMenu");
         Credits = GameObject.Find("CreditsMenu");
         LevelSelect = GameObject.Find("LevelMenu");
+        sound = GetComponent<AudioSource>();
+
+        sound.clip = ButtonClickSound;
 
         MenuMain.SetActive(true);
         HowToPlay.SetActive(false);
@@ -42,11 +47,13 @@ public class mainMenu : MonoBehaviour
             HowToPlay.SetActive(true);
         }
 
+        sound.Play();
     }
 
     public void Button_Play()
     {
         SceneManager.LoadScene(FirstLevel);
+        sound.Play();
     }
 
     public void Button_selectLevel()
@@ -54,9 +61,11 @@ public class mainMenu : MonoBehaviour
         //SceneManager.LoadScene(LevelSelect);
         LevelSelect.SetActive(true);
         MenuMain.SetActive(false);
+        sound.Play();
     }
     public void Button_Quit()
     {
+        sound.Play();
         Application.Quit();
     }
     public void Button_Credits()
@@ -64,6 +73,7 @@ public class mainMenu : MonoBehaviour
         //SceneManager.LoadScene(Credits);
         Credits.SetActive(true);
         MenuMain.SetActive(false);
+        sound.Play();
     }
 
     public void Button_Back()
@@ -71,5 +81,6 @@ public class mainMenu : MonoBehaviour
         MenuMain.SetActive(true);
         Credits.SetActive(false);
         LevelSelect.SetActive(false);
+        sound.Play();
     }
 }

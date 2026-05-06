@@ -93,15 +93,6 @@ public class ExitDoor : Common
                 // If one of those crates is in position, 
                 if (winCrates[x].PosX == PosX && winCrates[x].PosY == PosY)
                 {
-                    // Play sound.
-                    if (soundEffectOne.Length > 0)
-                    {
-                        PlaySound(soundEffectOne);
-                    }
-                    else
-                    {
-                        Debug.Log("Sound effect one missing on: " + gameObject.name);
-                    }
                     SendQueryCrate(winCrates[x]);
                 }
             }

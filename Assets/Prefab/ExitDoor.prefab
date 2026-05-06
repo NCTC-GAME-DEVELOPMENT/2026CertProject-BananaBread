@@ -203,10 +203,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosX: 0
   PosY: 0
-  soundEffectOne: []
-  soundEffectTwo: []
-  pitchShiftLowRange: 1
-  pitchShiftHighRange: 1
+  soundEffectOne:
+  - {fileID: 8300000, guid: 75f0932aaf55fc7468203fb8129b525f, type: 3}
+  soundEffectTwo:
+  - {fileID: 8300000, guid: 75f0932aaf55fc7468203fb8129b525f, type: 3}
+  pitchShiftLowRange: 0.8
+  pitchShiftHighRange: 1.2
   Facing: 4
   CanReset: 1
   sceneName: 
@@ -251,7 +253,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 180
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

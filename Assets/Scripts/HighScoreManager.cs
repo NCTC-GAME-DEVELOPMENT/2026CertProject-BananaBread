@@ -12,6 +12,9 @@ public class HighScoreManager : MonoBehaviour
 
     public Button MenuButton;
 
+    public AudioClip NewRecord;
+    private AudioSource sound;
+
     private void Start()
     {
         if (GameObject.Find("StopwatchManager"))
@@ -23,8 +26,12 @@ public class HighScoreManager : MonoBehaviour
 
         HighScoreText.text = stopwatch.FinalTimeText();
 
+        sound = GetComponent<AudioSource>();
+        sound.clip = NewRecord;
+
         if (stopwatch.BestTime > stopwatch.FinalTime || stopwatch.BestTime == 0)
         {
+            sound.Play();
             RecordText.SetActive(true);
         }
 

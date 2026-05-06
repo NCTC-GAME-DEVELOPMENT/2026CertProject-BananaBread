@@ -10,16 +10,23 @@ public class endlevel : MonoBehaviour
     public Button NextButton;
     public Button MenuButton;
 
+    public AudioClip ClearAnnouncer;
+    public AudioClip ButtonClicker;
+    private AudioSource sound;
+
     private void Awake()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-
+        sound = GetComponent<AudioSource>();
+        sound.clip = ClearAnnouncer;
+        sound.Play();
     }
 
     public void Button_NextLevel()
     {
         Debug.Log("NextLevel Pressed");
 
+        sound.clip = ButtonClicker;
         gm.CurrentScene += 1;
         SceneManager.LoadScene(gm.CurrentScene);
     }
@@ -28,6 +35,7 @@ public class endlevel : MonoBehaviour
     {
         Debug.Log("mainMenu Pressed");
 
+        sound.clip = ButtonClicker;
         stopwatch = gm.stopwatch;
         stopwatch.currentTime = 0;
         stopwatch.FinalTime = 0;

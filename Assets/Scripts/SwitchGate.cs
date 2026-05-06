@@ -55,7 +55,7 @@ public class SwitchGate : Common
     {
         if (IsActive)
         {
-            // Play sound.
+            /* Play sound.
             if (soundEffectOne.Length > 0)
             {
                 PlaySound(soundEffectOne);
@@ -63,7 +63,7 @@ public class SwitchGate : Common
             else
             {
                 Debug.Log("Sound effect one missing on: " + gameObject.name);
-            }
+            }*/
             anim.SetBool("SwitchDown", true);
             Gate.SetActive(false);
             ForceVolume.SetActive(false);
@@ -71,7 +71,8 @@ public class SwitchGate : Common
         }
         else
         {
-            // Play sound.
+
+            /* Play sound.
             if (soundEffectTwo.Length > 0)
             {
                 PlaySound(soundEffectTwo);
@@ -79,7 +80,8 @@ public class SwitchGate : Common
             else
             {
                 Debug.Log("Sound effect two missing on: " + gameObject.name);
-            }
+            }*/
+
             anim.SetBool("SwitchDown", false );
             Gate.SetActive(true);
             ForceVolume.SetActive(true);

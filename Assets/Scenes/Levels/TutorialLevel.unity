@@ -3226,6 +3226,14 @@ PrefabInstance:
       propertyPath: PosY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1539398483213927545, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: soundEffectTwo.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539398483213927545, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
+      propertyPath: 'soundEffectTwo.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 75f0932aaf55fc7468203fb8129b525f, type: 3}
     - target: {fileID: 2671875726899050827, guid: 2cd29fecca9536949a8a2230e7261cfb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.5

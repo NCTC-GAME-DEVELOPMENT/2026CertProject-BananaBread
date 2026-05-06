@@ -5565,8 +5565,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosX: 0
   PosY: 0
-  soundEffectOne: []
-  soundEffectTwo: []
+  soundEffectOne:
+  - {fileID: 8300000, guid: 9c3afde286b5d364c9e4915a76f8f6cc, type: 3}
+  soundEffectTwo:
+  - {fileID: 8300000, guid: 9c3afde286b5d364c9e4915a76f8f6cc, type: 3}
   pitchShiftLowRange: 1
   pitchShiftHighRange: 1
   Facing: 0
@@ -14012,8 +14014,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosX: 0
   PosY: 0
-  soundEffectOne: []
-  soundEffectTwo: []
+  soundEffectOne:
+  - {fileID: 8300000, guid: 9c3afde286b5d364c9e4915a76f8f6cc, type: 3}
+  soundEffectTwo:
+  - {fileID: 8300000, guid: 9c3afde286b5d364c9e4915a76f8f6cc, type: 3}
   pitchShiftLowRange: 1
   pitchShiftHighRange: 1
   Facing: 0
@@ -14858,8 +14862,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PosX: 0
   PosY: 0
-  soundEffectOne: []
-  soundEffectTwo: []
+  soundEffectOne:
+  - {fileID: 8300000, guid: 9c3afde286b5d364c9e4915a76f8f6cc, type: 3}
+  soundEffectTwo:
+  - {fileID: 8300000, guid: 9c3afde286b5d364c9e4915a76f8f6cc, type: 3}
   pitchShiftLowRange: 1
   pitchShiftHighRange: 1
   Facing: 0
@@ -18557,7 +18563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1917608075522291575, guid: 19bf9c69e5b78484eb515e63474e5067, type: 3}
       propertyPath: m_Name
-      value: Pressure Plate
+      value: Blue Pressure Plate
       objectReference: {fileID: 0}
     - target: {fileID: 7163382559078305388, guid: 19bf9c69e5b78484eb515e63474e5067, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -21170,6 +21176,8 @@ SceneRoots:
   - {fileID: 547155194}
   - {fileID: 7175024824413182777}
   - {fileID: 830394117119837558}
+  - {fileID: 1899264515}
+  - {fileID: 374798388}
   - {fileID: 1537115603}
   - {fileID: 1031734998}
   - {fileID: 648208214}
@@ -21180,5 +21188,3 @@ SceneRoots:
   - {fileID: 1068043189}
   - {fileID: 603572680}
   - {fileID: 517158989}
-  - {fileID: 374798388}
-  - {fileID: 1899264515}
