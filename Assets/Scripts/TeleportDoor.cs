@@ -48,7 +48,7 @@ public class TeleportDoor : Common
 
         }
         // Offset the GetWorldPosition Y zeroing.
-        location.y = 1f;
+        location.y = 0;
         // Move to location.
         gameObject.transform.position = location;
 
