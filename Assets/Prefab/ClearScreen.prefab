@@ -329,6 +329,7 @@ MonoBehaviour:
   NextButton: {fileID: 3795204407737532401}
   MenuButton: {fileID: 3181320983017520039}
   ClearAnnouncer: {fileID: 8300000, guid: 329723006ffea7d438fb319c3f111fdf, type: 3}
+  ButtonClicker: {fileID: 8300000, guid: 5347c97327edb8e4c8f9fdc5758b0b4c, type: 3}
 --- !u!82 &2545513901040823033
 AudioSource:
   m_ObjectHideFlags: 0
